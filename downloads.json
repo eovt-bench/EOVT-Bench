@@ -1,0 +1,25 @@
+{
+  "version": "0.1.0-pre.20261121",
+  "repository": "eovt-bench/EOVT-Bench",
+  "release_tag": "v0.1.0-pre.20261121",
+  "resources": {
+    "assets": {
+      "delivery": "external_manual",
+      "manifest": "assets/manifest.json",
+      "policy": "assets/resource_policy.json",
+      "instructions": "docs/THIRD_PARTY_RESOURCES.md",
+      "local_archive_compatibility": {
+        "filename": "eovt-assets-0.1.0-pre.20261121.tar.gz",
+        "bytes": 885931062,
+        "sha256": "9d7db3df26472edf6592d74c6eb2f69ea72f10d581157f147dd10e6a2271e86a"
+      },
+      "note": "Not hosted in this Release. Compatibility metadata is only for existing lawfully obtained local archives."
+    }
+  },
+  "resource_policy_version": "external-resources-20261121",
+  "baseline_publication": {
+    "delivery": "readme_numeric_tables_only",
+    "location": "README.md#baseline-reference-values",
+    "raw_result_download": false
+  }
+}

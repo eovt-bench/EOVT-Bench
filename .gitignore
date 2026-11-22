@@ -1,0 +1,23 @@
+baselines/outputs/
+baselines/cache/
+baselines/tmp/
+__pycache__/
+*.pyc
+# Host large binary assets as release/download artifacts, not regular Git history.
+assets/detectors/*.pt
+assets/humanoids/humanoid_data/
+assets/robots/
+scenes/layout_instances/
+reference_results/baselines/
+reference_results/generated/
+.downloads/
+.DS_Store
+*.mp4
+*.log
+.env
+*.pem
+*.key
+
+# Locally retained baseline reference data is not published.
+reference_results/
+evaluation/outputs/

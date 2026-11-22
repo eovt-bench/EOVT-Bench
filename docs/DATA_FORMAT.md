@@ -1,0 +1,75 @@
+# Data and output fields
+
+## Canonical task files
+
+| Task | File | Records |
+| --- | --- | --- |
+| STT | `episodes/STT/val/val.json.gz` | 1,800 |
+| OR | `episodes/OR/val/val.json.gz` | 630 |
+| IC | `episodes/IC/val/val.json.gz` | 630 |
+
+Each decompresses to `{"episodes": [...]}`. These native Habitat records are
+the executable interface. The index is `episodes/index/all_episodes.json.gz`.
+Additional manifests are under `episodes/metadata/`.
+
+| Field | Meaning |
+| --- | --- |
+| `episode_id` | Unique episode/event identifier |
+| `scene_id` | Relative stage/scene path under repository root |
+| `scene_dataset_config` | Relative scene-dataset configuration |
+| `start_position`, `start_rotation` | Native episode start; do not substitute for robot state |
+| `goals` | Ordered target navigation goals with positions |
+| `info.robot_position`, `info.robot_rotation` | Robot initial state consumed by custom task |
+| `info.main_humanoid_name` | Original target asset ID |
+| `info.instruction` | Language description/instruction |
+| `info.evt_generation` | Reference-generation metadata and navigation resources |
+| `info.eovt_task` | OR/IC event and trial definition |
+
+The bundled custom environment defines coordinate/rotation use and action
+interpretation. Source fields are preserved rather than converted into a new
+coordinate convention.
+
+## OR event
+
+`info.eovt_task` contains `event_id`, `source_episode_id`, `layout_id`,
+`scene_category`, `source_event_index`, `event_arc_length_m`,
+`pre_clear_length_m`, `post_clear_length_m`, and `selection_criteria`.
+
+The frozen selection is pre-clear length **>2.5 m**, occlusion length
+**>=0.5 m**, with no additional post-event reappearance requirement.
+These reference lengths are not runtime visibility observations.
+
+## IC trials
+
+`identity_protocol_version = appearance_top3_1same_3similar_v1`.
+Each event has one `same` and three `similar_swap` trials, with three distinct
+candidate actors excluding the original target.
+The original target, descriptions, selection seed and candidates are frozen
+in the metadata; methods do not resample them independently.
+Published candidate assignments are not restricted to the same gender.
+
+The original target remains present and an additional actor is activated.
+The legacy string `similar_swap` does not mean removal of the original.
+`expected_label` is not a model-predicted binary classification label.
+The effective action mode is `closed_loop_model_actions_executed`.
+`legacy_action_mode`, if present, does not override the effective runtime mode.
+
+## Results and real examples
+
+Final JSONs include `schema_version`, `episode_id`, `source_episode_id`,
+`task`, `method`, `layout`, `scene_category`, `success`, `following_rate`,
+and `collision`.
+OR adds `rsr`, `vor`, `crr`, `recovery_steps`, `lost_index`, `reacquired_index`.
+IC adds `identity_trials` and four `identity_trial_results`.
+Similar trials store `target_dominance_rate` or `target_dominance`.
+
+`finish=false` or `status=Lost` alone does not mean a damaged result:
+completed failures are outcomes. Missing records, malformed JSON, wrong trial
+structures, collisions and uncertain trials are handled separately.
+`*_info.json`, status files and videos are not independent samples.
+
+`examples/selection.json` links one Industrial event to its source episode.
+The three files in `examples/episodes/` are matched real inputs. Baseline
+aggregate results are reported in the README; per-episode baseline result
+examples are not distributed. The result fields above document outputs
+that users generate from their own runs.

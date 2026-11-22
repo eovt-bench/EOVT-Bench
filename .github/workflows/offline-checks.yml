@@ -1,0 +1,37 @@
+name: Offline evaluator checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  scoring:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        python: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install numpy==1.26.4
+      - name: Baseline logic without resource downloads
+        env:
+          PYTHONPATH: baselines:evaluation
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python -m unittest discover -s baselines/tests -p test_core.py -v
+      - name: Evaluator and record validation
+        env:
+          PYTHONPATH: baselines:evaluation
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python -m unittest discover -s evaluation/tests -v
+      - name: Command-line interface
+        run: |
+          python run_baseline.py --variant oracle_pid --task=ic --help
+          python evaluation/aggregate_results.py --help
+          python scripts/download_resources.py --help
+          python scripts/check_resources.py --group metadata

@@ -1,0 +1,6 @@
+{
+  "episodes": 1800,
+  "layout_count": 60,
+  "source": "canonical release STT dataset",
+  "scene_paths": "relative to package root"
+}

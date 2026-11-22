@@ -1,0 +1,279 @@
+{
+  "episode_id": "003_industrial_layout_01_seed_20260923_000018__event_000",
+  "scene_id": "scenes/layout_instances/003_industrial_layout_01_seed_20260923/industrial.scene_instance.json",
+  "scene_dataset_config": "scenes/layout_instances/003_industrial_layout_01_seed_20260923/military.scene_dataset_config.json",
+  "additional_obj_config_paths": [],
+  "start_position": [
+    -12.069331169128418,
+    0.050000011920928955,
+    1.726292371749878
+  ],
+  "start_rotation": [
+    0.0,
+    0.7178344683716725,
+    0.0,
+    0.696213814871235
+  ],
+  "info": {
+    "dist_ratio": 1.0,
+    "robot_position": [
+      -10.075766563415527,
+      0.050000011920928955,
+      1.6653152704238892
+    ],
+    "robot_rotation": -3.111015216645765,
+    "human_num": 0,
+    "num_goals_for_main_human": 1,
+    "num_goals_for_other_human": 0,
+    "main_humanoid_name": "female_24",
+    "main_human_semantic_id": 1063,
+    "extra_humanoid_names": [],
+    "instruction": "Follow the woman wearing a brown top and black trousers.",
+    "episode_mode": "stt",
+    "evt_generation": {
+      "method": "evt_bench_random_waypoints",
+      "generation_seed": 20460941,
+      "human_navmesh": "scenes/layout_instances/003_industrial_layout_01_seed_20260923/industrial.human.navmesh",
+      "dog_navmesh": "scenes/layout_instances/003_industrial_layout_01_seed_20260923/industrial.dog.navmesh",
+      "segment_geodesic_m": [
+        11.117707289878346
+      ],
+      "total_geodesic_m": 11.117707289878346,
+      "segment_counted_distance_m": [
+        11.117707289878346
+      ],
+      "counted_total_length_m": 11.117707289878346,
+      "segment_stair_geodesic_m": [
+        0.0
+      ],
+      "stair_geodesic_m": 0.0,
+      "start_goal_geodesic_m": 11.117707252502441,
+      "backtracking_score": 3.361835698711957e-09,
+      "max_local_turn_deg": 0.0,
+      "potential_occlusion": {
+        "method": "path_history_multiray_v1",
+        "path_sample_spacing_m": 0.25,
+        "observer_lag_distance_m": 2.0,
+        "target_body_heights_m": [
+          0.9,
+          1.25,
+          1.65
+        ],
+        "target_body_lateral_offsets_m": [
+          -0.2,
+          0.0,
+          0.2
+        ],
+        "rays_per_sample": 9,
+        "blocked_rays_threshold": 5,
+        "total_samples": 52,
+        "valid_observer_samples": 52,
+        "unknown_observer_samples": 0,
+        "occluded_samples": 5,
+        "occluded_fraction": 0.09615384615384616,
+        "max_blocked_rays": 9,
+        "max_blocked_ray_fraction": 1.0,
+        "mean_blocked_ray_fraction": 0.10042735042735043,
+        "max_observer_transition_m": 0.25000059604644775,
+        "occlusion_event_count": 0,
+        "total_occlusion_length_m": 0.0,
+        "longest_occlusion_event_m": 0.7683452217620692,
+        "occlusion_intervals_m": [],
+        "occlusion_length_ratio": 0.0,
+        "raw_occlusion_event_count": 1,
+        "raw_total_occlusion_length_m": 1.0091726108810342,
+        "raw_longest_occlusion_event_m": 1.0091726108810342,
+        "raw_occlusion_intervals_m": [
+          [
+            7.365827389118966,
+            8.375
+          ]
+        ],
+        "unknown_fraction": 0.0,
+        "occlusion_class": "transient",
+        "has_potential_occlusion": false
+      }
+    },
+    "eovt_task": {
+      "task_name": "Identity Consistency",
+      "task_description": "Repeated same/swap identity decisions after target disappearance.",
+      "task_version": "0.1",
+      "source_episode_id": "003_industrial_layout_01_seed_20260923_000018",
+      "source_event_index": 0,
+      "layout_id": "003_industrial_layout_01_seed_20260923",
+      "scene_category": "industrial",
+      "event_arc_length_m": {
+        "start": 7.365827389118966,
+        "end": 8.375,
+        "length": 1.0091726108810342
+      },
+      "pre_clear_length_m": 7.365827389118966,
+      "post_clear_length_m": 2.7427072898783464,
+      "episode_total_length_m": 11.117707289878346,
+      "occlusion_statistics": {
+        "D_sum_m": 1.0091726108810342,
+        "D_max_m": 1.0091726108810342
+      },
+      "selection_criteria": {
+        "pre_clear_length_gt_m": 2.5,
+        "occlusion_length_ge_m": 0.5,
+        "post_reappearance_required": false
+      },
+      "action_mode": "closed_loop_model_actions_executed",
+      "offline_geometry_is_metadata_only": true,
+      "event_id": "003_industrial_layout_01_seed_20260923_000018__event_000",
+      "identity_trials": [
+        {
+          "round_id": 0,
+          "condition": "same",
+          "expected_label": "same_target",
+          "actor_name_after_occlusion": "female_24",
+          "description": "The woman wearing a brown top and black trousers.",
+          "description_confidence": 0.4593
+        },
+        {
+          "round_id": 1,
+          "condition": "similar_swap",
+          "expected_label": "same_target",
+          "actor_name_after_occlusion": "female_7",
+          "candidate_description": "The woman wearing a brown top and brown trousers.",
+          "candidate_description_confidence": 0.6692,
+          "similarity_rank": 1,
+          "appearance_similarity": 0.93177903
+        },
+        {
+          "round_id": 2,
+          "condition": "similar_swap",
+          "expected_label": "same_target",
+          "actor_name_after_occlusion": "male_7",
+          "candidate_description": "The man wearing a brown top and brown trousers.",
+          "candidate_description_confidence": 0.4732,
+          "similarity_rank": 2,
+          "appearance_similarity": 0.90648794
+        },
+        {
+          "round_id": 3,
+          "condition": "similar_swap",
+          "expected_label": "same_target",
+          "actor_name_after_occlusion": "female_21",
+          "candidate_description": "The woman wearing a black top and black trousers.",
+          "candidate_description_confidence": 0.3115,
+          "similarity_rank": 3,
+          "appearance_similarity": 0.89524227
+        }
+      ],
+      "candidate_pool": [
+        "female_7",
+        "male_7",
+        "female_21"
+      ],
+      "identity_protocol_version": "appearance_top3_1same_3similar_v1",
+      "target_actor_name": "female_24",
+      "target_description": "The woman wearing a brown top and black trousers.",
+      "target_description_confidence": 0.4593,
+      "target_appearance_cluster_id": 8,
+      "legacy_action_mode": "hold_pose_after_event"
+    },
+    "source_episode_id": "003_industrial_layout_01_seed_20260923_000018",
+    "identity_protocol_version": "appearance_top3_1same_3similar_v1",
+    "target_description": "The woman wearing a brown top and black trousers.",
+    "target_description_confidence": 0.4593,
+    "target_appearance_cluster_id": 8,
+    "target_selection_policy": "deterministic_random_cycle",
+    "target_selection_seed": 20260928
+  },
+  "goals": [
+    {
+      "position": [
+        [
+          -18.632627487182617,
+          0.050000011920928955,
+          -2.3564791679382324
+        ]
+      ],
+      "radius": null
+    }
+  ],
+  "start_room": null,
+  "shortest_paths": null,
+  "eovt_event": {
+    "task_name": "Identity Consistency",
+    "task_description": "Repeated same/swap identity decisions after target disappearance.",
+    "task_version": "0.1",
+    "source_episode_id": "003_industrial_layout_01_seed_20260923_000018",
+    "source_event_index": 0,
+    "layout_id": "003_industrial_layout_01_seed_20260923",
+    "scene_category": "industrial",
+    "event_arc_length_m": {
+      "start": 7.365827389118966,
+      "end": 8.375,
+      "length": 1.0091726108810342
+    },
+    "pre_clear_length_m": 7.365827389118966,
+    "post_clear_length_m": 2.7427072898783464,
+    "episode_total_length_m": 11.117707289878346,
+    "occlusion_statistics": {
+      "D_sum_m": 1.0091726108810342,
+      "D_max_m": 1.0091726108810342
+    },
+    "selection_criteria": {
+      "pre_clear_length_gt_m": 2.5,
+      "occlusion_length_ge_m": 0.5,
+      "post_reappearance_required": false
+    },
+    "action_mode": "closed_loop_model_actions_executed",
+    "offline_geometry_is_metadata_only": true,
+    "event_id": "003_industrial_layout_01_seed_20260923_000018__event_000",
+    "identity_trials": [
+      {
+        "round_id": 0,
+        "condition": "same",
+        "expected_label": "same_target",
+        "actor_name_after_occlusion": "female_24",
+        "description": "The woman wearing a brown top and black trousers.",
+        "description_confidence": 0.4593
+      },
+      {
+        "round_id": 1,
+        "condition": "similar_swap",
+        "expected_label": "same_target",
+        "actor_name_after_occlusion": "female_7",
+        "candidate_description": "The woman wearing a brown top and brown trousers.",
+        "candidate_description_confidence": 0.6692,
+        "similarity_rank": 1,
+        "appearance_similarity": 0.93177903
+      },
+      {
+        "round_id": 2,
+        "condition": "similar_swap",
+        "expected_label": "same_target",
+        "actor_name_after_occlusion": "male_7",
+        "candidate_description": "The man wearing a brown top and brown trousers.",
+        "candidate_description_confidence": 0.4732,
+        "similarity_rank": 2,
+        "appearance_similarity": 0.90648794
+      },
+      {
+        "round_id": 3,
+        "condition": "similar_swap",
+        "expected_label": "same_target",
+        "actor_name_after_occlusion": "female_21",
+        "candidate_description": "The woman wearing a black top and black trousers.",
+        "candidate_description_confidence": 0.3115,
+        "similarity_rank": 3,
+        "appearance_similarity": 0.89524227
+      }
+    ],
+    "candidate_pool": [
+      "female_7",
+      "male_7",
+      "female_21"
+    ],
+    "identity_protocol_version": "appearance_top3_1same_3similar_v1",
+    "target_actor_name": "female_24",
+    "target_description": "The woman wearing a brown top and black trousers.",
+    "target_description_confidence": 0.4593,
+    "target_appearance_cluster_id": 8,
+    "legacy_action_mode": "hold_pose_after_event"
+  }
+}

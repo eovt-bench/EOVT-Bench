@@ -1,0 +1,4 @@
+# Preserve checksum-pinned bytes across Windows/Linux checkouts.
+* -text
+# Shell entry points must remain executable by Linux bash.
+*.sh text eol=lf

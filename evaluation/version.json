@@ -1,0 +1,9 @@
+{
+  "evaluator_version": "eovt-evaluator-20261121",
+  "source": "existing result-analysis metric functions",
+  "source_sha256": "b83d783d6b9a146ba354af3c2bb97e048f5565024d883fb49b56976ec1e3b8ac",
+  "published_shared_analysis_sha256": "bfd9a555b0430ce0fff5cd2322c8a839c41456204ac9adf12a1ea2fecc354306",
+  "bootstrap_unit": "layout",
+  "default_repetitions": 2000,
+  "default_seed": 20261121
+}

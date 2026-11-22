@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "policy_version": "external-resources-20261121",
+  "checked_at": "2026-11-21",
+  "asset_manifest": "assets/manifest.json",
+  "note": "Classifications control packaging, not legal clearance. Exact original experiment assets remain pinned by checksum.",
+  "groups": [
+    {
+      "id": "metadata",
+      "paths": [
+        "assets/humanoids/appearance_top3.json",
+        "assets/humanoids/humanoid_descriptions.json",
+        "assets/humanoids/humanoid_infos.json"
+      ],
+      "delivery": "repository_metadata",
+      "instructions": "Fixed IDs, descriptions and candidate assignments are included in Git. They do not include humanoid mesh/model/motion files."
+    },
+    {
+      "id": "scenes",
+      "paths": [
+        "scenes/layout_instances"
+      ],
+      "delivery": "maintainer_dataset",
+      "source_status": "All benchmark scenes constructed by the benchmark author; confirmed directly on 2026-11-21.",
+      "official_urls": [],
+      "instructions": "Obtain the fixed 60-layout pack from the benchmark maintainer. A standalone scene download is not yet attached to this preparation Release. Preserve paths and verify the experiment inventory.",
+      "provenance_basis": "Direct author confirmation in the task; no third-party scene download required."
+    },
+    {
+      "id": "humanoids",
+      "paths": [
+        "assets/humanoids/humanoid_data"
+      ],
+      "delivery": "external_manual",
+      "source_status": "Humanoid acquisition URL supplied directly by the benchmark author on 2026-11-21.",
+      "official_urls": [
+        "https://smpl-x.is.tue.mpg.de/",
+        "https://smpl-x.is.tue.mpg.de/modellicense.html",
+        "https://smpl-x.is.tue.mpg.de/bodylicense.html"
+      ],
+      "instructions": "Download humanoids.zip from the author-supplied acquisition URL, locate its actor-data tree, install under assets/humanoids/humanoid_data and verify the original experiment checksums. Preserve fixed repository identity metadata. SMPL-X URLs are supplementary licensing references, not substitutes for the pack.",
+      "acquisition_urls": [
+        "https://drive.google.com/file/d/1aE_wyvPqvOuVmF8px2vTO3trr70DKf1l/view?pli=1"
+      ],
+      "acquisition_link_verification": {
+        "checked_at": "2026-11-21",
+        "http_status": 200,
+        "display_name": "humanoids.zip",
+        "archive_contents_verified": false
+      }
+    },
+    {
+      "id": "robot",
+      "paths": [
+        "assets/robots"
+      ],
+      "delivery": "external_manual",
+      "official_urls": [
+        "https://github.com/facebookresearch/habitat-sim/blob/v0.3.3/src_python/habitat_sim/utils/datasets_download.py",
+        "https://huggingface.co/datasets/ai-habitat/hab_spot_arm"
+      ],
+      "instructions": "Habitat-Sim 0.3.3 defines the hab_spot_arm dataset in its official downloader. Read the asset notice and upstream conditions; obtain it separately. Compare against the pinned manifest because upstream assets may differ."
+    },
+    {
+      "id": "detector",
+      "paths": [
+        "assets/detectors"
+      ],
+      "delivery": "external_manual",
+      "official_urls": [
+        "https://docs.ultralytics.com/models/yolo11/",
+        "https://www.ultralytics.com/license",
+        "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11x.pt"
+      ],
+      "instructions": "RGB Tracker PID requires yolo11x.pt; Oracle PID does not. Obtain the weights from the official release under applicable terms, then verify the pinned SHA-256. No weights are hosted here."
+    }
+  ],
+  "provenance_update": "author-confirmed-scenes-and-humanoid-link-20261121"
+}

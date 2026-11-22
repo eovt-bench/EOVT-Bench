@@ -1,0 +1,44 @@
+{
+  "method": "OmTrackVLA-0.6B",
+  "seed": 20261121,
+  "simulation": "Habitat-Sim 0.3.1 / local WSL2",
+  "renderer": "D3D12 RTX 4070 Laptop; Habitat gpu_device_id=-1",
+  "weights": [
+    {
+      "path": "model/OmTrackVLA-0.6B/model.safetensors",
+      "bytes": 1244858220,
+      "sha256": "47539ce04f5e9a159bd943b4e11b95843503b835728b3e5ce4cd802c4767e39b",
+      "verified_current": true
+    },
+    {
+      "path": "model/Qwen3-0.6B/model.safetensors",
+      "bytes": 1503300328,
+      "sha256": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+      "verified_current": true
+    },
+    {
+      "path": "model/dinov3-vits16-pretrain-lvd1689m/model.safetensors",
+      "bytes": 86406384,
+      "sha256": "4610ad75edef83e75afdebf162d148dc628045ea6cbb83d67d4708c709c4f91d",
+      "verified_current": true
+    },
+    {
+      "path": "model/siglip-so400m-patch14-384/model.safetensors",
+      "bytes": 3511950624,
+      "sha256": "ea2abad2b7f8a9c1aa5e49a244d5d57ffa71c56f720c94bc5d240ef4d6e1d94a",
+      "verified_current": true
+    }
+  ],
+  "environment": {
+    "python": "3.9.19",
+    "packages": {
+      "torch": "2.4.0+cu118",
+      "transformers": "4.57.3",
+      "habitat-sim": "0.3.1",
+      "numpy": "1.23.5",
+      "imageio": "2.37.0"
+    }
+  },
+  "selection": "Illustrative selected outcomes, not a random performance estimate.",
+  "historical_results_not_reused_as_fresh_scores": true
+}

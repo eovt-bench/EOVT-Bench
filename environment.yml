@@ -1,0 +1,11 @@
+name: eovt-bench
+channels:
+  - aihabitat
+  - conda-forge
+dependencies:
+  - python=3.9.19
+  - pip
+  - habitat-sim=0.3.3
+  - headless
+  - withbullet
+  - numpy=1.26.4

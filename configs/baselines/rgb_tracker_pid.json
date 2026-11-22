@@ -1,0 +1,36 @@
+{
+  "variant": "rgb_tracker_pid",
+  "detector": {
+    "type": "ultralytics",
+    "weights": "../assets/detectors/yolo11x.pt",
+    "confidence": 0.25,
+    "iou": 0.7,
+    "device": "cuda:0"
+  },
+  "tracker": {
+    "min_confidence": 0.25,
+    "iou_weight": 0.4,
+    "center_weight": 0.2,
+    "appearance_weight": 0.4,
+    "match_threshold": 0.28,
+    "lost_tolerance": 30
+  },
+  "controller": {
+    "forward_kp": 1.0,
+    "yaw_kp": 2.0,
+    "lateral_kp": 0.5,
+    "desired_area_pixels": 30000.0,
+    "area_error_scale": 10000.0,
+    "area_deadband": 0.5,
+    "max_forward": 3.0,
+    "max_lateral": 0.5,
+    "max_yaw": 1.0,
+    "search_yaw": 0.0,
+    "search_flip_steps": 30
+  },
+  "evaluation": {
+    "max_steps": 300,
+    "too_far_distance": 4.0,
+    "too_far_patience": 20
+  }
+}

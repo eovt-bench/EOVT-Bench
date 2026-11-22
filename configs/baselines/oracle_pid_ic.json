@@ -1,0 +1,33 @@
+{
+  "variant": "oracle_pid",
+  "detector": {
+    "type": "oracle",
+    "min_pixels": 1
+  },
+  "tracker": {
+    "min_confidence": 0.01,
+    "iou_weight": 0.45,
+    "center_weight": 0.2,
+    "appearance_weight": 0.35,
+    "match_threshold": 0.2,
+    "lost_tolerance": 20
+  },
+  "controller": {
+    "forward_kp": 1.0,
+    "yaw_kp": 2.0,
+    "lateral_kp": 0.5,
+    "desired_area_pixels": 30000.0,
+    "area_error_scale": 10000.0,
+    "area_deadband": 0.5,
+    "max_forward": 3.0,
+    "max_lateral": 0.5,
+    "max_yaw": 1.0,
+    "search_yaw": 0.5,
+    "search_flip_steps": 30
+  },
+  "evaluation": {
+    "max_steps": 300,
+    "too_far_distance": 4.0,
+    "too_far_patience": 20
+  }
+}

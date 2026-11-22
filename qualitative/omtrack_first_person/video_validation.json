@@ -1,0 +1,259 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "attempt_id": "STT_01",
+      "task": "STT",
+      "outcome": "success",
+      "frames": 102,
+      "fps": 10.0,
+      "resolution_hw": [
+        384,
+        384
+      ],
+      "unique_decoded_frames": 102,
+      "mean_intensity_range": [
+        99.3831154152199,
+        112.49324770326967
+      ],
+      "bytes": 1888169,
+      "sha256": "7702b1b887c52357ea3ae553cee620309c056fb1eea26055b9caf56b5b7eec41",
+      "complete_decode": true,
+      "step_alignment": true
+    },
+    {
+      "attempt_id": "STT_02",
+      "task": "STT",
+      "outcome": "success",
+      "frames": 101,
+      "fps": 10.0,
+      "resolution_hw": [
+        384,
+        384
+      ],
+      "unique_decoded_frames": 101,
+      "mean_intensity_range": [
+        85.66055184823496,
+        111.65365939670139
+      ],
+      "bytes": 2664701,
+      "sha256": "fef6d047fe4ab6efb57fd22936ff67df204a2954479b7fcc13fc5a63a16f0125",
+      "complete_decode": true,
+      "step_alignment": true
+    },
+    {
+      "attempt_id": "STT_04",
+      "task": "STT",
+      "outcome": "failure",
+      "frames": 104,
+      "fps": 10.0,
+      "resolution_hw": [
+        384,
+        384
+      ],
+      "unique_decoded_frames": 104,
+      "mean_intensity_range": [
+        57.86004638671875,
+        109.96009657118056
+      ],
+      "bytes": 2642784,
+      "sha256": "c77a7b1ab745885107dcc0d9e39b28b73ebc92122092ff614c5434db58842530",
+      "complete_decode": true,
+      "step_alignment": true
+    },
+    {
+      "attempt_id": "STT_06",
+      "task": "STT",
+      "outcome": "failure",
+      "frames": 103,
+      "fps": 10.0,
+      "resolution_hw": [
+        384,
+        384
+      ],
+      "unique_decoded_frames": 103,
+      "mean_intensity_range": [
+        83.07601589626736,
+        135.31531665943288
+      ],
+      "bytes": 2670362,
+      "sha256": "8893d02d004ec3345ddfcc7610ab649ccc909ace079d3fe66723364458844efb",
+      "complete_decode": true,
+      "step_alignment": true
+    },
+    {
+      "attempt_id": "OR_07",
+      "task": "OR",
+      "outcome": "success",
+      "frames": 101,
+      "fps": 10.0,
+      "resolution_hw": [
+        384,
+        384
+      ],
+      "unique_decoded_frames": 101,
+      "mean_intensity_range": [
+        33.324277524594905,
+        122.80486382378473
+      ],
+      "bytes": 1907582,
+      "sha256": "0edc30ac79ea230772069737d6a7d2d08dabec94770ef10e5930c0d999f5fcc1",
+      "complete_decode": true,
+      "step_alignment": true
+    },
+    {
+      "attempt_id": "OR_08",
+      "task": "OR",
+      "outcome": "success",
+      "frames": 109,
+      "fps": 10.0,
+      "resolution_hw": [
+        384,
+        384
+      ],
+      "unique_decoded_frames": 109,
+      "mean_intensity_range": [
+        72.75955991391783,
+        117.5412755895544
+      ],
+      "bytes": 3063831,
+      "sha256": "3c02a2421e77cb56f38cec1d814ebba98b4238a039854688972bc049bbbfaed1",
+      "complete_decode": true,
+      "step_alignment": true
+    },
+    {
+      "attempt_id": "OR_09",
+      "task": "OR",
+      "outcome": "failure",
+      "frames": 90,
+      "fps": 10.0,
+      "resolution_hw": [
+        384,
+        384
+      ],
+      "unique_decoded_frames": 90,
+      "mean_intensity_range": [
+        76.85739926938658,
+        129.3315904405382
+      ],
+      "bytes": 1952847,
+      "sha256": "cdc1ea5c084239ba574109f8b615260ddd64e20965907178ebeaad083837d29f",
+      "complete_decode": true,
+      "step_alignment": true
+    },
+    {
+      "attempt_id": "OR_10",
+      "task": "OR",
+      "outcome": "failure",
+      "frames": 96,
+      "fps": 10.0,
+      "resolution_hw": [
+        384,
+        384
+      ],
+      "unique_decoded_frames": 96,
+      "mean_intensity_range": [
+        87.4045251916956,
+        121.22248896846065
+      ],
+      "bytes": 2372743,
+      "sha256": "b3a3433528a9b8bc4174b2c6d2c55aa3e7cf364a8495d77e3f57517f4295cab6",
+      "complete_decode": true,
+      "step_alignment": true
+    },
+    {
+      "attempt_id": "IC_11",
+      "task": "IC",
+      "outcome": "success",
+      "frames": 146,
+      "fps": 10.0,
+      "resolution_hw": [
+        384,
+        384
+      ],
+      "unique_decoded_frames": 146,
+      "mean_intensity_range": [
+        79.35586434823496,
+        120.40788212528935
+      ],
+      "bytes": 2505923,
+      "sha256": "65c8178def80640fe96329c42ed4f8859ff3f3e1c37add218bb09e14b3a5124e",
+      "complete_decode": true,
+      "step_alignment": true
+    },
+    {
+      "attempt_id": "IC_14",
+      "task": "IC",
+      "outcome": "success",
+      "frames": 124,
+      "fps": 10.0,
+      "resolution_hw": [
+        384,
+        384
+      ],
+      "unique_decoded_frames": 124,
+      "mean_intensity_range": [
+        72.23945448133681,
+        118.56045193142361
+      ],
+      "bytes": 3620224,
+      "sha256": "319681183ea7b16a38046f54da0d58034bd5533e328dd4632d4b54fe985528c7",
+      "complete_decode": true,
+      "step_alignment": true
+    },
+    {
+      "attempt_id": "IC_15",
+      "task": "IC",
+      "outcome": "failure",
+      "frames": 107,
+      "fps": 10.0,
+      "resolution_hw": [
+        384,
+        384
+      ],
+      "unique_decoded_frames": 107,
+      "mean_intensity_range": [
+        86.80037887008102,
+        132.5142777054398
+      ],
+      "bytes": 2397884,
+      "sha256": "6eb13a492595eff9208e746bc48fcadcc1a73c550980cc959c05385ecfce34b0",
+      "complete_decode": true,
+      "step_alignment": true
+    },
+    {
+      "attempt_id": "IC_16",
+      "task": "IC",
+      "outcome": "failure",
+      "frames": 75,
+      "fps": 10.0,
+      "resolution_hw": [
+        384,
+        384
+      ],
+      "unique_decoded_frames": 75,
+      "mean_intensity_range": [
+        106.04779956958912,
+        123.24478036385996
+      ],
+      "bytes": 1313897,
+      "sha256": "17fc6bff767e490c071d30228be17661ce6a89086ca4e950731bf656b848050b",
+      "complete_decode": true,
+      "step_alignment": true
+    }
+  ],
+  "counts": {
+    "STT": {
+      "success": 2,
+      "failure": 2
+    },
+    "OR": {
+      "success": 2,
+      "failure": 2
+    },
+    "IC": {
+      "success": 2,
+      "failure": 2
+    }
+  }
+}
