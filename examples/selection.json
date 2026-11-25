@@ -8,7 +8,7 @@
     {
       "round_id": 0,
       "condition": "same",
-      "expected_label": "same_target",
+      "legacy_expected_label": "same_target",
       "actor_name_after_occlusion": "female_24",
       "description": "The woman wearing a brown top and black trousers.",
       "description_confidence": 0.4593
@@ -16,7 +16,7 @@
     {
       "round_id": 1,
       "condition": "similar",
-      "expected_label": "same_target",
+      "legacy_expected_label": "same_target",
       "actor_name_after_occlusion": "female_7",
       "candidate_description": "The woman wearing a brown top and brown trousers.",
       "candidate_description_confidence": 0.6692,
@@ -26,7 +26,7 @@
     {
       "round_id": 2,
       "condition": "similar",
-      "expected_label": "same_target",
+      "legacy_expected_label": "same_target",
       "actor_name_after_occlusion": "male_7",
       "candidate_description": "The man wearing a brown top and brown trousers.",
       "candidate_description_confidence": 0.4732,
@@ -36,7 +36,7 @@
     {
       "round_id": 3,
       "condition": "similar",
-      "expected_label": "same_target",
+      "legacy_expected_label": "same_target",
       "actor_name_after_occlusion": "female_21",
       "candidate_description": "The woman wearing a black top and black trousers.",
       "candidate_description_confidence": 0.3115,

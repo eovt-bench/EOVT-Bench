@@ -46,6 +46,15 @@ class CurrentTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             qualify_same(t)
 
+    def test_recorded_same_collision_has_consistent_failure_diagnostics(self):
+        t = trial()
+        t["collision"] = 1
+        qualification = qualify_same(t)
+        self.assertFalse(qualification["same_success_geometry"])
+        self.assertEqual(qualification["same_geometry_label"], "失败")
+        self.assertIn("no_recorded_collision", qualification["failed_checks"])
+        self.assertIn("碰撞", qualification["reason"])
+
     def test_positive_does_not_depend_on_otpr(self):
         a,b=trial(),trial(True)
         b["target_dominance"]=0.

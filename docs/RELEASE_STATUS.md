@@ -1,10 +1,10 @@
 # Release status
 
-Benchmark/evaluator version: `0.2.4-pre.20261125` /
+Benchmark/evaluator version: `0.2.5-pre.20261125` /
 `eovt-evaluator-20261125-v0.2`.
 Public distribution update: 2026-11-25.
 
-This release publishes the benchmark interface, diagnostic baselines, initial
+This source version publishes the benchmark interface, diagnostic baselines, current
 versioned OR/IC evaluator and selected OmTrackVLA qualitative demonstrations.
 
 ## Included
@@ -13,8 +13,8 @@ versioned OR/IC evaluator and selected OmTrackVLA qualitative demonstrations.
   630 IC events (one Same and three distinct Similar trials per event).
 - Original-target assignments, descriptions and fixed Similar candidates.
 - RGB Tracker PID and Oracle PID code, configuration and custom environment.
-- Shared evaluator, layout-cluster bootstrap and offline sensitivity tools.
-- Versioned initial OR visibility/recovery and Same-referenced IC behavioral
+- Shared evaluator, layout-cluster bootstrap and a historical-metric subset tool.
+- Versioned OR visibility/recovery and Same-referenced IC behavioral
   scoring modules.
 - Matched Industrial input episodes and selected qualitative videos.
 - Baseline aggregate values and confidence intervals in the README files.
@@ -56,11 +56,17 @@ sustained complete disappearance, followed by recovery or failure to recover.
 All task videos and IC Same controls use 0.5x simulation-speed playback:
 presentation time is twice elapsed simulation time. Original scorer
 timestamps and results remain unchanged; no captured frames are dropped
-or interpolated. This is a presentation-only update to v0.2.3.
+or interpolated. The video release v0.2.4 is a presentation-only update to v0.2.3.
 The 12 selected main videos are fully decoded and checked against logged frame
 counts. The current IC port matches all 20 frozen development decisions; this
 is code regression, not independent human validation or a clean-install test.
 Historical aggregate performance tables have not been silently recomputed.
+
+Source v0.2.5 corrects citation/inventory metadata and adds protocol/layout
+guards to execution and reporting, and fixes inconsistent Same-collision
+diagnostic text. Numerical OR/IC thresholds, binary decisions and
+the v0.2.4 video assets are unchanged. The archived scorer byte manifest
+remains tied to its source tag. See [repository audit](REPOSITORY_AUDIT.md).
 
 Public access is not a blanket code/data license. Existing copyright notices
 and resource-specific permissions remain applicable. The root `LICENSE`

@@ -35,3 +35,5 @@ jobs:
           python evaluation/aggregate_results.py --help
           python scripts/download_resources.py --help
           python scripts/check_resources.py --group metadata
+      - name: Public source inventory
+        run: python scripts/package_inventory.py

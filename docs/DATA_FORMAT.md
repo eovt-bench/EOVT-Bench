@@ -34,6 +34,10 @@ coordinate convention.
 `info.eovt_task` contains `event_id`, `source_episode_id`, `layout_id`,
 `scene_category`, `source_event_index`, `event_arc_length_m`,
 `pre_clear_length_m`, `post_clear_length_m`, and `selection_criteria`.
+Current descriptive fields use the canonical full task name and
+`task_version = eovt-or-ic-v0.2`. `reference_annotation_version` and
+`legacy_task_*` preserve the original annotation provenance. This does not
+recompute reference events or change their paths, actors or selection values.
 
 The frozen selection is pre-clear length **>2.5 m**, occlusion length
 **>=0.5 m**, with no additional post-event reappearance requirement.
@@ -43,7 +47,8 @@ Current runtime OR thresholds are in
 parameters are documented in `evaluation/PROTOCOL.md`.
 `configs/evaluation/or_ic_initial_v0.1.json` is retained for historical
 compatibility. Runtime OR evidence must
-contain synchronized `step`, `simulation_time_s`, `target_pixels`,
+contain synchronized `step`, `simulation_time_s` (or accepted alias
+`world_time_s`), `target_pixels`,
 `image_height`, `image_width`, `target_distance_m`, `collision` and
 `env_episode_over` fields.
 
@@ -60,11 +65,12 @@ The original target remains present and an additional actor is activated.
 The canonical condition name is `similar`. Readers may accept the legacy
 strings `similar_swap` and `swap` for backward compatibility; neither means
 removal of the original target.
-`expected_label` is not a model-predicted binary classification label.
+`legacy_expected_label` preserves the former label as provenance; it is not
+a requested model output or the current behavioral evaluation target.
 The effective action mode is `closed_loop_model_actions_executed`.
 `legacy_action_mode`, if present, does not override the effective runtime mode.
 
-## Results and real examples
+## Historical online result schema
 
 Final JSONs include `schema_version`, `episode_id`, `source_episode_id`,
 `task`, `method`, `layout`, `scene_category`, `success`, `following_rate`,
@@ -92,9 +98,25 @@ have null recovery scores; censored outcomes remain null and are reported
 separately. Historical facing summaries cannot be converted to these scores
 without the missing evidence.
 
+## Current scorer context and examples
+
+The scorer preserves supplied `layout`, `layout_id`, `scene_category` and
+`source_episode_id` context. For OR, provide it in the wrapper object or the
+first frame; for IC, provide it on the event object. Use an explicit
+`layout`/`layout_id` for custom event names. The aggregator requires real
+layout evidence when bootstrap is enabled.
+Current IC event summaries use `identity_evaluator_version` and
+`similar_results`; they do not require legacy BIA or generic `success`.
+Current OR summaries use `protocol_version`, `actual_loss`, `opportunity`,
+`recovered`, `censored` and nullable recovery scores.
+The historical schema above is not a universal required schema for current
+scored events.
+
 `finish=false` or `status=Lost` alone does not mean a damaged result:
-completed failures are outcomes. Missing records, malformed JSON, wrong trial
-structures, collisions and uncertain trials are handled separately.
+completed failures are outcomes. Missing records, malformed JSON and wrong
+trial structures are data issues. Current IC excludes a colliding Same
+control and counts a colliding eligible Similar trial as failure. Historical
+uncertain labels are not current IC outputs.
 `*_info.json`, status files and videos are not independent samples.
 
 `examples/selection.json` links one Industrial event to its source episode.

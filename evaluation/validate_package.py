@@ -16,6 +16,10 @@ def validate():
    ids.add(ep['episode_id']);ref(ep['scene_id']);ref(ep['scene_dataset_config'])
    layouts.add(Path(ep['scene_id']).parent.name)
    info=ep['info'];actors.add(info['main_humanoid_name']);actors.update(info.get('extra_humanoid_names',[]))
+   if task in ('OR','IC'):
+    event=info['eovt_task']
+    expected_name={'OR':'Post-Occlusion Target Reacquisition','IC':'Post-Occlusion Identity Consistency'}[task]
+    if event.get('task_name')!=expected_name or event.get('task_version')!='eovt-or-ic-v0.2':errors.append('stale task description version '+ep['episode_id'])
    gen=info.get('eovt_generation',{})
    for k in ['human_navmesh','dog_navmesh']:
     if gen.get(k):ref(gen[k])

@@ -1,7 +1,8 @@
 {
-  "version": "0.1.0-pre.20261121",
+  "version": "0.2.5-pre.20261125",
   "repository": "eovt-bench/EOVT-Bench",
   "release_tag": "v0.1.0-pre.20261121",
+  "release_tag_scope": "Historical local-archive compatibility only; external resources are not hosted by this tag.",
   "resources": {
     "assets": {
       "delivery": "external_manual",

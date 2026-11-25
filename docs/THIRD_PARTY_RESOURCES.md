@@ -25,7 +25,7 @@ The machine-readable policy is `assets/resource_policy.json`.
 
 ## Author-constructed scenes
 
-On 2026-11-21 the benchmark author confirmed that all Road/Route, Indoor and
+On 2026-11-21 the benchmark author confirmed that all Road, Indoor and
 Industrial scenes were constructed by the author. The 60 layouts are benchmark
 data supplied by the author, rather than an unidentified third-party scene
 collection. Keep their directory names and matching episode references.

@@ -13,6 +13,8 @@ def main():
     parser.add_argument("--task", required=True, choices=("stt", "or", "ic"))
     parser.add_argument("--bootstrap", type=int, default=2000)
     parser.add_argument("--seed", type=int, default=20261121)
+    parser.add_argument("--allow-legacy", action="store_true",
+                        help="Explicitly analyze historical OR/IC results; never relabel them v0.2")
     parser.add_argument("--output", type=Path, help="Optional summary JSON outside the input results")
     args = parser.parse_args()
     if args.bootstrap < 0:
@@ -21,7 +23,9 @@ def main():
     if args.output and args.output.expanduser().resolve().is_relative_to(results):
         parser.error("--output must be outside the input result directory")
     try:
-        report = summarize_directory(results, args.task, args.bootstrap, args.seed)
+        report = summarize_directory(
+            results, args.task, args.bootstrap, args.seed, allow_legacy=args.allow_legacy,
+        )
     except (ValueError, FileNotFoundError) as error:
         parser.error(str(error))
     content = json.dumps(report, indent=2, allow_nan=False)

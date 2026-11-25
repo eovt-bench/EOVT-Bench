@@ -1,6 +1,12 @@
 Humanoid Design
 ==============================
 
+This is bundled upstream developer documentation. The generic downloader,
+examples and test commands below describe upstream Habitat and are not the
+EOVT-Bench installation entry point; some upstream examples/tests are not
+bundled. Use the benchmark's [fixed-resource instructions](../../../../../../docs/THIRD_PARTY_RESOURCES.md)
+for experiment-compatible humanoids.
+
 Habitat also supports humanoid avatars. These avatars are represented as articulated objects connected via spherical or fixed joints. The current version only includes a kinematic humanoid, which can be controlled by specifying the joint rotations and object transformations.
 
 You can download the humanoid avatar by running:
@@ -48,7 +54,7 @@ This will generate an animation of a human walking on an empty plane.
 
 ### SequentialPoseController
 
-The [SequentialPoseController](../../articulated_agent_controllers/seq_pose_controller.py), designed to replay a pre-computed motion data file feed-forward. For example, such motions could originate from motion capture, an animation system, or a motion generation model. You can test the controller by running:
+The [SequentialPoseController](../../articulated_agent_controllers/humanoid_seq_pose_controller.py), designed to replay a pre-computed motion data file feed-forward. For example, such motions could originate from motion capture, an animation system, or a motion generation model. You can test the controller by running:
 
 
 ```

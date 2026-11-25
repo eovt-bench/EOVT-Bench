@@ -8,7 +8,7 @@
 | Association | IoU, center motion and RGB appearance | Shared association on target-specific detections |
 | Control | Bounding-box PID | Same PID implementation |
 | Privileged policy input | No target position, identity, future path or reference event labels | Target box/facing and semantic ID from simulator |
-| Tasks | STT, OR, IC | STT, OR, IC |
+| Online task support | STT; historical OR/IC by explicit opt-in | STT; historical OR/IC by explicit opt-in |
 
 The RGB detector ignores target-truth task observations. Evaluator access to
 simulator state for termination, progression and logging is distinct from
@@ -45,3 +45,14 @@ OR/IC results. Canonical v0.2 scoring is performed by
 `evaluation/PROTOCOL.md`; historical summaries alone are insufficient.
 The latest demonstration package supplies complete scorer inputs.
 Resource checks and offline reproduction do not constitute a new GPU rollout.
+
+The default runner rejects OR/IC before simulator initialization. Historical
+reproduction requires `--legacy-online-metrics` and defaults to
+`baselines/outputs/<method>/or_legacy` or `ic_legacy`. Generated files explicitly
+identify their online protocol; they do not carry the current v0.2 scorer
+version. Aggregating them requires `--allow-legacy`.
+
+The baseline IC auxiliary file retains summaries, not complete poses and
+timestamps. The baseline OR file lacks the synchronized full-target
+projection needed by v0.2. An upgraded collector and its simulator validation
+remain necessary before these baselines can generate current OR/IC results.

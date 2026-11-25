@@ -4,13 +4,19 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from shared_analysis import as_float, load_json_records, summarize_ic, summarize_or, summarize_stt
+from shared_analysis import (
+    as_float, has_layout_evidence, layout_id, load_json_records,
+    summarize_ic, summarize_or, summarize_stt,
+)
 
 VERSION = "eovt-evaluator-20261125-v0.2"
 SUMMARIZERS = {"stt": summarize_stt, "or": summarize_or, "ic": summarize_ic}
 
 
-def summarize_directory(path: Path, task: str, repetitions: int = 2000, seed: int = 20261121) -> dict:
+def summarize_directory(
+    path: Path, task: str, repetitions: int = 2000, seed: int = 20261121,
+    *, allow_legacy: bool = False,
+) -> dict:
     if not path.is_dir():
         raise FileNotFoundError(f"result directory does not exist: {path}")
     records, errors = load_json_records(path)
@@ -25,6 +31,16 @@ def summarize_directory(path: Path, task: str, repetitions: int = 2000, seed: in
         problems = []
         current_ic = data.get("identity_evaluator_version") == "eovt-ic-behavior-v0.2"
         current_or = data.get("protocol_version") == "eovt-or-visibility-v0.2"
+        if task in {"or", "ic"} and not (current_ic if task == "ic" else current_or) and not allow_legacy:
+            raise ValueError(
+                f"{record['path'].name}: current {task.upper()} scorer version is required; "
+                "historical analysis requires explicit --allow-legacy"
+            )
+        if repetitions > 0 and not has_layout_evidence(record):
+            raise ValueError(
+                f"{record['path'].name}: missing layout/layout_id; "
+                "an arbitrary event ID cannot be used as a bootstrap cluster"
+            )
         if (task == "ic" and current_ic) or (task == "or" and current_or):
             if current_ic:
                 trials = data.get("similar_results")
@@ -32,7 +48,8 @@ def summarize_directory(path: Path, task: str, repetitions: int = 2000, seed: in
                     problems.append("missing boolean Same eligibility")
                 if data.get("same_success") is True and (
                     not isinstance(trials,list) or len(trials)!=3 or
-                    any(t.get("behavior_label") not in {"follow_original_target","failure"} for t in trials)
+                    any(not isinstance(t, dict) or t.get("behavior_label") not in
+                        {"follow_original_target","failure"} for t in trials)
                 ):
                     problems.append("current eligible IC requires three binary Similar labels")
             else:
@@ -71,6 +88,14 @@ def summarize_directory(path: Path, task: str, repetitions: int = 2000, seed: in
         if problems:
             issues.append({"file": record["path"].name, "issues": problems})
     summary = SUMMARIZERS[task](records, repetitions, seed)
+    source_versions = sorted({
+        str(r["data"].get("identity_evaluator_version") or r["data"].get("online_summary_protocol")
+            or "historical-unversioned")
+        if task == "ic" else
+        str(r["data"].get("protocol_version") or r["data"].get("online_summary_protocol")
+            or ("existing-stt" if task == "stt" else "historical-unversioned"))
+        for r in records
+    })
     return {
         "evaluator_version": VERSION,
         "task": task,
@@ -78,6 +103,9 @@ def summarize_directory(path: Path, task: str, repetitions: int = 2000, seed: in
         "bootstrap_unit": "layout",
         "bootstrap_repetitions": repetitions,
         "seed": seed,
+        "input_protocol_versions": source_versions,
+        "legacy_analysis_explicitly_allowed": allow_legacy,
+        "layout_count": len({layout_id(r) for r in records if has_layout_evidence(r)}),
         "unreadable_records": errors,
         "field_issues": issues,
         "summary": summary,

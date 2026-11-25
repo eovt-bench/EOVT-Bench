@@ -39,11 +39,29 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--gpu", type=int, default=0, help="Habitat and detector CUDA device index")
     parser.add_argument("--egl-device", type=int, help="Optional Habitat-Sim EGL device override")
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument(
+        "--legacy-online-metrics", action="store_true",
+        help="Explicitly opt into historical OR/IC online metrics, not v0.2 scoring",
+    )
     return parser
+
+
+def require_supported_protocol(args) -> None:
+    """Reject an implicit historical OR/IC run before starting the simulator."""
+    if args.task in {"or", "ic"} and not args.legacy_online_metrics:
+        raise SystemExit(
+            "The baseline runner does not collect complete v0.2 OR/IC evidence. "
+            "Use evaluation/score_or_ic.py with synchronized evidence for current scoring. "
+            "To reproduce historical online metrics only, add --legacy-online-metrics. "
+            "See docs/BASELINES.md."
+        )
+    if args.task == "stt" and args.legacy_online_metrics:
+        raise SystemExit("--legacy-online-metrics applies only to OR/IC")
 
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    require_supported_protocol(args)
     if args.split_num < 1 or not 0 <= args.split_id < args.split_num:
         raise SystemExit("--split-id must be in [0, split-num)")
     if args.max_episodes is not None and args.max_episodes < 1:
@@ -57,10 +75,16 @@ def main(argv: list[str] | None = None) -> int:
         config_override = EOVT_BENCH_ROOT / "configs" / "baselines" / f"{args.variant}_ic.json"
     baseline_config = load_config(args.variant, config_override)
     baseline_config.detector["device"] = "cuda:0"
-    output = writable_path(args.output or f"outputs/{args.variant}/{args.task}")
+    suffix = args.task if args.task == "stt" else f"{args.task}_legacy"
+    output = writable_path(args.output or f"outputs/{args.variant}/{suffix}")
     output.mkdir(parents=True, exist_ok=True)
     status_path = output / "run_status_info.json"
-    status = {"status": "RUNNING", "variant": args.variant, "task": args.task, "split_id": args.split_id, "split_num": args.split_num}
+    status = {
+        "status": "RUNNING", "variant": args.variant, "task": args.task,
+        "split_id": args.split_id, "split_num": args.split_num,
+        "legacy_online_metrics": args.legacy_online_metrics,
+        "current_or_ic_evidence_collected": False,
+    }
     atomic_write_json(status_path, status)
 
     try:

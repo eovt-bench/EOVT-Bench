@@ -4,7 +4,7 @@ type: software
 title: "EOVT-Bench: A Benchmark for Evaluating Occlusion Robustness in Embodied Visual Tracking"
 authors:
   - name: "EOVT-Bench contributors"
-version: 0.1.0-pre.20261121
-date-released: 2026-11-21
+version: 0.2.5-pre.20261125
+date-released: 2026-11-25
 repository-code: "https://github.com/eovt-bench/EOVT-Bench"
-abstract: "Fixed scenes and episodes, diagnostic baselines, and shared evaluation for occlusion robustness in embodied visual tracking."
+abstract: "Fixed task metadata, diagnostic baselines, and shared evaluation for embodied visual tracking. Simulation assets are acquired separately."

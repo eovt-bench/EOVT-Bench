@@ -95,9 +95,9 @@
       }
     },
     "eovt_task": {
-      "task_name": "OcclusionReacquisition",
-      "task_description": "Closed-loop tracking after an annotated path occlusion event.",
-      "task_version": "0.1",
+      "task_name": "Post-Occlusion Target Reacquisition",
+      "task_description": "Closed-loop target reacquisition scored from actual runtime loss, synchronized visibility opportunity, and stable following.",
+      "task_version": "eovt-or-ic-v0.2",
       "source_episode_id": "003_industrial_layout_01_seed_20260923_000018",
       "source_event_index": 0,
       "layout_id": "003_industrial_layout_01_seed_20260923",
@@ -121,7 +121,10 @@
       },
       "action_mode": "closed_loop_model_actions_executed",
       "offline_geometry_is_metadata_only": true,
-      "event_id": "003_industrial_layout_01_seed_20260923_000018__event_000"
+      "event_id": "003_industrial_layout_01_seed_20260923_000018__event_000",
+      "reference_annotation_version": "0.1",
+      "legacy_task_name": "OcclusionReacquisition",
+      "legacy_task_description": "Closed-loop tracking after an annotated path occlusion event."
     },
     "source_episode_id": "003_industrial_layout_01_seed_20260923_000018"
   },
@@ -140,9 +143,9 @@
   "start_room": null,
   "shortest_paths": null,
   "eovt_event": {
-    "task_name": "OcclusionReacquisition",
-    "task_description": "Closed-loop tracking after an annotated path occlusion event.",
-    "task_version": "0.1",
+    "task_name": "Post-Occlusion Target Reacquisition",
+    "task_description": "Closed-loop target reacquisition scored from actual runtime loss, synchronized visibility opportunity, and stable following.",
+    "task_version": "eovt-or-ic-v0.2",
     "source_episode_id": "003_industrial_layout_01_seed_20260923_000018",
     "source_event_index": 0,
     "layout_id": "003_industrial_layout_01_seed_20260923",
@@ -166,6 +169,9 @@
     },
     "action_mode": "closed_loop_model_actions_executed",
     "offline_geometry_is_metadata_only": true,
-    "event_id": "003_industrial_layout_01_seed_20260923_000018__event_000"
+    "event_id": "003_industrial_layout_01_seed_20260923_000018__event_000",
+    "reference_annotation_version": "0.1",
+    "legacy_task_name": "OcclusionReacquisition",
+    "legacy_task_description": "Closed-loop tracking after an annotated path occlusion event."
   }
 }

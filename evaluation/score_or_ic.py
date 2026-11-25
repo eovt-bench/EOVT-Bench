@@ -34,13 +34,16 @@ def main() -> int:
 
     args = parser.parse_args()
     payload = _read_json(args.input)
+    context = payload if isinstance(payload, dict) else {}
     if args.task == "or":
         if isinstance(payload, dict):
             payload = payload.get("records", payload.get("frames", payload))
         if not isinstance(payload, list):
             raise SystemExit("OR input must be a JSON list or an object containing records/frames")
         result = score_or(payload)
-        episode_id = payload[0].get("episode_id", payload[0].get("event_id")) if payload else None
+        episode_id = context.get("episode_id", context.get("event_id"))
+        if episode_id is None and payload:
+            episode_id = payload[0].get("episode_id", payload[0].get("event_id"))
     else:
         if not isinstance(payload, dict):
             raise SystemExit("IC input must be a JSON object with same and similar trials")
@@ -50,6 +53,15 @@ def main() -> int:
             episode_id = payload.get("same", {}).get("records", [{}])[0].get("episode_id")
     if episode_id:
         result["episode_id"] = episode_id
+    first = payload[0] if args.task == "or" and payload else {}
+    # Preserve supplied grouping evidence; never invent a layout from an
+    # arbitrary event ID or use an episode as an independent bootstrap unit.
+    for field in ("layout", "layout_id", "scene_category", "source_episode_id"):
+        value = context.get(field, first.get(field))
+        if value is not None:
+            result[field] = value
+    if isinstance(context.get("eovt_task"), dict):
+        result["eovt_task"] = context["eovt_task"]
     result["task"] = args.task
     if args.output:
         _write_json(args.output, result)

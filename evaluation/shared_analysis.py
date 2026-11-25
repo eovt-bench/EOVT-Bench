@@ -67,11 +67,21 @@ def layout_id(record: dict[str, Any]) -> str:
     meta = data.get("eovt_task") or {}
     if meta.get("layout_id"):
         return str(meta["layout_id"])
-    if data.get("layout"):
-        return str(data["layout"])
+    if data.get("layout_id") or data.get("layout"):
+        return str(data.get("layout_id") or data["layout"])
     episode_id = str(data.get("episode_id") or record["path"].stem)
     match = LAYOUT_RE.match(episode_id)
     return match.group(1) if match else episode_id.split("__", 1)[0]
+
+
+def has_layout_evidence(record: dict[str, Any]) -> bool:
+    """An arbitrary event ID is not evidence of an independent layout."""
+    data = record["data"]
+    return bool(
+        (data.get("eovt_task") or {}).get("layout_id")
+        or data.get("layout_id") or data.get("layout")
+        or LAYOUT_RE.match(str(data.get("episode_id") or record["path"].stem))
+    )
 
 
 def scene_id(record: dict[str, Any]) -> str:

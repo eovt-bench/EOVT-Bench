@@ -121,14 +121,27 @@ python evaluation/score_or_ic.py or frames.json --output or_result.json
 python evaluation/score_or_ic.py ic ic_event.json --output ic_result.json
 ```
 
-The OR input is a JSON list, or a JSON object containing `records`. IC input
+The OR input is JSONL, a JSON list, or a JSON object containing `records`
+(accepted alias: `frames`). IC input
 contains `same` and exactly three `similar` trial objects with person IDs.
 Complete examples accompany the current qualitative Release.
+The current video archive's scorer byte manifest is tied to source tag
+`v0.2.4-videos.20261125`; use that tag for exact archival byte reproduction.
+Subsequent source audits may improve wrappers without changing the frozen
+numerical decision rules or replacing that archived manifest.
 
 Report Same eligibility, eligible Similar count, original-target-following
 count and `effective_follow_ratio`. Keep exclusions separate from failures.
 Use layout-cluster bootstrap (2,000 draws, seed 20261121, percentile 95% CI).
 Aggregate IC trials within event before resampling layouts.
+Custom event IDs require explicit `layout` or `layout_id` context. With
+bootstrap enabled, missing layout evidence is an error.
+
+The default aggregation entry rejects historical OR/IC results. Explicit
+`--allow-legacy` enables historical analysis and reports input versions;
+mixed current/historical evaluator versions remain an error.
+`event_filter_sensitivity.py` is a historical-metric subset tool requiring
+the same explicit opt-in. It is not a current v0.2 sensitivity evaluator.
 
 Historical baseline aggregate tables retain their original scoring version.
 Qualitative examples are selected illustrations, not population estimates.

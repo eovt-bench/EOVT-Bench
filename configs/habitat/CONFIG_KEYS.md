@@ -5,7 +5,7 @@ Configuration for the dataset of the task.
 A dataset consists of episodes
 (a start configuration for a task within a scene) and a scene dataset
 (with all the assets needed to instantiate the task).
-For a list of all the available datasets, see [this page](../../../DATASETS.md).
+For this benchmark's fixed task data, see [the data format](../../docs/DATA_FORMAT.md).
 
 | Key | Description |
 | --- | --- |

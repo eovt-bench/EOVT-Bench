@@ -1,13 +1,13 @@
 {
-  "version": "0.2.4-pre.20261125",
+  "version": "0.2.5-pre.20261125",
   "evaluator_version": "eovt-evaluator-20261125-v0.2",
   "distribution_update": "2026-11-25",
-  "status": "PASS_FOR_CURRENT_SOURCE_AND_SELECTED_DEMONSTRATIONS",
+  "status": "PASS_FOR_AUDITED_OFFLINE_SOURCE_WITH_DECLARED_LIMITATIONS",
   "tests": [
     {
       "name": "wsl2_baseline_test_entrypoint",
       "status": "PASS",
-      "tests": 39,
+      "tests": 46,
       "baseline_cli_help": "PASS",
       "aggregate_cli_help": "PASS",
       "package_validation": "PASS",
@@ -16,7 +16,7 @@
     {
       "name": "evaluation_python_unittest",
       "status": "PASS",
-      "tests": 26
+      "tests": 33
     },
     {
       "name": "baseline_core_unittest",
@@ -49,7 +49,8 @@
       "status": "PASS",
       "or_cases": 4,
       "ic_events": 4,
-      "ic_similar_trials": 12
+      "ic_similar_trials": 12,
+      "rerun_during_source_audit": true
     },
     {
       "name": "or_masks_match_logged_pixels",
@@ -62,7 +63,8 @@
       "name": "ic_frozen_development_regression",
       "status": "PASS",
       "pairs": 20,
-      "independent_human_validation": false
+      "independent_human_validation": false,
+      "rerun_during_source_audit": true
     }
   ],
   "qualitative": {
@@ -92,29 +94,63 @@
     "original_scorer_timestamps_unchanged": true,
     "timing_quantization_s": 0.001,
     "interpolated_frames": 0,
-    "dropped_frames": 0
+    "dropped_frames": 0,
+    "validation_source_tag": "v0.2.4-videos.20261125; existing decoding/timing evidence retained, videos not re-encoded in source audit"
   },
   "baseline_population_rerun": false,
-  "presentation_only_update": true,
-  "unchanged_evaluator_source": "v0.2.3-videos.20261125",
-  "automated_tests_inherited_from_unchanged_evaluator": true,
   "baseline_online_or_ic_summaries": "legacy; not v0.2 synchronized logging",
   "baseline_reference_tables": "historical eovt-evaluator-20261121, unchanged",
   "baseline_raw_results_published": 0,
   "model_artifacts_published": 0,
   "clean_machine_install": "NOT VERIFIED",
-  "repository_access_at_verification": "PRIVATE",
+  "repository_access_at_verification": "PUBLIC",
   "publication_checks": {
-    "source_text_files_scanned": 546,
+    "source_text_files_scanned": 562,
     "compressed_metadata_files_scanned": 4,
-    "qualitative_archive_text_members_scanned": 126,
+    "qualitative_archive_text_members_scanned": 424,
     "private_path_or_secret_matches": 0,
     "archive_sha256sums": "PASS",
-    "scorer_manifest_exact_bytes": "PASS"
+    "scorer_manifest_exact_bytes": "Use pinned archived source tag for exact bytes; current source changes CLI context and Same-collision diagnostics.",
+    "qualitative_archives_scanned": 4
   },
   "archive": {
     "filename": "eovt-omtrack-half-speed-cases-20261125.zip",
     "bytes": 25938074,
     "sha256": "ac1fb2ea757797cb38587aceb4de47d957c7abfb1c3a1aa179df0c3065edd4d9"
-  }
+  },
+  "source_audit_date": "2026-11-25",
+  "automated_tests_rerun_for_source_audit": true,
+  "archived_scorer_manifest_requires_source_tag": "v0.2.4-videos.20261125",
+  "changed_archived_scorer_manifest_files": [
+    "evaluation/ic_current.py",
+    "evaluation/score_or_ic.py"
+  ],
+  "wrapper_changes": "Preserve supplied event/layout metadata; Same collision diagnostic strings now agree with the existing exclusion.",
+  "unauthenticated_repository_api": {
+    "http_status": 200,
+    "private": false
+  },
+  "source_audit": {
+    "source_inventory": "PASS after regeneration; repeat with scripts/package_inventory.py",
+    "metadata_protocol_fields": "Canonical OR/IC names and v0.2 descriptions; original fields preserved as legacy provenance",
+    "geometry_and_identity_assignments_unchanged": true,
+    "default_baseline_or_ic_legacy_guard": true,
+    "default_aggregation_legacy_guard": true,
+    "layout_evidence_required_for_bootstrap": true,
+    "historical_sensitivity_tool_guard": true,
+    "local_markdown_links": "PASS",
+    "learned_model_or_simulation_binaries_in_reachable_git_history": 0,
+    "scope": "Tracked source, four matching release archives, offline code and selected numerical evidence; not every upstream runtime path or a clean GPU installation",
+    "same_collision_diagnostic_consistency": "PASS; existing negative decision preserved"
+  },
+  "remaining_work": [
+    "Upgrade and validate baseline v0.2 synchronized OR/IC recording",
+    "Run and report baseline population results under v0.2",
+    "Attach standalone fixed scene package",
+    "Verify humanoid archive compatibility",
+    "Verify clean-machine simulation installation",
+    "Validate current-protocol parameter sensitivity and independent human IC agreement",
+    "Select and document final code/data licensing"
+  ],
+  "numerical_protocol_thresholds_and_checked_binary_decisions_unchanged": true
 }

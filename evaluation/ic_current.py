@@ -95,7 +95,10 @@ def qualify_same(same_trial):
     result = assess_same(rows, info)
     if same_trial.get("collision"):
         result["same_success_geometry"] = False
-        result["failed_checks"].append("recorded_collision")
+        result["same_geometry_label"] = "失败"
+        result["checks"]["no_recorded_collision"] = False
+        result["failed_checks"].append("no_recorded_collision")
+        result["reason"] = "同次运行记录存在碰撞；Same不满足资格。"
     result["qualification_version"] = VERSION
     return result
 

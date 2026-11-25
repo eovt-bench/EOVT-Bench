@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Offline stricter subsets of existing OR/IC events; no runtime changes."""
+"""Historical-protocol stricter subsets only; not a v0.2 sensitivity evaluator."""
 from __future__ import annotations
 
 import argparse
@@ -55,7 +55,12 @@ def main():
     parser.add_argument("--methods", type=Path, help="Optional JSON mapping display names to method directories under results-root")
     parser.add_argument("--bootstrap", type=int, default=2000)
     parser.add_argument("--seed", type=int, default=20261121)
+    parser.add_argument("--allow-legacy", action="store_true",
+                        help="Required: explicitly analyze historical metrics only")
     args = parser.parse_args()
+    if not args.allow_legacy:
+        parser.error("This tool implements historical metrics only; add --allow-legacy. "
+                     "Current v0.2 sensitivity analysis is not implemented here.")
     if args.bootstrap < 1:
         parser.error("--bootstrap must be positive")
     results_root = args.results_root.resolve()
@@ -64,6 +69,7 @@ def main():
         parser.error("Output must be outside original result files")
     output.mkdir(parents=True, exist_ok=True)
     plan = {
+        "protocol_scope": "historical metrics only; not current v0.2",
         "scope": "stricter subsets of existing events, without changing runtime actions or windows",
         "filters": [{"id": name, "pre_clear_gt_m": pre, "occlusion_ge_m": length} for name, pre, length in FILTERS],
         "bootstrap_unit": "layout", "repetitions": args.bootstrap, "seed": args.seed,
@@ -89,6 +95,13 @@ def main():
             records, errors = load_json_records(results_root / folder / task / "json")
             if errors:
                 raise ValueError(errors)
+            if any(
+                r["data"].get("protocol_version") == "eovt-or-visibility-v0.2"
+                or r["data"].get("identity_evaluator_version") in
+                {"eovt-ic-behavior-v0.1", "eovt-ic-behavior-v0.2"}
+                for r in records
+            ):
+                raise ValueError("Historical sensitivity tool cannot analyze current scorer results")
             mapped = {}
             for record in records:
                 event_id = record["data"].get("episode_id") or record["path"].stem

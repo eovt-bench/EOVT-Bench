@@ -6,9 +6,11 @@ A Benchmark for Evaluating Occlusion Robustness in Embodied Visual Tracking.
 [Protocol](evaluation/PROTOCOL.md) · [Baselines](docs/BASELINES.md)
 · [External resources](docs/THIRD_PARTY_RESOURCES.md)
 
-Version **0.2.4-pre.20261125**. This research preview contains fixed
-scenes/episodes, environment configuration, two diagnostic baselines and a
-shared evaluator. Users do not need to rebuild scenes or regenerate episodes.
+Version **0.2.5-pre.20261125**. This research preview contains fixed
+episode/event metadata, environment configuration, two diagnostic baselines
+and a shared evaluator. Scene and other simulation binaries are acquired
+separately; a standalone benchmark scene archive is not yet attached.
+Users with the matching assets do not need to rebuild scenes or regenerate episodes.
 
 The repository publishes the benchmark interface, diagnostic baselines,
 versioned evaluator and selected OmTrackVLA qualitative demonstrations.
@@ -20,7 +22,7 @@ Model weights and learned-model implementations are not included.
 | OR: Post-Occlusion Target Reacquisition | 630 events from 558 source episodes | RSR / VOR / CRR / MRS |
 | IC: Post-Occlusion Identity Consistency | 630 events, each 1 Same + 3 distinct Similar | Same eligibility / effective following ratio |
 
-The 60 layouts comprise 20 each of Route (`road`), Indoor and Industrial.
+The 60 layouts comprise 20 each of Road (`road`), Indoor and Industrial.
 All scenes were constructed by the benchmark author.
 Reference geometry labels are distinct from a policy's runtime visibility.
 
@@ -73,9 +75,15 @@ bash baselines/scripts/test.sh
 
 python run_baseline.py --variant oracle_pid --task stt --gpu 0 --max-episodes 1
 python run_baseline.py --variant rgb_tracker_pid --task stt --gpu 0 --resume
-python run_baseline.py --variant rgb_tracker_pid --task or --gpu 0 --resume
-python run_baseline.py --variant rgb_tracker_pid --task ic --gpu 0 --resume
-bash baselines/scripts/run_all_tasks.sh oracle_pid 0
+```
+
+STT is the directly supported online evaluation. The baseline OR/IC logger
+still implements historical summaries and requires explicit opt-in:
+
+```bash
+python run_baseline.py --variant rgb_tracker_pid --task or --gpu 0 --resume --legacy-online-metrics
+python run_baseline.py --variant rgb_tracker_pid --task ic --gpu 0 --resume --legacy-online-metrics
+bash baselines/scripts/run_all_tasks.sh oracle_pid 0 --legacy-online-metrics
 ```
 
 Use `--split-num 30 --split-id 0` for sharding. IC selects the frozen
@@ -100,7 +108,9 @@ python evaluation/aggregate_results.py baselines/outputs/rgb_tracker_pid/stt --t
 ```
 
 The baseline runner's online OR/IC summaries retain their historical protocol.
-They can be aggregated as historical results, but cannot be converted to v0.2
+Their default output directories end in `or_legacy` / `ic_legacy`.
+Historical aggregation requires `--allow-legacy`; current aggregation rejects
+legacy inputs by default. Historical summaries cannot be converted to v0.2
 without complete synchronized evidence. The current video archive provides
 reproducible v0.2 scorer inputs; it does not imply an upgraded baseline logger
 or a new population-level baseline run.
@@ -111,6 +121,8 @@ complete Similar trajectory and pose against Same and does not use OTPR for
 the binary decision. Legacy SameSR/SwapSR/BIA and OTPR fields remain only for
 compatibility and audit. See [exact semantics](evaluation/PROTOCOL.md) and the
 versioned thresholds in `configs/evaluation/or_visibility_v0.2.json`.
+Supply `layout` or `layout_id` for custom event IDs; bootstrap rejects missing
+layout evidence rather than treating arbitrary events as independent layouts.
 
 ## Baseline input permissions
 
@@ -146,14 +158,14 @@ are not distributed in Git or Releases.
 | RGB Tracker PID | 1800 | 49.28 [46.50, 52.06] | 69.31 [66.88, 71.60] | 0.00 [0.00, 0.00] |
 | Oracle PID | 1800 | 42.28 [38.94, 45.39] | 65.74 [63.02, 68.30] | 0.00 [0.00, 0.00] |
 
-### OR
+### OR — historical protocol
 
 | Method | Episodes/events | RSR | VOR | CRR | MRS |
 | --- | --- | --- | --- | --- | --- |
 | RGB Tracker PID | 630 | 31.43 [27.82, 35.33] | 72.54 [69.23, 75.94] | 43.33 [38.53, 48.28] | 4.50 [3.29, 5.89] |
 | Oracle PID | 630 | 11.43 [8.62, 14.24] | 72.54 [69.69, 75.46] | 15.75 [11.85, 19.75] | 11.29 [9.66, 12.94] |
 
-### IC
+### IC — historical protocol
 
 | Method | Valid Same | DSR eligible events | RFR | DSR |
 | --- | --- | --- | --- | --- |
@@ -173,3 +185,5 @@ Twelve current OmTrackVLA robot-camera demonstrations (OR/IC scored under v0.2) 
 
 
 Publication scope and attribution: [PUBLICATION](docs/PUBLICATION.md).
+The [repository audit](docs/REPOSITORY_AUDIT.md) lists corrected inconsistencies
+and the remaining execution and release limitations.

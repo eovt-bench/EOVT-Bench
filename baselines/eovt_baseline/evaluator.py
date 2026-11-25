@@ -172,6 +172,14 @@ def _base_result(episode: Any, task: str, method: str) -> dict[str, Any]:
     info = getattr(episode, "info", {}) or {}
     return {
         "schema_version": "eovt-bench-baseline-v1",
+        "runner_version": "eovt-baseline-runner-20261125",
+        "online_summary_protocol": {
+            "stt": "eovt-stt-existing-v1",
+            "or": "legacy-facing-k1",
+            "ic": "legacy-euclidean-dominance-bia",
+        }[task],
+        "legacy_online_summary": task in {"or", "ic"},
+        "current_or_ic_evidence_collected": False,
         "episode_id": str(episode.episode_id),
         "source_episode_id": event.get("source_episode_id", info.get("source_episode_id", episode.episode_id)),
         "task": task,

@@ -23,7 +23,7 @@
 
 ## 自建场景说明
 
-benchmark作者于2026-11-21确认：Road/Route、Indoor、Industrial场景均由其自行搭建。
+benchmark作者于2026-11-21确认：Road、Indoor、Industrial场景均由其自行搭建。
 60个布局属于作者提供的benchmark场景数据，不再列为来源不明的第三方场景。
 使用时保留`scenes/layout_instances/`下的原目录名称及其episode引用。
 本次只更新说明，没有改变布局、路径或实验结果，也未新增上传独立场景包。

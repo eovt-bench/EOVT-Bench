@@ -2,9 +2,10 @@
 
 面向具身视觉跟踪的遮挡鲁棒性评测基准。
 
-本仓库提供固定场景、episodes、任务标注、环境配置、两个baseline与统一评价器。
-使用者加载现有资源进行评测，无需重新构建场景或生成路径。
-当前版本为`0.2.4-pre.20261125`，作为研究预览版本提供。
+本仓库提供固定episodes、任务标注、环境配置、两个baseline与统一评价器。
+场景等仿真二进制资源需要单独获取，独立场景资源包尚未附上。
+取得匹配资源后，使用者无需重新构建场景或生成路径。
+当前版本为`0.2.5-pre.20261125`，作为研究预览版本提供。
 仓库公开benchmark接口、两个诊断baseline、版本化评价器和OmTrackVLA定性案例；
 不公开学习模型权重及其内部实现。
 baseline结果仅以本README中的数值表提供。
@@ -17,7 +18,7 @@ baseline结果仅以本README中的数值表提供。
 | OR | 遮挡后目标重获 | 来自558个源回合的630个事件 | RSR、VOR、CRR、MRS |
 | IC | 遮挡后身份一致性 | 630个事件，每个1 Same＋3个不同Similar | Same成功数、Similar跟随原目标数、有效跟随比例 |
 
-三类场景分别为Route（资源标识`road`）、Indoor和Industrial，各20个布局。
+三类场景分别为Road（资源标识`road`）、Indoor和Industrial，各20个布局。
 全部场景由benchmark作者自行搭建。
 参考遮挡标注不等同于每个策略运行时的实际可见性。
 
@@ -62,8 +63,13 @@ bash baselines/scripts/test.sh
 
 python run_baseline.py --variant oracle_pid --task stt --gpu 0 --max-episodes 1
 python run_baseline.py --variant rgb_tracker_pid --task stt --gpu 0 --resume
-python run_baseline.py --variant rgb_tracker_pid --task or --gpu 0 --resume
-python run_baseline.py --variant rgb_tracker_pid --task ic --gpu 0 --resume
+```
+
+STT可直接在线评测。baseline的OR/IC日志仍为历史口径，必须显式选择后才能运行：
+
+```bash
+python run_baseline.py --variant rgb_tracker_pid --task or --gpu 0 --resume --legacy-online-metrics
+python run_baseline.py --variant rgb_tracker_pid --task ic --gpu 0 --resume --legacy-online-metrics
 ```
 
 `--split-num 30 --split-id 0`用于原有30分片方式。
@@ -88,6 +94,9 @@ OTPR数值不参与新版判定；缺失必要轨迹或时间戳属于输入错�
 baseline运行器的在线OR/IC汇总仍采用历史口径，不能仅凭这些汇总字段
 转换为v0.2结果。新版离线计分需要完整同步证据；视频包附有可复算输入，
 不代表baseline日志采集器已升级或已完成新版全量实验。
+历史结果默认输出到`or_legacy`／`ic_legacy`目录，汇总时须加`--allow-legacy`；
+默认汇总入口拒绝旧版OR/IC结果。自定义事件ID须提供`layout`或`layout_id`，
+缺少布局证据时不会将事件当成独立布局计算置信区间。
 当前OR/IC计分需要NumPy，汇总统计使用Python标准库。
 
 旧版SameSR、SwapSR、BIA和OTPR字段仅保留用于兼容和审计。
@@ -102,7 +111,7 @@ Same的行为保持进行二元判定，不再使用OTPR进行身份判定。
 - Oracle PID：读取仿真器提供的原目标框/facing，使用同一PID实现及固定配置；
   这是诊断对照，不保证构成性能上界。
 
-两个baseline保留既有STT、OR、IC协议和控制参数。
+两个baseline保留既有控制参数；在线OR/IC属于显式选择的历史兼容功能。
 仓库不包含三个学习模型的完整源码或权重。
 
 字段见[DATA_FORMAT](docs/DATA_FORMAT.md)，计分见[PROTOCOL](evaluation/PROTOCOL.md)，
@@ -128,14 +137,14 @@ baseline汇总数值见下方表格。
 | RGB Tracker PID | 1800 | 49.28 [46.50, 52.06] | 69.31 [66.88, 71.60] | 0.00 [0.00, 0.00] |
 | Oracle PID | 1800 | 42.28 [38.94, 45.39] | 65.74 [63.02, 68.30] | 0.00 [0.00, 0.00] |
 
-### OR
+### OR（历史协议）
 
 | 方法 | 回合/事件数 | RSR | VOR | CRR | MRS |
 | --- | --- | --- | --- | --- | --- |
 | RGB Tracker PID | 630 | 31.43 [27.82, 35.33] | 72.54 [69.23, 75.94] | 43.33 [38.53, 48.28] | 4.50 [3.29, 5.89] |
 | Oracle PID | 630 | 11.43 [8.62, 14.24] | 72.54 [69.69, 75.46] | 15.75 [11.85, 19.75] | 11.29 [9.66, 12.94] |
 
-### IC
+### IC（历史协议）
 
 | 方法 | 有效Same数 | DSR合格事件数 | RFR | DSR |
 | --- | --- | --- | --- | --- |
@@ -150,3 +159,4 @@ baseline汇总数值见下方表格。
 
 
 公开范围与署名说明：[PUBLICATION](docs/PUBLICATION.md)。
+完整检查范围、已修正问题和仍未完成的工作见[仓库核查报告](docs/REPOSITORY_AUDIT.md)。
