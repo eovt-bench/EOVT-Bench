@@ -2,7 +2,7 @@
 
 [中文说明](THIRD_PARTY_RESOURCES.zh-CN.md)
 
-Resource policy version: `external-resources-20261121`. Official pages checked
+Resource policy version: `separate-scenes-and-external-resources-20261125`. Official pages checked
 on 2026-11-21. The repository provides benchmark code, configuration, episodes,
 fixed identity metadata and checksums. It does not redistribute the mixed
 simulation asset archive. Users obtain external files from their providers,
@@ -12,12 +12,12 @@ under the terms applicable to their use.
 
 | Resource | Destination relative to repository | Acquisition |
 | --- | --- | --- |
-| Exact EOVT scenes (60 layouts) | `scenes/layout_instances/` | All scenes were constructed by the benchmark author, who supplies the fixed layout pack. No third-party scene download is needed; a standalone scene download is not yet attached to this Release. |
+| Exact EOVT scenes (60 layouts) | `scenes/layout_instances/` | All scenes were constructed by the benchmark author, who supplies the fixed layout pack. Install the standalone resource Release with `python scripts/download_resources.py --kind scenes`. No third-party actor, robot or detector files are included. |
 | Custom humanoids and motions | `assets/humanoids/humanoid_data/` | Obtain [humanoids.zip](https://drive.google.com/file/d/1aE_wyvPqvOuVmF8px2vTO3trr70DKf1l/view?pli=1) from the address supplied by the benchmark author; see verification below. |
 | Spot robot | `assets/robots/hab_spot_arm/` | Use Habitat's official resource route below, retain notices and check exact compatibility. |
 | YOLO11x weights (RGB baseline only) | `assets/detectors/yolo11x.pt` | Download separately from the official Ultralytics release under the applicable terms. |
 | Fixed IDs, descriptions, Similar candidates | `assets/humanoids/*.json` | Included in Git. No avatar meshes or motion/model parameters are included. |
-| Baseline aggregate values | README | Numeric tables and confidence intervals only; no raw baseline result download. |
+| Historical baseline aggregate values | `docs/HISTORICAL_REFERENCE_RESULTS.md` | Numeric tables and confidence intervals only; no raw baseline result download. |
 
 `assets/manifest.json` pins the **actual experiment files**. Resource presence
 or a matching hash establishes compatibility, not permission to redistribute.
@@ -29,9 +29,14 @@ On 2026-11-21 the benchmark author confirmed that all Road, Indoor and
 Industrial scenes were constructed by the author. The 60 layouts are benchmark
 data supplied by the author, rather than an unidentified third-party scene
 collection. Keep their directory names and matching episode references.
-This clarification changes neither layouts nor episodes. A standalone scene
-archive is not yet attached to this preparation Release; existing experiment
-copies are preserved locally.
+The standalone archive contains exactly 1,860 pinned files (60 layouts),
+1,111,384,550 bytes uncompressed. Installation verifies the archive and each
+file against `assets/scenes_manifest.json`; layouts and episodes are unchanged.
+
+```bash
+python scripts/download_resources.py --kind scenes
+python scripts/check_resources.py --group scenes
+```
 
 ## Humanoid download and installation
 
@@ -39,10 +44,18 @@ The benchmark author supplied this acquisition address on 2026-11-21:
 
 [Download humanoids.zip from Google Drive](https://drive.google.com/file/d/1aE_wyvPqvOuVmF8px2vTO3trr70DKf1l/view?pli=1)
 
-The viewer returned HTTP 200 and identifies the file as `humanoids.zip`.
-This update did not download the archive or compare its contents with the
-frozen experiment files. This is an author-supplied acquisition address,
-not a claim that Google Drive is the original model licensor.
+On 2026-11-25 the actual 393,682,777-byte archive was acquired and all
+500 required actor files matched the experiment inventory. SHA-256:
+`6efcfae8d13dd963c8f39a6b693b00f39edf2a184b682a03ee0188d163e47cb9`.
+The actor root is `humanoids/humanoid_data/`. The address is author-supplied;
+Google Drive is not presented as the original licensor.
+
+```bash
+python scripts/install_humanoids.py --archive /path/to/humanoids.zip
+```
+
+The installer copies only checksum-pinned actor files, skips macOS sidecars
+and preserves repository descriptions and candidate assignments.
 
 1. Download and extract the archive to a temporary directory; retain its notices.
 2. Locate the actor-data tree. Examples of expected paths are
@@ -74,13 +87,22 @@ python -m habitat_sim.utils.datasets_download \
   --uids hab_spot_arm --data-path /path/to/separate/habitat-data
 ```
 
-This is an upstream acquisition command, not an installation verified by this
-update. Read the upstream conditions and `licenses/Spot-assets-LICENSE.txt`;
-then place the matching resource tree at `assets/robots/hab_spot_arm/`.
-The existing notice records permission obtained by upstream authors; it is
-not a newly issued unrestricted license from EOVT-Bench.
-If the downloaded files differ from the manifest, stop and investigate;
-do not edit the manifest merely to suppress the mismatch.
+The official files were downloaded on 2026-11-25. Twenty-two binary files
+match directly; README and LICENSE differ only in line endings. The experiment
+URDF additionally omits visual geometry on eight arm links, retaining their
+collision geometry. Reproduce this exact conversion from the pinned official
+revision instead of silently substituting the unmodified robot:
+
+```bash
+python scripts/prepare_spot.py --download --source .downloads/spot-official
+python scripts/check_resources.py --group robot
+```
+
+All 25 converted files match the experiment hashes. The original source hashes,
+revision and conversion are pinned in `assets/spot_upstream_manifest.json`.
+The script downloads directly from the official provider; no robot binaries
+are rehosted. Retain the notices and comply with upstream conditions and
+`licenses/Spot-assets-LICENSE.txt`. Conversion does not grant new rights.
 
 ## Detector
 
@@ -95,8 +117,8 @@ bytes: 114636239
 sha256: 7bc158aa95c0ebfdd87f70f01653c1131b93e92522dbe15c228bcd742e773a24
 ```
 
-The official release lists a file of the same size; this update did not
-redownload it to establish byte identity. Verify the checksum after obtaining
+The file was downloaded from the official release on 2026-11-25 and its
+SHA-256 matches the experiment inventory. Verify the checksum after obtaining
 it. Oracle PID does not need the detector; RGB Tracker PID does.
 
 ## Validate, then run

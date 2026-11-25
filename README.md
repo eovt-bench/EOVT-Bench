@@ -6,10 +6,11 @@ A Benchmark for Evaluating Occlusion Robustness in Embodied Visual Tracking.
 [Protocol](evaluation/PROTOCOL.md) · [Baselines](docs/BASELINES.md)
 · [External resources](docs/THIRD_PARTY_RESOURCES.md)
 
-Version **0.2.5-pre.20261125**. This research preview contains fixed
+Version **0.2.6-pre.20261125**. This research preview contains fixed
 episode/event metadata, environment configuration, two diagnostic baselines
-and a shared evaluator. Scene and other simulation binaries are acquired
-separately; a standalone benchmark scene archive is not yet attached.
+and a shared evaluator. The fixed author-constructed scenes are distributed
+as a separate checksum-pinned archive; humanoid, robot and detector resources
+are acquired from their providers.
 Users with the matching assets do not need to rebuild scenes or regenerate episodes.
 
 The repository publishes the benchmark interface, diagnostic baselines,
@@ -40,8 +41,8 @@ docs/                 Fields, permissions, protocol and release status
 ```
 
 Code and compact metadata live in Git. Simulation assets must be obtained
-separately from their providers; they are not hosted as Release attachments.
-Baseline aggregate values are reported below; raw baseline results are not distributed.
+separately. Only author-constructed scenes are hosted as a resource Release.
+Historical baseline aggregate values are archived; raw baseline results are not distributed.
 The three learned model implementations and their weights are not included.
 
 ## Download
@@ -50,12 +51,19 @@ The three learned model implementations and their weights are not included.
 python scripts/check_resources.py --group metadata
 ```
 
+Install the standalone scene archive:
+
+```bash
+python scripts/download_resources.py --kind scenes
+```
+
 Before simulation, follow [external resource acquisition](docs/THIRD_PARTY_RESOURCES.md):
 resource links, destinations and checksums are provided. The benchmark author
 supplies the constructed scenes; the humanoid download is
 [humanoids.zip](https://drive.google.com/file/d/1aE_wyvPqvOuVmF8px2vTO3trr70DKf1l/view?pli=1).
-The viewer is accessible; the archive contents have not been compared with the
-experiment inventory. Generic assets cannot replace the fixed experiment files.
+The downloaded archive was checked on 2026-11-25: all 500 required actor
+files match the pinned inventory. Install with
+`python scripts/install_humanoids.py --archive /path/to/humanoids.zip`. Generic assets cannot replace the fixed experiment files.
 Run `python scripts/check_resources.py` and
 `python evaluation/validate_package.py` after installing matching files.
 The former mixed asset download has been withdrawn. Existing lawfully held
@@ -77,13 +85,13 @@ python run_baseline.py --variant oracle_pid --task stt --gpu 0 --max-episodes 1
 python run_baseline.py --variant rgb_tracker_pid --task stt --gpu 0 --resume
 ```
 
-STT is the directly supported online evaluation. The baseline OR/IC logger
-still implements historical summaries and requires explicit opt-in:
+All three tasks use the current protocol by default. OR/IC execution writes
+synchronized evidence and scores it with the public v0.2 evaluator:
 
 ```bash
-python run_baseline.py --variant rgb_tracker_pid --task or --gpu 0 --resume --legacy-online-metrics
-python run_baseline.py --variant rgb_tracker_pid --task ic --gpu 0 --resume --legacy-online-metrics
-bash baselines/scripts/run_all_tasks.sh oracle_pid 0 --legacy-online-metrics
+python run_baseline.py --variant rgb_tracker_pid --task or --gpu 0 --resume
+python run_baseline.py --variant rgb_tracker_pid --task ic --gpu 0 --resume
+bash baselines/scripts/run_all_tasks.sh oracle_pid 0
 ```
 
 Use `--split-num 30 --split-id 0` for sharding. IC selects the frozen
@@ -91,11 +99,14 @@ appearance dataset and `_ic.json` configuration. Results stay inside
 `baselines/outputs/`. Only valid final JSONs count for resume; auxiliary
 `*_info.json` and broken JSON do not.
 
-The requirements file records observed versions, not a verified clean-install
-lockfile. The original packaging audit did not run a GPU rollout. The subsequent
-selected local rollouts are documented in the qualitative examples; they do not
-establish a fresh installation or full benchmark rerun. Current OR/IC scoring
-requires NumPy; aggregation uses the Python standard library.
+A newly created Linux/WSL2 conda environment was verified on 2026-11-25:
+Habitat-Sim 0.3.3, the declared Python dependencies, `pip check`, 49 tests,
+both STT baselines and current Oracle OR/IC simulator execution. Official
+cached wheels were reused, not an existing environment's site-packages.
+This is installation/interface validation, not a population rerun or a
+universal driver guarantee. See [installation](docs/INSTALLATION.md) and
+`configs/environment_validated.json`. Current OR/IC scoring requires NumPy;
+aggregation uses the Python standard library.
 
 ## Evaluate
 
@@ -107,13 +118,13 @@ python evaluation/aggregate_results.py scored_ic --task ic --bootstrap 2000
 python evaluation/aggregate_results.py baselines/outputs/rgb_tracker_pid/stt --task stt --bootstrap 2000
 ```
 
-The baseline runner's online OR/IC summaries retain their historical protocol.
-Their default output directories end in `or_legacy` / `ic_legacy`.
-Historical aggregation requires `--allow-legacy`; current aggregation rejects
-legacy inputs by default. Historical summaries cannot be converted to v0.2
-without complete synchronized evidence. The current video archive provides
-reproducible v0.2 scorer inputs; it does not imply an upgraded baseline logger
-or a new population-level baseline run.
+Current OR/IC outputs include an evidence path, evidence checksum, execution
+fingerprint and evaluator version. Resume checks all four. Evidence attempts
+are preserved separately and excluded from population aggregation. Use
+`--episode-id EVENT_ID` to reproduce fixed cases; it can be repeated.
+Historical scoring requires explicit `--legacy-online-metrics` and writes
+`or_legacy` / `ic_legacy`; aggregation requires `--allow-legacy`.
+Historical summaries alone cannot be converted to v0.2 without full evidence.
 
 Intervals use layout-cluster bootstrap. The current OR scorer uses actual
 runtime loss events as its denominator. The current IC scorer compares the
@@ -142,42 +153,11 @@ acceptance, or a DOI.
 The root preparation notice grants no blanket open-source/data license.
 Access restrictions do not replace the resource-specific permissions and license notices.
 
-## Baseline reference values
+## Historical reference results
 
-These are historical aggregate values from completed baseline runs, evaluated
-with `eovt-evaluator-20261121`. Brackets give 95% layout-cluster bootstrap intervals
-(2,000 repetitions). Rates are percentages; MRS is in steps. The current video
-update does not rerun these baselines or change their measured values.
-Per-episode baseline result JSONs, result-file inventories and result archives
-are not distributed in Git or Releases.
-
-### STT
-
-| Method | Episodes/events | SR | TR | CR |
-| --- | --- | --- | --- | --- |
-| RGB Tracker PID | 1800 | 49.28 [46.50, 52.06] | 69.31 [66.88, 71.60] | 0.00 [0.00, 0.00] |
-| Oracle PID | 1800 | 42.28 [38.94, 45.39] | 65.74 [63.02, 68.30] | 0.00 [0.00, 0.00] |
-
-### OR — historical protocol
-
-| Method | Episodes/events | RSR | VOR | CRR | MRS |
-| --- | --- | --- | --- | --- | --- |
-| RGB Tracker PID | 630 | 31.43 [27.82, 35.33] | 72.54 [69.23, 75.94] | 43.33 [38.53, 48.28] | 4.50 [3.29, 5.89] |
-| Oracle PID | 630 | 11.43 [8.62, 14.24] | 72.54 [69.69, 75.46] | 15.75 [11.85, 19.75] | 11.29 [9.66, 12.94] |
-
-### IC — historical protocol
-
-| Method | Valid Same | DSR eligible events | RFR | DSR |
-| --- | --- | --- | --- | --- |
-| RGB Tracker PID | 630 | 174 | 72.22 [68.97, 75.39] | 72.80 [65.15, 80.61] |
-| Oracle PID | 629 | 130 | 79.17 [75.97, 82.38] | 61.79 [51.99, 71.78] |
-
-**Version and interpretation.** The tables above preserve the previously
-reported aggregate reference values and are labeled with their original
-evaluator version. They are not silently recomputed under the new OR/IC
-protocol. New runs must record the evaluator and protocol version alongside
-their results. The protocol is diagnostic: it describes capability failure
-modes and is not intended to establish a universal ranking of models.
+Prior aggregate values retain their original scoring version on the
+[historical reference page](docs/HISTORICAL_REFERENCE_RESULTS.md).
+Current OR/IC population results have not been rerun; a smoke test is not a new benchmark score.
 
 ## Qualitative examples
 

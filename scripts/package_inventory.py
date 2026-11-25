@@ -28,7 +28,9 @@ def refresh():
     version = (ROOT / "VERSION").read_text().strip()
     manifest = {
         "version": version,
-        "resource_policy_version": "external-resources-20261121",
+        "resource_policy_version": json.loads(
+            (ROOT / "assets/resource_policy.json").read_text(encoding="utf-8")
+        )["policy_version"],
         "distribution_update": "2026-11-25",
         "scope": "Git source and compact metadata; separately installed assets are excluded.",
         "excluded_from_manifest": sorted(EXCLUDED),

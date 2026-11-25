@@ -93,11 +93,11 @@ class ReportingTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "three binary"):
                 summarize_directory(root, "ic", 0)
 
-    def test_baseline_or_ic_cannot_silently_start_historical_protocol(self):
+    def test_baseline_current_protocol_is_default_and_legacy_is_explicit(self):
         for task in ("or", "ic"):
             args = build_parser().parse_args(["--variant", "oracle_pid", "--task", task])
-            with self.assertRaisesRegex(SystemExit, "does not collect complete v0.2"):
-                require_supported_protocol(args)
+            self.assertFalse(args.legacy_online_metrics)
+            require_supported_protocol(args)
             args.legacy_online_metrics = True
             require_supported_protocol(args)
         require_supported_protocol(

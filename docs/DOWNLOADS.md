@@ -2,7 +2,7 @@
 
 Git contains code, compressed task definitions, configuration, fixed identity
 metadata and input episode examples. Baseline aggregate values and confidence
-intervals are reported in the English and Chinese README files. No baseline
+intervals are archived in `docs/HISTORICAL_REFERENCE_RESULTS.md`. No baseline
 per-episode results, result-file inventory or result archive is distributed.
 
 ## Simulation assets
@@ -19,7 +19,12 @@ python evaluation/validate_package.py
 ```
 
 A fresh clone lacks simulation assets. All benchmark scenes were constructed
-by the benchmark author; a standalone scene archive is not attached here.
+by the benchmark author and are available as a standalone, checksum-pinned
+resource archive:
+
+```bash
+python scripts/download_resources.py --kind scenes
+```
 Humanoid acquisition is documented in the resource guide.
 
 An already lawfully held matching complete resource archive can be checked

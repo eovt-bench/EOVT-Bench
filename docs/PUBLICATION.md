@@ -8,7 +8,8 @@ The repository is intended for public access. The published package contains
 the benchmark interface, diagnostic baselines, versioned evaluator,
 configuration, metadata and selected qualitative demonstrations.
 
-Baseline results are published only as aggregate numbers in the README.
+Historical baseline aggregate values are archived separately from current
+evaluation instructions in `docs/HISTORICAL_REFERENCE_RESULTS.md`.
 No raw baseline result JSONs, result-file manifest, or baseline result archive
 is distributed. Input episode JSONs and user-facing output schema documentation
 remain part of the benchmark interface.

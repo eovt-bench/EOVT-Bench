@@ -1,91 +1,89 @@
-# Repository audit — 2026-11-25
+# Repository release audit — 2026-11-25
 
-Source version: `0.2.5-pre.20261125`. This is an audited research preview,
-not a claim of a complete clean-machine benchmark installation.
+Source candidate: `0.2.6-pre.20261125`.
+Technical checks have passed. A final reusable code/data release still requires
+the owner's license selection; public access alone does not supply that license.
 
-## Current names and numerical rules
+## Canonical interface
 
-- Benchmark: **EOVT-Bench**.
-- Tasks: **STT**, Single-Target Tracking; **OR**, Post-Occlusion Target
+- **EOVT-Bench**; **STT**, Single-Target Tracking; **OR**, Post-Occlusion Target
   Reacquisition; **IC**, Post-Occlusion Identity Consistency.
-- Scene categories: **Road**, **Indoor**, **Industrial**.
-- The fixed IC metadata contains 630 events from 558 source episodes,
-  spanning 60 layouts. Every event has 1 Same and 3 distinct Similar trials.
-  All three candidates match the original person's published top-three list.
-- Effective OR/IC metadata uses `closed_loop_model_actions_executed`.
-  `legacy_action_mode` is provenance, not an active instruction.
-- Current OR uses actual loss, synchronized masks/projections and simulation
-  time. Current IC qualifies Same geometrically and judges full trajectories
-  and headings. OTPR is audit-only.
+- Road, Indoor and Industrial: 20 layouts each, 1,800 STT episodes.
+- OR/IC: 630 events from 558 source episodes, spanning 60 layouts.
+- IC: exactly one Same and three distinct Similar trials per event; every
+  candidate matches the original person's fixed published top-three list.
+- Effective action mode: `closed_loop_model_actions_executed`. Historical
+  action/description fields remain only under explicit `legacy_*` provenance.
+- OR scores actual runtime loss, verified visibility opportunities and stable
+  following. IC qualifies Same before complete-path/pose comparison. OTPR
+  does not determine current binary outcomes. Thresholds are unchanged.
 
-Numerical decision thresholds and behavior were not changed by this audit.
-A Same collision already excluded the control; its inconsistent diagnostic
-text is corrected. A passing offline regression is not independent human validation.
+## Issues corrected
 
-## Corrections in this source version
-
-| Finding | Correction |
+| Finding | Release correction |
 | --- | --- |
-| Citation and package inventory lagged behind the source | Synchronize source/citation versions; rebuild the complete file inventory and SHA256SUMS |
-| Introductory text implied that scene binaries were included | State explicitly that binaries are acquired separately and the standalone scene archive is not attached |
-| Road was called Route in some descriptions | Use Road consistently in benchmark-owned documentation |
-| Compressed event descriptions still referred to old identity decisions | Update canonical task names, descriptions and protocol fields; preserve annotation provenance under `legacy_*` / `reference_annotation_version` without changing geometry or actor assignments |
-| Bundled upstream developer pages contained broken links or generic asset instructions | Fix local links and distinguish upstream examples from benchmark installation |
-| Historical baseline online OR/IC metrics could run without an explicit choice | Reject default OR/IC startup; require `--legacy-online-metrics`, label outputs, and use `or_legacy` / `ic_legacy` directories |
-| Aggregation could silently interpret historical fields as the default protocol | Reject historical OR/IC inputs unless `--allow-legacy` is supplied; expose input versions |
-| Custom event IDs could be used as bootstrap clusters when layout evidence was absent | Preserve supplied layout context and reject bootstrap without layout evidence |
-| The subset sensitivity tool implemented only historical metrics | Require explicit historical opt-in and reject current scorer results |
-| A recorded Same collision could retain a success string despite failed qualification | Make the diagnostic label, failed check and explanation agree with the existing exclusion |
-| Validation and old release descriptions retained private-access wording | Record current public access while preserving historical evidence and labels |
+| Old names, descriptions and metadata versions could imply obsolete tasks | Canonical names and current descriptions; historical fields explicitly separated, geometry and identities preserved |
+| Historical facing/distance summaries could be confused with current OR/IC | Current synchronized collection/scoring is now the default for both baselines; legacy execution/aggregation require explicit flags |
+| Baselines could not generate current OR/IC evidence | Record initialization and every true step, poses, simulation time, actions, activation and termination; OR adds real masks and exact full-target projections |
+| Auxiliary JSON could enter result statistics or stale evidence could be resumed | Exclude evidence attempts from aggregation; validate execution fingerprint and evidence SHA-256 for resume |
+| Arbitrary event IDs could become bootstrap clusters | Preserve explicit layout context and reject bootstrap without actual layout evidence |
+| Historical result tables were prominent in current instructions | Move unchanged historical values to a separately labeled archive |
+| Fixed scenes had no standalone delivery | Provide a scene-only archive: 60 layouts, 1,860 files, pinned archive/file checksums and installer |
+| Humanoid link had not been checked against the experiment | Acquire the actual ZIP and verify all 500 required actor files; provide selective installation preserving repository metadata |
+| Official robot download did not exactly reproduce the experiment | Pin official source hashes/revision; reproduce eight arm-visual omissions and text line endings; all 25 converted files match |
+| Detector compatibility had not been verified | Download official YOLO11x and verify the exact pinned SHA-256 |
+| Environment description was only an observed snapshot | Create an independent conda environment, install declared dependencies, run pip check, all tests and real simulator rollouts |
+| Inventory/citation/version metadata and links were inconsistent | Synchronize source metadata and checksum inventory; check public links and release attachment scope |
 
-Historical reference tables remain labeled with their original evaluator.
-They are not measurements under the new OR/IC rules. Versioned compatibility
-modules and old releases remain available as historical material.
+## Verification evidence
 
-## Scope of verification
+- 49 tests: 13 baseline/data-contract and 36 evaluator/resource/interface cases.
+- Independent current CLI rescoring and aggregation of nine baseline smoke
+  events, including Same exclusion/eligibility, positive/negative Similar and
+  actual-loss/no-loss OR branches. These are interface tests, not performance
+  estimates; no raw baseline results are published.
+- Empty-directory installation and SHA-256 verification of 2,385 resource files:
+  1,860 scene, 500 humanoid and 25 prepared robot files.
+- Fresh Python 3.9.19 / Habitat-Sim 0.3.3 / PyTorch 2.4.0+cu118 environment:
+  pip check, full test entrypoint, both STT methods, current Oracle OR and a
+  complete 1+3 IC event. Current OR/IC were independently rescored again there.
+- Official wheel caches were reused; an existing environment's site-packages
+  were not. Fixed installed assets were used for these GPU checks; resource
+  installation was verified separately. Hardware coverage is the recorded
+  Linux/WSL2 configuration, not every possible driver/system.
+- Compressed metadata, source syntax/JSON, naming, credentials/private-path
+  patterns, reachable Git history, source inventory and release attachment
+  scope are checked. Pattern checks do not prove that every upstream function
+  has been exercised.
 
-Checks cover tracked public files, compressed episode metadata, task and
-candidate consistency, source inventory/checksums, automated tests, public
-release descriptions and attachment inventories, and selected numerical
-demonstration evidence. Local installed assets are distinct from tracked
-public files. Known private-path and credential patterns are screened;
-such screening is not proof that arbitrary sensitive content is impossible.
+The twelve main 0.5x demonstration videos and their archived evidence remain
+unchanged. Their exact scorer-byte manifest is pinned to
+`v0.2.4-videos.20261125`, not silently replaced by later source changes.
 
-The current 0.5x video release is `v0.2.4-videos.20261125`.
-Its immutable numerical evidence and scorer byte manifest refer to that
-source tag. The audit improves entry points; it does not replace archive
-hashes or claim that every archived file is byte-identical to the latest
-branch. Earlier video releases are explicitly superseded.
+## Release boundary and owner decision
 
-## Remaining work
+The final license for benchmark-owned code, scenes and metadata has not been
+selected. `LICENSE` currently grants no new license. This is an unresolved
+release requirement, not a claim of an already completed final release.
+Third-party assets retain their own conditions and are acquired separately.
+The standalone scene archive does not include humanoids, robot or detector
+weights. No learned-model implementation/weights or baseline result population
+is included in Git or resource attachments.
 
-| Item | Actual status |
-| --- | --- |
-| Baseline online v0.2 OR/IC collection | Incomplete. Historical summaries do not provide the full synchronized evidence required by current scoring |
-| Baseline population results under v0.2 | Not rerun; README OR/IC tables are historical |
-| Standalone fixed scene archive | Not attached; Git contains definitions and metadata, not scene geometry |
-| Humanoid acquisition archive | Link documented; internal archive compatibility has not been verified |
-| Clean-machine simulator installation | Not verified. Recorded dependency versions are not a verified lockfile |
-| Current-protocol threshold/window/sampling sensitivity | Not fully validated; the historical subset tool does not establish current robustness |
-| Independent human validation of current IC labels | Not completed; frozen development-case agreement is regression evidence only |
-| Complete-package code/data license | Not granted by the root preparation notice; existing third-party terms still apply |
-
-These limitations must remain visible in release and paper claims. Public
-access alone does not resolve them. No learned-model implementation or
-weights, raw baseline result population, or mixed simulation-asset archive is
-added by this audit.
+The current numerical settings are declared initial operational rules.
+Twenty frozen IC development pairs establish code regression only; independent
+human validation and universal threshold robustness are not claimed. Historical
+population tables are not new-protocol measurements. These scientific limits
+remain explicit without substituting for executable installation verification.
 
 ## Repeatable checks
 
 ```bash
 python scripts/package_inventory.py
 python scripts/check_resources.py --group metadata
-python -m unittest discover -s evaluation/tests -v
+bash baselines/scripts/test.sh
 ```
 
-For tests importing the baseline package, set `PYTHONPATH=baselines:evaluation`
-on Linux. With matching local simulation assets installed, the broader
-`bash baselines/scripts/test.sh` also checks episode-resource references.
-Maintainers can stage intended public source files and run
-`python scripts/package_inventory.py --write` to refresh the inventory.
-This command hashes tracked source only; it does not include ignored assets.
+See [installation](INSTALLATION.md), [protocol](../evaluation/PROTOCOL.md) and
+`VALIDATION_REPORT.json`. Refresh the tracked source inventory only after staging
+intended files, with `python scripts/package_inventory.py --write`.

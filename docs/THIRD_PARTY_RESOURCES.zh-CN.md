@@ -1,6 +1,6 @@
 # 自建场景与第三方资源获取说明
 
-资源策略版本：`external-resources-20261121`；官方页面核对日期：2026-11-21。
+资源策略版本：`separate-scenes-and-external-resources-20261125`；官方页面核对日期：2026-11-21。
 
 本仓库保留评测代码、配置、episodes、事件标注、固定人物分配、相似人物信息和校验清单。
 场景、定制人物、机器人资源及检测器权重不再通过混合资源包提供下载。
@@ -10,12 +10,12 @@
 
 | 内容 | 放置位置，相对于仓库根目录 | 获取方式和当前状态 |
 | --- | --- | --- |
-| EOVT 的60个真实布局 | `scenes/layout_instances/` | 全部场景由benchmark作者自行搭建，由作者提供固定布局包，无需另找第三方场景下载。本Release尚未附上独立场景包。 |
+| EOVT 的60个真实布局 | `scenes/layout_instances/` | 全部场景由benchmark作者自行搭建，由作者提供固定布局包，无需另找第三方场景下载。运行`python scripts/download_resources.py --kind scenes`获取独立场景包，不包含人物、机器人或检测器资源。 |
 | 定制人物及动作 | `assets/humanoids/humanoid_data/` | 使用作者提供的[humanoids.zip下载地址](https://drive.google.com/file/d/1aE_wyvPqvOuVmF8px2vTO3trr70DKf1l/view?pli=1)，解压放置后核对原实验清单。 |
 | Spot机器人 | `assets/robots/hab_spot_arm/` | 通过Habitat官方资源渠道获取，保留声明并核对版本和文件校验值。 |
 | YOLO11x权重 | `assets/detectors/yolo11x.pt` | 从Ultralytics官方资源页获取并遵守其条款；仅RGB Tracker PID需要。 |
 | 人物ID、文字描述和三个相似候选 | `assets/humanoids/*.json` | 已保留在Git中，不包含人物网格、模型参数或动作文件。 |
-| 两个baseline的汇总数值 | README | 仅提供数值表与置信区间，不提供原始结果下载。 |
+| 两个baseline的历史汇总 | `docs/HISTORICAL_REFERENCE_RESULTS.md` | 仅提供数值表与置信区间，不提供原始结果下载。 |
 
 完整目标文件、大小、SHA-256见`assets/manifest.json`，
 各资源组及官方地址见`assets/resource_policy.json`。
@@ -26,7 +26,8 @@
 benchmark作者于2026-11-21确认：Road、Indoor、Industrial场景均由其自行搭建。
 60个布局属于作者提供的benchmark场景数据，不再列为来源不明的第三方场景。
 使用时保留`scenes/layout_instances/`下的原目录名称及其episode引用。
-本次只更新说明，没有改变布局、路径或实验结果，也未新增上传独立场景包。
+独立包仅包含60个布局的1,860个固定文件，解压前后均校验SHA-256。
+布局、路径与原实验文件保持一致。
 
 ## 人物资源下载与安装
 
@@ -34,9 +35,12 @@ benchmark作者于2026-11-21确认：Road、Indoor、Industrial场景均由其�
 
 [Google Drive：humanoids.zip](https://drive.google.com/file/d/1aE_wyvPqvOuVmF8px2vTO3trr70DKf1l/view?pli=1)
 
-已确认页面可访问，返回HTTP 200，页面显示文件名为`humanoids.zip`。
-本次没有下载整个压缩包或核对其中全部文件与原实验资源是否一致。
+2026-11-25已实际下载393,682,777字节的压缩包；500个必需人物文件全部通过固定清单校验。
+压缩包根路径为`humanoids/humanoid_data/`。
 该链接是作者指定的获取地址，不将Google Drive表述为模型原始授权方。
+
+推荐使用`python scripts/install_humanoids.py --archive /path/to/humanoids.zip`安装；
+只复制固定清单中的人物文件，跳过macOS附属文件并保留仓库元数据。
 
 1. 下载并先解压到临时目录，保留资源附带的许可说明。
 2. 找到人物数据层级。预期文件示例为`male_4/male_4.urdf`和
@@ -65,11 +69,17 @@ python -m habitat_sim.utils.datasets_download \
   --uids hab_spot_arm --data-path /path/to/separate/habitat-data
 ```
 
-这是官方获取入口，本次更新没有实际执行该下载或验证全新安装。
-先阅读官方条件和仓库保留的`licenses/Spot-assets-LICENSE.txt`，
-再将匹配的机器人资源树放到`assets/robots/hab_spot_arm/`。
-该声明记录的是上游取得的许可，不代表EOVT新授予了无限制的分发权。
-若校验不一致，应排查版本，不能直接修改校验清单来消除报错。
+官方文件已实际下载核对。22个二进制文件与实验版本一致，三个文本文件需要明确转换：
+README和许可文件仅统一换行符；URDF另外去除八个机械臂部件的可视网格，保留碰撞几何。
+使用以下脚本从固定官方版本获取并转换，转换后25个文件的SHA-256均与实验清单一致：
+
+```bash
+python scripts/prepare_spot.py --download --source .downloads/spot-official
+python scripts/check_resources.py --group robot
+```
+
+转换规则和官方源文件哈希公开保存在`assets/spot_upstream_manifest.json`，
+不上传机器人二进制资源。保留并遵守`licenses/Spot-assets-LICENSE.txt`及上游条件。
 
 ## 检测器权重如何获取
 
@@ -84,7 +94,7 @@ python -m habitat_sim.utils.datasets_download \
 SHA-256：7bc158aa95c0ebfdd87f70f01653c1131b93e92522dbe15c228bcd742e773a24
 ```
 
-已核对官方资源记录中存在同名同大小文件，但本次未重新下载并验证字节一致。
+2026-11-25已实际从该官方Release下载，SHA-256与原实验权重一致。
 用户下载后应自行运行校验。Oracle PID不需要此权重。
 
 ## 安装后检查

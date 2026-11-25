@@ -69,7 +69,9 @@ class ResourceInstallationTests(unittest.TestCase):
                 (folder / name).write_bytes((root / name).read_bytes())
                 fetched.append(name)
 
-            with patch.object(INSTALLER.subprocess, "run", side_effect=fake_download):
+            with patch.object(INSTALLER.urllib.request, "urlopen", side_effect=OSError("offline")), \
+                 patch.object(INSTALLER.shutil, "which", return_value="gh"), \
+                 patch.object(INSTALLER.subprocess, "run", side_effect=fake_download):
                 archive = INSTALLER.download_archive(cache, item, config, workers=2)
                 self.assertEqual(archive.read_bytes(), content)
                 self.assertEqual(len(fetched), 2)
@@ -82,6 +84,20 @@ class ResourceInstallationTests(unittest.TestCase):
                 self.assertEqual(len(fetched), 3)
                 INSTALLER.download_archive(cache, item, config, workers=2)
                 self.assertEqual(len(fetched), 3)
+
+    def test_public_resource_does_not_require_github_cli(self):
+        with tempfile.TemporaryDirectory() as directory:
+            payload = b"author constructed scene fixture"
+            item = {"filename": "scenes.tar.gz", "bytes": len(payload),
+                    "sha256": hashlib.sha256(payload).hexdigest(),
+                    "release_tag": "scenes-version"}
+            config = {"repository": "fixture/fixture", "release_tag": "old"}
+            with patch.object(INSTALLER.urllib.request, "urlopen", return_value=io.BytesIO(payload)) as request, \
+                 patch.object(INSTALLER.subprocess, "run") as gh:
+                archive = INSTALLER.download_archive(Path(directory), item, config)
+            self.assertEqual(archive.read_bytes(), payload)
+            self.assertIn("/scenes-version/scenes.tar.gz", request.call_args.args[0])
+            gh.assert_not_called()
 
     def test_verified_install_is_idempotent_and_rejects_conflicts(self):
         with tempfile.TemporaryDirectory() as directory:

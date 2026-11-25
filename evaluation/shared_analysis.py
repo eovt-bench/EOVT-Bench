@@ -49,7 +49,8 @@ def load_json_records(root: Path) -> tuple[list[dict[str, Any]], list[dict[str, 
         errors.append({"path": str(root), "error": "missing_directory"})
         return records, errors
     for path in sorted(root.rglob("*.json")):
-        if path.name.endswith("_info.json") or "status" in path.name.lower():
+        if (path.name.endswith("_info.json") or "status" in path.name.lower()
+                or any(part.endswith("_evidence") for part in path.relative_to(root).parts[:-1])):
             continue
         try:
             data = json.loads(path.read_text(encoding="utf-8"))

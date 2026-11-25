@@ -118,9 +118,14 @@ trial structures are data issues. Current IC excludes a colliding Same
 control and counts a colliding eligible Similar trial as failure. Historical
 uncertain labels are not current IC outputs.
 `*_info.json`, status files and videos are not independent samples.
+Current baseline results also contain `evidence`, `evidence_sha256` and
+`execution_fingerprint`. Evidence is stored under an event's `*_evidence/`
+directory, with one unique attempt per execution. OR provides `frames.jsonl`
+and synchronized masks; IC provides `ic_event.json`, complete trial trajectories
+and termination records. These auxiliary directories are not result samples.
 
 `examples/selection.json` links one Industrial event to its source episode.
 The three files in `examples/episodes/` are matched real inputs. Baseline
-aggregate results are reported in the README; per-episode baseline result
+historical aggregate results are archived in `docs/HISTORICAL_REFERENCE_RESULTS.md`; per-episode baseline result
 examples are not distributed. The result fields above document outputs
 that users generate from their own runs.

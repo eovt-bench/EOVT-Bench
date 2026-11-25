@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "policy_version": "external-resources-20261121",
-  "checked_at": "2026-11-21",
+  "policy_version": "separate-scenes-and-external-resources-20261125",
+  "checked_at": "2026-11-25",
   "asset_manifest": "assets/manifest.json",
   "note": "Classifications control packaging, not legal clearance. Exact original experiment assets remain pinned by checksum.",
   "groups": [
@@ -20,11 +20,12 @@
       "paths": [
         "scenes/layout_instances"
       ],
-      "delivery": "maintainer_dataset",
+      "delivery": "release_attachment",
       "source_status": "All benchmark scenes constructed by the benchmark author; confirmed directly on 2026-11-21.",
       "official_urls": [],
-      "instructions": "Obtain the fixed 60-layout pack from the benchmark maintainer. A standalone scene download is not yet attached to this preparation Release. Preserve paths and verify the experiment inventory.",
-      "provenance_basis": "Direct author confirmation in the task; no third-party scene download required."
+      "instructions": "Run python scripts/download_resources.py --kind scenes. Only author-constructed scenes are in this archive; verify assets/scenes_manifest.json.",
+      "provenance_basis": "Direct author confirmation in the task; no third-party scene download required.",
+      "release_tag": "v0.2.6-resources.20261125"
     },
     {
       "id": "humanoids",
@@ -38,15 +39,21 @@
         "https://smpl-x.is.tue.mpg.de/modellicense.html",
         "https://smpl-x.is.tue.mpg.de/bodylicense.html"
       ],
-      "instructions": "Download humanoids.zip from the author-supplied acquisition URL, locate its actor-data tree, install under assets/humanoids/humanoid_data and verify the original experiment checksums. Preserve fixed repository identity metadata. SMPL-X URLs are supplementary licensing references, not substitutes for the pack.",
+      "instructions": "Download the author-supplied humanoids.zip separately, then run python scripts/install_humanoids.py --archive /path/to/humanoids.zip. All 500 required actor files matched the fixed inventory on 2026-11-25; repository identity metadata is preserved.",
       "acquisition_urls": [
         "https://drive.google.com/file/d/1aE_wyvPqvOuVmF8px2vTO3trr70DKf1l/view?pli=1"
       ],
       "acquisition_link_verification": {
-        "checked_at": "2026-11-21",
+        "checked_at": "2026-11-25",
         "http_status": 200,
         "display_name": "humanoids.zip",
-        "archive_contents_verified": false
+        "archive_contents_verified": true,
+        "required_files": 500,
+        "verified_files": 500,
+        "archive_bytes": 393682777,
+        "archive_sha256": "6efcfae8d13dd963c8f39a6b693b00f39edf2a184b682a03ee0188d163e47cb9",
+        "actor_root": "humanoids/humanoid_data/",
+        "compatibility_is_permission_grant": false
       }
     },
     {
@@ -59,7 +66,15 @@
         "https://github.com/facebookresearch/habitat-sim/blob/v0.3.3/src_python/habitat_sim/utils/datasets_download.py",
         "https://huggingface.co/datasets/ai-habitat/hab_spot_arm"
       ],
-      "instructions": "Habitat-Sim 0.3.3 defines the hab_spot_arm dataset in its official downloader. Read the asset notice and upstream conditions; obtain it separately. Compare against the pinned manifest because upstream assets may differ."
+      "instructions": "Obtain the official pinned Spot files with python scripts/prepare_spot.py --download --source .downloads/spot-official. The script reproduces eight arm-visual removals and CRLF used by the experiment, verifies all 25 installed hashes, and retains existing notices. No robot asset is rehosted.",
+      "verified_acquisition": {
+        "checked_at": "2026-11-25",
+        "upstream_files": 25,
+        "upstream_binary_matches": 22,
+        "text_differences": 3,
+        "converted_experiment_hash_matches": 25,
+        "source_manifest": "assets/spot_upstream_manifest.json"
+      }
     },
     {
       "id": "detector",
@@ -72,7 +87,12 @@
         "https://www.ultralytics.com/license",
         "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11x.pt"
       ],
-      "instructions": "RGB Tracker PID requires yolo11x.pt; Oracle PID does not. Obtain the weights from the official release under applicable terms, then verify the pinned SHA-256. No weights are hosted here."
+      "instructions": "RGB Tracker PID requires yolo11x.pt; Oracle PID does not. Obtain the weights from the official release under applicable terms, then verify the pinned SHA-256. No weights are hosted here.",
+      "verified_acquisition": {
+        "checked_at": "2026-11-25",
+        "downloaded_from_official_release": true,
+        "experiment_sha256_matches": true
+      }
     }
   ],
   "provenance_update": "author-confirmed-scenes-and-humanoid-link-20261121"

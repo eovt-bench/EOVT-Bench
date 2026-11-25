@@ -1,73 +1,56 @@
 # Release status
 
-Benchmark/evaluator version: `0.2.5-pre.20261125` /
-`eovt-evaluator-20261125-v0.2`.
-Public distribution update: 2026-11-25.
+Source candidate: `0.2.6-pre.20261125`; evaluator: `eovt-or-ic-v0.2`.
+Checked on 2026-11-25. Technical execution/resource verification is complete
+for the recorded configuration. The benchmark-owned code/data license remains
+an owner decision; this is not yet a fully licensed final release.
 
-This source version publishes the benchmark interface, diagnostic baselines, current
-versioned OR/IC evaluator and selected OmTrackVLA qualitative demonstrations.
+## Included and executable
 
-## Included
+- 60 fixed author-constructed layouts, 1,800 STT episodes, 630 OR and IC events.
+- Fixed identity descriptions and one Same plus three distinct Similar trials.
+- RGB Tracker PID, Oracle PID, their configurations and the custom environment.
+- Current synchronized OR/IC collection and scoring as the default; historical
+  reproduction only by explicit opt-in.
+- Complete-path/pose IC, actual-loss/visibility OR and layout-cluster bootstrap.
+- A scene-only resource archive and verified acquisition/installation instructions
+  for externally provided humanoids, robot and detector.
+- Original input examples and twelve selected OmTrackVLA first-person task videos.
 
-- Fixed definitions for 60 layouts, 1,800 STT episodes, 630 OR events and
-  630 IC events (one Same and three distinct Similar trials per event).
-- Original-target assignments, descriptions and fixed Similar candidates.
-- RGB Tracker PID and Oracle PID code, configuration and custom environment.
-- Shared evaluator, layout-cluster bootstrap and a historical-metric subset tool.
-- Versioned OR visibility/recovery and Same-referenced IC behavioral
-  scoring modules.
-- Matched Industrial input episodes and selected qualitative videos.
-- Baseline aggregate values and confidence intervals in the README files.
-- External-resource acquisition guidance and compatibility checks.
+See [installation](INSTALLATION.md), [audit](REPOSITORY_AUDIT.md),
+`configs/environment_validated.json` and `VALIDATION_REPORT.json`.
+Fresh-environment checks include actual GPU rollouts, not only CLI help.
 
-## Public distribution
+## Preserved historical material
 
-Baseline raw result JSONs, their result-file manifests and downloadable result
-archives are not distributed. Historical baseline attachment links have been
-removed. Users can evaluate their own locally generated result files.
+Prior numerical baseline aggregates are separately labeled in
+[historical reference results](HISTORICAL_REFERENCE_RESULTS.md), unchanged under
+their original evaluator. They are not current OR/IC measurements. The selected
+0.5x video assets and their evidence remain tied to their immutable source tag
+`v0.2.4-videos.20261125`; later source changes do not rewrite archived hashes.
 
-Scene, humanoid, robot and detector binaries are acquired separately. The
-benchmark scenes were constructed by the benchmark author; a standalone scene
-archive is not attached. Follow the resource guide for the humanoid acquisition
-link, upstream robot/detector sources and checksum verification.
+## Publication scope
 
-The default branch and public release tags use a project-attributed source
-snapshot. Published source files omit personal contact information and private
-machine paths. Platform caches and copies held outside this repository are
-outside the scope of a Git history update.
+No learned-model implementation/weights or raw baseline result population is
+published. Humanoid, robot and detector binaries are not rehosted. Only the
+author-constructed scene resource archive is hosted separately from Git.
+The humanoid ZIP's 500 required actor files and the official detector weights
+were downloaded and verified; the official robot is converted explicitly to
+the fixed experiment form with all 25 output hashes verified.
 
-## Metric version
+Project-attributed source omits private paths and credentials. Existing
+third-party notices remain applicable. Platform copies/caches outside this
+repository are outside the scope of a repository update.
 
-The release adds `eovt-or-ic-v0.2`. OR uses actual runtime loss events
-and synchronized target visibility evidence. IC uses complete Same-referenced
-trajectory and pose evidence; OTPR is not used for the binary decision.
-Previously reported aggregate tables retain their original
-`eovt-evaluator-20261121` label and are not silently recomputed.
-See `evaluation/PROTOCOL.md`.
+## Remaining decision and research scope
 
-## Validation and limitations
+The owner must select licenses for benchmark-owned code, scenes and metadata.
+Public access does not supply these permissions; the current root notice grants
+no new blanket license. Third-party terms cannot be replaced by that decision.
 
-Local checks are recorded in `VALIDATION_REPORT.json`. Current demonstrations
-add four timestamped STT captures, select Road/Indoor cases from the completed
-630-event OR raw collection, and include sixteen IC closed-loop recordings from
-four complete 1+3 events. Each of the four main IC cases uses a different
-event and Same control. The selected OR cases contain visually checked,
-sustained complete disappearance, followed by recovery or failure to recover.
-All task videos and IC Same controls use 0.5x simulation-speed playback:
-presentation time is twice elapsed simulation time. Original scorer
-timestamps and results remain unchanged; no captured frames are dropped
-or interpolated. The video release v0.2.4 is a presentation-only update to v0.2.3.
-The 12 selected main videos are fully decoded and checked against logged frame
-counts. The current IC port matches all 20 frozen development decisions; this
-is code regression, not independent human validation or a clean-install test.
-Historical aggregate performance tables have not been silently recomputed.
-
-Source v0.2.5 corrects citation/inventory metadata and adds protocol/layout
-guards to execution and reporting, and fixes inconsistent Same-collision
-diagnostic text. Numerical OR/IC thresholds, binary decisions and
-the v0.2.4 video assets are unchanged. The archived scorer byte manifest
-remains tied to its source tag. See [repository audit](REPOSITORY_AUDIT.md).
-
-Public access is not a blanket code/data license. Existing copyright notices
-and resource-specific permissions remain applicable. The root `LICENSE`
-does not grant a new license for the complete package.
+Current thresholds are initial declared settings, not universally optimized
+constants. Full current-protocol baseline population results, independent human
+IC validation and broad parameter robustness are not claimed. The benchmark is
+intended for capability diagnosis under a specified protocol, not universal
+model ranking. These limits are separate from the completed installation,
+interface and selected real-run verification.

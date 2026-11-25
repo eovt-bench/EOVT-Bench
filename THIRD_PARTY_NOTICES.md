@@ -22,20 +22,22 @@ does not grant a blanket code/data license.
 
 The mixed scene/humanoid/robot/detector asset archive and its multipart
 attachments have been withdrawn from the benchmark Release.
-Simulation binary resources are excluded from Git; existing local copies are
+Binary resources are excluded from Git. A separate author-constructed scene
+archive is available; it contains no actors, robot or detector files. Existing local copies are
 not deleted. See `docs/THIRD_PARTY_RESOURCES.md` for official acquisition
 routes, destinations, permission steps and compatibility checks.
 
 - Humanoid meshes, model parameters, textures and motions require provenance
   at the actual file/provider level. SMPL-X model and Body terms differ; a
   filename containing `smplx` establishes neither origin nor permission.
-- The benchmark author confirmed on 2026-11-21 that all Road/Route, Indoor and
+- The benchmark author confirmed on 2026-11-21 that all Road, Indoor and
   Industrial scenes were constructed by the author. The scenes are recorded
   as author-constructed benchmark data, rather than an unidentified third-party
   scene collection. The final scene-data license remains the owner's choice.
 - Humanoid acquisition is through the author-supplied
   [humanoids.zip](https://drive.google.com/file/d/1aE_wyvPqvOuVmF8px2vTO3trr70DKf1l/view?pli=1).
-  The viewer is accessible; archive file identity has not yet been verified.
+  All 500 required actor files in the acquired archive matched the pinned
+  inventory on 2026-11-25; the archive is not rehosted here.
   A download link is not a new resource license grant.
 - Spot assets and YOLO11x weights are obtained separately under upstream terms.
   Their expected experiment files remain pinned by checksum.

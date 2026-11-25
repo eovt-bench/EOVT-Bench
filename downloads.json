@@ -1,5 +1,5 @@
 {
-  "version": "0.2.5-pre.20261125",
+  "version": "0.2.6-pre.20261125",
   "repository": "eovt-bench/EOVT-Bench",
   "release_tag": "v0.1.0-pre.20261121",
   "release_tag_scope": "Historical local-archive compatibility only; external resources are not hosted by this tag.",
@@ -15,12 +15,22 @@
         "sha256": "9d7db3df26472edf6592d74c6eb2f69ea72f10d581157f147dd10e6a2271e86a"
       },
       "note": "Not hosted in this Release. Compatibility metadata is only for existing lawfully obtained local archives."
+    },
+    "scenes": {
+      "filename": "eovt-scenes-fixed-20261125.tar.gz",
+      "bytes": 364829856,
+      "sha256": "843b51368a8632e330419c3d667d1807133680cf39d8ac02f214d2ce26a29ef2",
+      "files": 1860,
+      "manifest": "assets/scenes_manifest.json",
+      "delivery": "release_attachment",
+      "release_tag": "v0.2.6-resources.20261125",
+      "instructions": "docs/THIRD_PARTY_RESOURCES.md"
     }
   },
-  "resource_policy_version": "external-resources-20261121",
+  "resource_policy_version": "separate-scenes-and-external-resources-20261125",
   "baseline_publication": {
     "delivery": "readme_numeric_tables_only",
-    "location": "README.md#baseline-reference-values",
+    "location": "docs/HISTORICAL_REFERENCE_RESULTS.md",
     "raw_result_download": false
   }
 }

@@ -1,22 +1,23 @@
 {
-  "version": "0.2.5-pre.20261125",
+  "version": "0.2.6-pre.20261125",
   "evaluator_version": "eovt-evaluator-20261125-v0.2",
   "distribution_update": "2026-11-25",
-  "status": "PASS_FOR_AUDITED_OFFLINE_SOURCE_WITH_DECLARED_LIMITATIONS",
+  "status": "TECHNICAL_RELEASE_CANDIDATE_VERIFIED_OWNER_LICENSE_PENDING",
   "tests": [
     {
       "name": "wsl2_baseline_test_entrypoint",
       "status": "PASS",
-      "tests": 46,
+      "tests": 49,
       "baseline_cli_help": "PASS",
       "aggregate_cli_help": "PASS",
       "package_validation": "PASS",
-      "clean_install": false
+      "clean_install": true,
+      "scope": "Fresh conda prefix; official cached wheels, fixed installed assets, full baseline/evaluation test entrypoint"
     },
     {
       "name": "evaluation_python_unittest",
       "status": "PASS",
-      "tests": 33
+      "tests": 36
     },
     {
       "name": "baseline_core_unittest",
@@ -65,6 +66,47 @@
       "pairs": 20,
       "independent_human_validation": false,
       "rerun_during_source_audit": true
+    },
+    {
+      "name": "current_baseline_execution_and_rescore",
+      "status": "PASS",
+      "checked_events": 9,
+      "independent_cli_rescore": true,
+      "synchronized_masks_and_termination": true,
+      "population_estimate": false,
+      "methods": [
+        "oracle_pid",
+        "rgb_tracker_pid"
+      ],
+      "tasks": [
+        "ic",
+        "or"
+      ]
+    },
+    {
+      "name": "fresh_environment_current_baseline_rescore",
+      "status": "PASS",
+      "checked_events": 2,
+      "independent_cli_rescore": true,
+      "synchronized_masks_and_termination": true,
+      "population_estimate": false,
+      "methods": [
+        "oracle_pid"
+      ],
+      "tasks": [
+        "ic",
+        "or"
+      ]
+    },
+    {
+      "name": "standalone_resource_installation",
+      "status": "PASS",
+      "installed_and_verified_files": 2385,
+      "scenes": 1860,
+      "humanoids": 500,
+      "robot": 25,
+      "errors": [],
+      "baseline_results_published": false
     }
   ],
   "qualitative": {
@@ -98,11 +140,26 @@
     "validation_source_tag": "v0.2.4-videos.20261125; existing decoding/timing evidence retained, videos not re-encoded in source audit"
   },
   "baseline_population_rerun": false,
-  "baseline_online_or_ic_summaries": "legacy; not v0.2 synchronized logging",
-  "baseline_reference_tables": "historical eovt-evaluator-20261121, unchanged",
+  "baseline_online_or_ic_summaries": "Current v0.2 synchronized collector is the default; historical metrics require explicit opt-in.",
+  "baseline_reference_tables": "Historical eovt-evaluator-20261121 values archived in docs/HISTORICAL_REFERENCE_RESULTS.md, unchanged",
   "baseline_raw_results_published": 0,
   "model_artifacts_published": 0,
-  "clean_machine_install": "NOT VERIFIED",
+  "clean_machine_install": {
+    "fresh_conda_environment": "PASS",
+    "declared_requirements_and_pip_check": "PASS",
+    "simulator_version": "0.3.3",
+    "oracle_tasks": [
+      "stt",
+      "or",
+      "ic"
+    ],
+    "rgb_tasks": [
+      "stt"
+    ],
+    "hardware_scope": "Validated Ubuntu 22.04 WSL2 GPU/renderer; not all operating systems/drivers",
+    "resources": "Pinned local resources; separate empty-directory resource installation verified",
+    "official_wheel_cache_used": true
+  },
   "repository_access_at_verification": "PUBLIC",
   "publication_checks": {
     "source_text_files_scanned": 562,
@@ -134,23 +191,49 @@
     "source_inventory": "PASS after regeneration; repeat with scripts/package_inventory.py",
     "metadata_protocol_fields": "Canonical OR/IC names and v0.2 descriptions; original fields preserved as legacy provenance",
     "geometry_and_identity_assignments_unchanged": true,
-    "default_baseline_or_ic_legacy_guard": true,
     "default_aggregation_legacy_guard": true,
     "layout_evidence_required_for_bootstrap": true,
     "historical_sensitivity_tool_guard": true,
     "local_markdown_links": "PASS",
     "learned_model_or_simulation_binaries_in_reachable_git_history": 0,
-    "scope": "Tracked source, four matching release archives, offline code and selected numerical evidence; not every upstream runtime path or a clean GPU installation",
-    "same_collision_diagnostic_consistency": "PASS; existing negative decision preserved"
+    "scope": "Tracked source, release inventories, selected evidence, fresh environment and real simulator smoke checks; not every upstream runtime path or a population rerun",
+    "same_collision_diagnostic_consistency": "PASS; existing negative decision preserved",
+    "default_baseline_current_or_ic": true,
+    "historical_baseline_requires_explicit_opt_in": true,
+    "real_resume_verification": "PASS: same current IC execution skipped with intact evidence; no repeated simulator trial"
   },
   "remaining_work": [
-    "Upgrade and validate baseline v0.2 synchronized OR/IC recording",
-    "Run and report baseline population results under v0.2",
-    "Attach standalone fixed scene package",
-    "Verify humanoid archive compatibility",
-    "Verify clean-machine simulation installation",
-    "Validate current-protocol parameter sensitivity and independent human IC agreement",
-    "Select and document final code/data licensing"
+    "Owner to select the benchmark-owned code, scene and metadata licenses"
   ],
-  "numerical_protocol_thresholds_and_checked_binary_decisions_unchanged": true
+  "numerical_protocol_thresholds_and_checked_binary_decisions_unchanged": true,
+  "research_validation_scope": {
+    "thresholds": "Declared initial operational settings; not universally optimal",
+    "population_baseline_v02": "Not rerun; historical tables are separated",
+    "independent_human_ic_agreement": "Not completed; 20 development pairs are regression only",
+    "parameter_sensitivity": "Historical subset analysis does not establish v0.2 robustness"
+  },
+  "standalone_scene_archive": {
+    "filename": "eovt-scenes-fixed-20261125.tar.gz",
+    "bytes": 364829856,
+    "sha256": "843b51368a8632e330419c3d667d1807133680cf39d8ac02f214d2ce26a29ef2",
+    "files": 1860,
+    "manifest": "assets/scenes_manifest.json",
+    "contains_third_party_actor_robot_detector": false
+  },
+  "external_acquisition": {
+    "humanoids": {
+      "archive_bytes": 393682777,
+      "archive_sha256": "6efcfae8d13dd963c8f39a6b693b00f39edf2a184b682a03ee0188d163e47cb9",
+      "required": 500,
+      "verified": 500,
+      "missing": [],
+      "mismatched": [],
+      "checked_at": "2026-11-25",
+      "status": "PASS"
+    },
+    "detector_official_hash_match": true,
+    "spot_official_files": 25,
+    "spot_converted_exact_experiment_matches": 25,
+    "spot_source_manifest": "assets/spot_upstream_manifest.json"
+  }
 }

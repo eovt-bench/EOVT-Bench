@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import tarfile
 import tempfile
+import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path, PurePosixPath
 
@@ -79,11 +80,23 @@ def download_archive(directory: Path, item: dict, config: dict, workers: int = 4
         if valid_file(target, entry):
             return
         with tempfile.TemporaryDirectory(prefix="download-", dir=directory) as folder:
-            subprocess.run([
-                "gh", "release", "download", config["release_tag"],
-                "--repo", config["repository"], "--pattern", entry["filename"], "--dir", folder,
-            ], check=True)
             incoming = Path(folder) / entry["filename"]
+            tag = item.get("release_tag", config["release_tag"])
+            url = (
+                f"https://github.com/{config['repository']}/releases/download/"
+                f"{tag}/{entry['filename']}"
+            )
+            try:
+                with urllib.request.urlopen(url, timeout=120) as source, incoming.open("wb") as writer:
+                    shutil.copyfileobj(source, writer)
+            except OSError:
+                if not shutil.which("gh"):
+                    raise
+                incoming.unlink(missing_ok=True)
+                subprocess.run([
+                    "gh", "release", "download", tag,
+                    "--repo", config["repository"], "--pattern", entry["filename"], "--dir", folder,
+                ], check=True)
             if not valid_file(incoming, entry):
                 raise ValueError(f"Downloaded size/SHA-256 mismatch: {entry['filename']}")
             incoming.replace(target)
@@ -151,7 +164,7 @@ def install(archive: Path, item: dict, overwrite: bool):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--kind", choices=("assets",), required=True)
+    parser.add_argument("--kind", choices=("scenes", "assets"), required=True)
     source = parser.add_mutually_exclusive_group()
     source.add_argument("--archive", type=Path, help="Install an existing complete archive")
     source.add_argument("--parts-dir", type=Path, help="Assemble manually downloaded resource parts")
@@ -191,8 +204,6 @@ def main():
         )
         install(archive, item, args.overwrite)
         return
-    if not shutil.which("gh"):
-        parser.error("Authenticate GitHub CLI first, or supply --archive / --parts-dir.")
     archive = download_archive(downloads, item, config, args.workers)
     install(archive, item, args.overwrite)
 

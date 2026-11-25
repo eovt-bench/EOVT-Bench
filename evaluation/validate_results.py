@@ -20,7 +20,8 @@ def main() -> int:
     root = Path(args.path).expanduser().resolve()
     valid = invalid = 0
     for path in root.rglob("*.json"):
-        if path.name.endswith("_info.json") or "status" in path.name.lower():
+        if (path.name.endswith("_info.json") or "status" in path.name.lower()
+                or any(part.endswith("_evidence") for part in path.relative_to(root).parts[:-1])):
             continue
         try:
             data = json.loads(path.read_text(encoding="utf-8"))

@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import asdict
+import hashlib
+import json
 import os
 import random
 import sys
@@ -36,6 +39,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--split-num", type=int, default=1)
     parser.add_argument("--split-id", type=int, default=0)
     parser.add_argument("--max-episodes", type=int)
+    parser.add_argument("--episode-id", action="append", help="Evaluate only this fixed episode/event ID; repeatable")
+    parser.add_argument("--seed", type=int, default=20261121, help="Python/NumPy trial seed; shared across IC controls")
     parser.add_argument("--gpu", type=int, default=0, help="Habitat and detector CUDA device index")
     parser.add_argument("--egl-device", type=int, help="Optional Habitat-Sim EGL device override")
     parser.add_argument("--resume", action="store_true")
@@ -47,14 +52,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def require_supported_protocol(args) -> None:
-    """Reject an implicit historical OR/IC run before starting the simulator."""
-    if args.task in {"or", "ic"} and not args.legacy_online_metrics:
-        raise SystemExit(
-            "The baseline runner does not collect complete v0.2 OR/IC evidence. "
-            "Use evaluation/score_or_ic.py with synchronized evidence for current scoring. "
-            "To reproduce historical online metrics only, add --legacy-online-metrics. "
-            "See docs/BASELINES.md."
-        )
+    """Historical scoring must be explicitly selected and cannot apply to STT."""
     if args.task == "stt" and args.legacy_online_metrics:
         raise SystemExit("--legacy-online-metrics applies only to OR/IC")
 
@@ -75,7 +73,7 @@ def main(argv: list[str] | None = None) -> int:
         config_override = EOVT_BENCH_ROOT / "configs" / "baselines" / f"{args.variant}_ic.json"
     baseline_config = load_config(args.variant, config_override)
     baseline_config.detector["device"] = "cuda:0"
-    suffix = args.task if args.task == "stt" else f"{args.task}_legacy"
+    suffix = f"{args.task}_legacy" if args.legacy_online_metrics else args.task
     output = writable_path(args.output or f"outputs/{args.variant}/{suffix}")
     output.mkdir(parents=True, exist_ok=True)
     status_path = output / "run_status_info.json"
@@ -83,7 +81,7 @@ def main(argv: list[str] | None = None) -> int:
         "status": "RUNNING", "variant": args.variant, "task": args.task,
         "split_id": args.split_id, "split_num": args.split_num,
         "legacy_online_metrics": args.legacy_online_metrics,
-        "current_or_ic_evidence_collected": False,
+        "current_or_ic_evidence_collected": args.task in {"or", "ic"} and not args.legacy_online_metrics,
     }
     atomic_write_json(status_path, status)
 
@@ -129,13 +127,44 @@ def main(argv: list[str] | None = None) -> int:
         random.seed(seed)
         np.random.seed(seed)
         dataset = habitat.datasets.make_dataset(habitat_config.habitat.dataset.type, config=habitat_config.habitat.dataset)
+        if args.episode_id:
+            selected = set(args.episode_id)
+            dataset.episodes = [e for e in dataset.episodes if str(e.episode_id) in selected]
+            missing = selected - {str(e.episode_id) for e in dataset.episodes}
+            if missing:
+                raise ValueError(f"Unknown fixed episode IDs: {sorted(missing)}")
         try:
             splits = dataset.get_splits(args.split_num, allow_uneven_splits=True)
         except TypeError:
             splits = dataset.get_splits(args.split_num)
         dataset = splits[args.split_id]
         agent = BaselineAgent(baseline_config, device_override="cuda:0")
-        if args.task == "ic":
+        if args.task in {"or", "ic"} and not args.legacy_online_metrics:
+            from omegaconf import OmegaConf
+            from .current_evaluator import evaluate_current
+
+            source_files = [
+                *sorted((BASELINE_ROOT / "eovt_baseline").glob("*.py")),
+                *sorted((EOVT_BENCH_ROOT / "evaluation").glob("*.py")),
+                *sorted((EOVT_BENCH_ROOT / "configs/evaluation").glob("*v0.2.json")),
+            ]
+            manifest = {
+                "task": args.task, "method": asdict(baseline_config), "seed": args.seed,
+                "dataset_sha256": hashlib.sha256(data_path.read_bytes()).hexdigest(),
+                "simulator_config": OmegaConf.to_container(habitat_config, resolve=True),
+                "source_sha256": {
+                    str(p.relative_to(EOVT_BENCH_ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+                    for p in source_files
+                },
+            }
+            fingerprint = hashlib.sha256(json.dumps(manifest, sort_keys=True).encode()).hexdigest()
+            atomic_write_json(output / "run_manifest_info.json", {**manifest, "execution_fingerprint": fingerprint})
+            counts = evaluate_current(
+                habitat, habitat_config, dataset, agent, baseline_config, args.task, output,
+                resume=args.resume, max_episodes=args.max_episodes,
+                fingerprint=fingerprint, seed=args.seed,
+            )
+        elif args.task == "ic":
             counts = evaluate_identity(
                 habitat, habitat_config, dataset, agent, baseline_config, output,
                 resume=args.resume, max_episodes=args.max_episodes,
