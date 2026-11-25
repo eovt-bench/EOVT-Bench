@@ -22,7 +22,7 @@ Additional manifests are under `episodes/metadata/`.
 | `info.robot_position`, `info.robot_rotation` | Robot initial state consumed by custom task |
 | `info.main_humanoid_name` | Original target asset ID |
 | `info.instruction` | Language description/instruction |
-| `info.evt_generation` | Reference-generation metadata and navigation resources |
+| `info.eovt_generation` | Reference-generation metadata and navigation resources |
 | `info.eovt_task` | OR/IC event and trial definition |
 
 The bundled custom environment defines coordinate/rotation use and action
@@ -47,14 +47,16 @@ contain synchronized `step`, `simulation_time_s`, `target_pixels`,
 ## IC trials
 
 `identity_protocol_version = appearance_top3_1same_3similar_v1`.
-Each event has one `same` and three `similar_swap` trials, with three distinct
+Each event has one `same` and three `similar` trials, with three distinct
 candidate actors excluding the original target.
 The original target, descriptions, selection seed and candidates are frozen
 in the metadata; methods do not resample them independently.
 Published candidate assignments are not restricted to the same gender.
 
 The original target remains present and an additional actor is activated.
-The legacy string `similar_swap` does not mean removal of the original.
+The canonical condition name is `similar`. Readers may accept the legacy
+strings `similar_swap` and `swap` for backward compatibility; neither means
+removal of the original target.
 `expected_label` is not a model-predicted binary classification label.
 The effective action mode is `closed_loop_model_actions_executed`.
 `legacy_action_mode`, if present, does not override the effective runtime mode.

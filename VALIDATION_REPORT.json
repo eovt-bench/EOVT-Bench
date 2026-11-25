@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0-pre.20261125",
+  "version": "0.2.1-pre.20261125",
   "evaluator_version": "eovt-evaluator-20261125",
   "distribution_update": "2026-11-25",
   "status": "PASS_FOR_PUBLIC_PROTOCOL_UPDATE",
@@ -8,7 +8,7 @@
     {
       "name": "public_python_unittest",
       "status": "PASS",
-      "tests": 16
+      "tests": 29
     },
     {
       "name": "package_validation",
@@ -30,7 +30,7 @@
   "clean_machine_install": "NOT VERIFIED",
   "privacy_scope": "Tracked source, compressed metadata and public Git author/committer records; external caches and copies are not covered",
   "publication_checks": {
-    "tracked_files": 548,
+    "tracked_files": 562,
     "personal_identity_or_secret_matches": 0,
     "compressed_metadata_scanned": true,
     "qualitative_archive_members_scanned": 85,

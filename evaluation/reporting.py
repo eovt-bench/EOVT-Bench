@@ -46,7 +46,7 @@ def summarize_directory(path: Path, task: str, repetitions: int = 2000, seed: in
             if (
                 len(trials) != 4
                 or sum(t.get("condition") == "same" for t in trials) != 1
-                or sum(t.get("condition") in ("swap", "similar_swap") for t in trials) != 3
+                or sum(t.get("condition") in ("similar", "swap", "similar_swap") for t in trials) != 3
             ):
                 problems.append("incomplete or legacy IC structure")
         if problems:

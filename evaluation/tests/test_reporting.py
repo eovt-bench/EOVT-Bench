@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "evaluation"))
 sys.path.insert(0, str(ROOT / "baselines"))
 from reporting import summarize_directory
-from occbench_baseline.result_schema import validate_result, valid_final_result
+from eovt_baseline.result_schema import validate_result, valid_final_result
 
 
 class ReportingTests(unittest.TestCase):
@@ -18,7 +18,7 @@ class ReportingTests(unittest.TestCase):
             "success": 1, "following_rate": 0.8, "collision": 0,
             "identity_trial_results": [
                 {"condition": "same", "success": 1, "collision": 0},
-                *[{"condition": "similar_swap", "success": 1, "collision": 0, "target_dominance": d}
+                *[{"condition": "similar", "success": 1, "collision": 0, "target_dominance": d}
                   for d in (0.2, 0.8, 0.5)],
             ],
         }

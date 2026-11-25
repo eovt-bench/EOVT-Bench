@@ -1,5 +1,5 @@
 {
-  "format": "EVT-Bench humanoid appearance-neighbor annotation",
+  "format": "EOVT-Bench humanoid appearance-neighbor annotation",
   "feature_version": "atlas_rgb_hsv_spatial_v1",
   "selection_policy": "top_k_cosine_neighbors_within_cluster_then_global_fallback",
   "seed": 20260928,

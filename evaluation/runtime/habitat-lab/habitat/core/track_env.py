@@ -158,7 +158,7 @@ class TrackEnv:
 
     @current_episode.setter
     def current_episode(self, episode: Episode) -> None:
-        self._resolve_occbench_episode_paths(episode)
+        self._resolve_eovt_episode_paths(episode)
         self._current_episode = episode
         # This allows the current episode to be set here
         # and then reset be called without the episode changing
@@ -406,9 +406,9 @@ class TrackEnv:
         self.close()
 
     @staticmethod
-    def _resolve_occbench_episode_paths(episode: Episode) -> None:
-        """Resolve scene paths stored relative to ``OCCBENCH_ROOT``."""
-        root = os.environ.get("OCCBENCH_ROOT")
+    def _resolve_eovt_episode_paths(episode: Episode) -> None:
+        """Resolve scene paths stored relative to ``EOVT_BENCH_ROOT``."""
+        root = os.environ.get("EOVT_BENCH_ROOT")
         if not root:
             return
         root = os.path.abspath(os.path.expanduser(root))

@@ -8,8 +8,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from occbench_baseline.paths import resolve_readonly  # noqa: E402
-from occbench_baseline.result_schema import validate_result  # noqa: E402
+from eovt_baseline.paths import resolve_readonly  # noqa: E402
+from eovt_baseline.result_schema import validate_result  # noqa: E402
 
 
 def main() -> int:

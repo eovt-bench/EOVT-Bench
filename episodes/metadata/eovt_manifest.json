@@ -1,0 +1,17 @@
+{
+  "name": "EOVT-Bench",
+  "root": ".",
+  "root_env": "EOVT_BENCH_ROOT",
+  "scene_prefix": "scenes/layout_instances/",
+  "datasets": {
+    "STT": "episodes/STT/val/val.json.gz",
+    "OR": "episodes/OR/val/val.json.gz",
+    "IC": "episodes/IC/val/val.json.gz"
+  },
+  "note": "Scene assets are provided by the layout_instances junction; no meshes are duplicated.",
+  "task_names": {
+    "STT": "Single-Target Tracking",
+    "OR": "Post-Occlusion Target Reacquisition",
+    "IC": "Post-Occlusion Identity Consistency"
+  }
+}

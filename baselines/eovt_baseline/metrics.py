@@ -22,7 +22,7 @@ def generic_metrics(step_records: list[dict[str, Any]], final_info: dict[str, An
 
 
 def occlusion_metrics(visibility: Iterable[bool]) -> dict[str, float | int | None]:
-    """Compatibility implementation of the current OccBench OR protocol.
+    """Compatibility implementation of the current EOVT-Bench OR protocol.
 
     A loss event begins at the first visible->not-visible transition. VOR means
     a post-loss observation window exists; RSR means visibility later returns;
@@ -54,26 +54,28 @@ def occlusion_metrics(visibility: Iterable[bool]) -> dict[str, float | int | Non
 
 def identity_metrics(trials: list[dict[str, Any]]) -> dict[str, float | int]:
     same = [float(t["success"]) for t in trials if t.get("condition") == "same"]
-    swap = [
+    similar = [
         float(t["target_retained"])
         for t in trials
-        if t.get("condition") in {"swap", "similar_swap"} and t.get("target_retained") is not None
+        if t.get("condition") in {"similar", "swap", "similar_swap"} and t.get("target_retained") is not None
     ]
     same_sr = sum(same) / len(same) if same else 0.0
-    swap_sr = sum(swap) / len(swap) if swap else 0.0
-    bia = (same_sr + swap_sr) / 2.0
+    similar_sr = sum(similar) / len(similar) if similar else 0.0
+    bia = (same_sr + similar_sr) / 2.0
     return {
         "same_success_rate": same_sr,
-        "swap_success_rate": swap_sr,
-        "similar_success_rate": swap_sr,
-        "similar_swap_success": swap_sr,
+        "similar_success_rate": similar_sr,
+        # Legacy aliases are retained only so older result readers remain usable.
+        "swap_success_rate": similar_sr,
+        "similar_swap_success": similar_sr,
         "balanced_identity_accuracy": bia,
         "same_sr": same_sr,
-        "swap_sr": swap_sr,
+        "similar_sr": similar_sr,
+        "swap_sr": similar_sr,
         "bia": bia,
         "same_trials": len(same),
-        "swap_trials": len(swap),
-        "similar_trials": len(swap),
+        "similar_trials": len(similar),
+        "swap_trials": len(similar),
     }
 
 

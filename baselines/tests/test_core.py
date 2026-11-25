@@ -7,15 +7,15 @@ from pathlib import Path
 
 import numpy as np
 
-from occbench_baseline.config import ControllerConfig, TrackerConfig
-from occbench_baseline.controller import BBoxPIDController
-from occbench_baseline.detectors import OracleBBoxDetector
-from occbench_baseline.metrics import identity_metrics, occlusion_metrics
-from occbench_baseline.paths import BASELINE_ROOT, writable_path
-from occbench_baseline.result_schema import atomic_write_json, valid_final_result, validate_result
-from occbench_baseline.runtime import layout_id, scene_category
-from occbench_baseline.tracker import AppearanceTracker, bbox_iou
-from occbench_baseline.types import Detection, TrackState
+from eovt_baseline.config import ControllerConfig, TrackerConfig
+from eovt_baseline.controller import BBoxPIDController
+from eovt_baseline.detectors import OracleBBoxDetector
+from eovt_baseline.metrics import identity_metrics, occlusion_metrics
+from eovt_baseline.paths import BASELINE_ROOT, writable_path
+from eovt_baseline.result_schema import atomic_write_json, valid_final_result, validate_result
+from eovt_baseline.runtime import layout_id, scene_category
+from eovt_baseline.tracker import AppearanceTracker, bbox_iou
+from eovt_baseline.types import Detection, TrackState
 
 
 class ControllerTests(unittest.TestCase):
@@ -78,15 +78,15 @@ class MetricTests(unittest.TestCase):
         self.assertEqual(result["swap_success_rate"], 0.5)
         self.assertEqual(result["balanced_identity_accuracy"], 0.75)
 
-    def test_identity_similar_swap_protocol(self):
+    def test_identity_similar_protocol(self):
         result = identity_metrics([
             {"condition": "same", "success": 1.0},
-            {"condition": "similar_swap", "target_retained": 1.0},
-            {"condition": "similar_swap", "target_retained": 0.0},
-            {"condition": "similar_swap", "target_retained": 1.0},
+            {"condition": "similar", "target_retained": 1.0},
+            {"condition": "similar", "target_retained": 0.0},
+            {"condition": "similar", "target_retained": 1.0},
         ])
         self.assertEqual(result["same_success_rate"], 1.0)
-        self.assertAlmostEqual(result["similar_swap_success"], 2 / 3)
+        self.assertAlmostEqual(result["similar_success_rate"], 2 / 3)
         self.assertAlmostEqual(result["balanced_identity_accuracy"], 5 / 6)
 
 

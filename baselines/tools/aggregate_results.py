@@ -12,15 +12,15 @@ from statistics import mean
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from occbench_baseline.paths import resolve_readonly  # noqa: E402
-from occbench_baseline.result_schema import validate_result  # noqa: E402
+from eovt_baseline.paths import resolve_readonly  # noqa: E402
+from eovt_baseline.result_schema import validate_result  # noqa: E402
 
 
 METRICS = (
     "success", "following_rate", "collision",
     "reacquisition_success", "visibility_opportunity", "conditional_reacquisition", "recovery_steps",
-    "same_success_rate", "swap_success_rate", "similar_success_rate",
-    "similar_swap_success", "balanced_identity_accuracy",
+    "same_success_rate", "similar_success_rate",
+    "swap_success_rate", "similar_swap_success", "balanced_identity_accuracy",
 )
 
 

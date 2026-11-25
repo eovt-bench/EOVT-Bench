@@ -1,6 +1,6 @@
 # Release status
 
-Benchmark/evaluator version: `0.2.0-pre.20261125` /
+Benchmark/evaluator version: `0.2.1-pre.20261125` /
 `eovt-evaluator-20261125`.
 Public distribution update: 2026-11-25.
 

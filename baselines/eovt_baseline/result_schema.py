@@ -86,7 +86,7 @@ def validate_result(data: dict[str, Any], task: str | None = None) -> list[str]:
             errors.append("IC requires four identity_trial_results")
         elif (
             sum(t.get("condition") == "same" for t in trials) != 1
-            or sum(t.get("condition") in ("swap", "similar_swap") for t in trials) != 3
+            or sum(t.get("condition") in ("similar", "swap", "similar_swap") for t in trials) != 3
         ):
             errors.append("IC requires one Same and three Similar trials")
         else:

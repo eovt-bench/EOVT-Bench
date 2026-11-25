@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reproducible EVT-Bench / OccBench result analysis.
+"""Reproducible EOVT-Bench result analysis.
 
 The script only reads result JSON files. It does not modify model code or result
 files. Outputs are CSV, Markdown, LaTeX, JSON, and a data-quality report.
@@ -239,7 +239,7 @@ def ic_event_metrics(records: list[dict[str, Any]]) -> dict[str, Any]:
         if len(trials) != 4:
             continue
         same = [t for t in trials if t.get("condition") == "same"]
-        similar = [t for t in trials if t.get("condition") in ("swap", "similar_swap")]
+        similar = [t for t in trials if t.get("condition") in ("similar", "swap", "similar_swap")]
         if len(same) != 1 or len(similar) != 3:
             continue
         same_trial = same[0]

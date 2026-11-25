@@ -15,7 +15,7 @@
     },
     {
       "round_id": 1,
-      "condition": "similar_swap",
+      "condition": "similar",
       "expected_label": "same_target",
       "actor_name_after_occlusion": "female_7",
       "candidate_description": "The woman wearing a brown top and brown trousers.",
@@ -25,7 +25,7 @@
     },
     {
       "round_id": 2,
-      "condition": "similar_swap",
+      "condition": "similar",
       "expected_label": "same_target",
       "actor_name_after_occlusion": "male_7",
       "candidate_description": "The man wearing a brown top and brown trousers.",
@@ -35,7 +35,7 @@
     },
     {
       "round_id": 3,
-      "condition": "similar_swap",
+      "condition": "similar",
       "expected_label": "same_target",
       "actor_name_after_occlusion": "female_21",
       "candidate_description": "The woman wearing a black top and black trousers.",

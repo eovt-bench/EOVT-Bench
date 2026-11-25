@@ -11,7 +11,7 @@ import numpy as np
 from .agent import BaselineAgent
 from .config import BaselineConfig
 from .metrics import generic_metrics, identity_metrics, occlusion_metrics
-from .paths import EVT_ROOT, writable_path
+from .paths import EOVT_BENCH_ROOT, writable_path
 from .result_schema import atomic_write_json, valid_final_result
 from .runtime import layout_id, preconfigure_avatar, scene_category
 
@@ -96,7 +96,7 @@ def run_episode(
     previous_visible = False
     robot = env.sim.agents_mgr[1].articulated_agent
     target = env.sim.agents_mgr[0].articulated_agent
-    is_similar = identity_condition in {"swap", "similar_swap"}
+    is_similar = identity_condition in {"similar", "swap", "similar_swap"}
     candidate = env.sim.agents_mgr[candidate_index].articulated_agent if is_similar else None
     if candidate is not None:
         candidate.base_pos = target.base_pos + np.asarray([100.0, 0.0, 100.0], dtype=np.float32)
@@ -171,7 +171,7 @@ def _base_result(episode: Any, task: str, method: str) -> dict[str, Any]:
     event = _event_metadata(episode)
     info = getattr(episode, "info", {}) or {}
     return {
-        "schema_version": "occbench-baseline-v1",
+        "schema_version": "eovt-bench-baseline-v1",
         "episode_id": str(episode.episode_id),
         "source_episode_id": event.get("source_episode_id", info.get("source_episode_id", episode.episode_id)),
         "task": task,
@@ -234,7 +234,7 @@ def _identity_trial_config(base_config: Any, episode: Any, trial: dict[str, Any]
     info = trial_episode.info
     target_name = str(trial.get("target_actor_name", info.get("main_humanoid_name", "male_4")))
     preconfigure_avatar(config, "agent_0", target_name)
-    if trial.get("condition") in {"swap", "similar_swap"}:
+    if trial.get("condition") in {"similar", "swap", "similar_swap"}:
         candidate = str(trial["actor_name_after_occlusion"])
         preconfigure_avatar(config, "agent_2", candidate)
         info["human_num"] = max(1, int(info.get("human_num", 0)))
@@ -270,7 +270,7 @@ def evaluate_identity(
                     existing.get("identity_protocol") == "appearance_top3_1same_3similar_v1"
                     and len(existing.get("identity_trial_results", [])) == 4
                     and all(key in existing for key in (
-                        "same_success_rate", "similar_swap_success", "balanced_identity_accuracy"
+                        "same_success_rate", "similar_success_rate", "balanced_identity_accuracy"
                     ))
                 )
             except (OSError, ValueError, TypeError):
@@ -287,14 +287,14 @@ def evaluate_identity(
         protocol = str(event.get("identity_protocol_version", ""))
         if protocol == "appearance_top3_1same_3similar_v1":
             same_trials = [t for t in trials if t.get("condition") == "same"]
-            similar_trials = [t for t in trials if t.get("condition") == "similar_swap"]
+            similar_trials = [t for t in trials if t.get("condition") in {"similar", "swap", "similar_swap"}]
             candidates = [t.get("actor_name_after_occlusion") for t in similar_trials]
             if len(trials) != 4 or len(same_trials) != 1 or len(similar_trials) != 3 or len(set(candidates)) != 3:
                 failed += 1
                 atomic_write_json(info_path, {
                     **_base_result(episode, "ic", baseline_config.variant),
                     "status": "FAIL",
-                    "error": "appearance IC requires exactly 1 same + 3 distinct similar_swap trials",
+                    "error": "appearance IC requires exactly 1 same + 3 distinct similar trials",
                 })
                 continue
         trial_results = []
@@ -343,6 +343,8 @@ def evaluate_identity(
                 "collision": float(np.mean([row["collision"] for row in trial_results])),
                 **special,
                 "same_success": special["same_success_rate"],
+                "similar_success": special["similar_success_rate"],
+                # Legacy aliases remain in generated output for audit compatibility.
                 "swap_success": special["swap_success_rate"],
                 "similar_bia": special["balanced_identity_accuracy"],
                 "identity_protocol": protocol or "closed_loop_target_vs_distractor_v2",
@@ -352,7 +354,7 @@ def evaluate_identity(
             atomic_write_json(info_path, {**_base_result(episode, "ic", baseline_config.variant), "trials": trial_details})
             atomic_write_json(final_path, result)
             completed += 1
-            print(f"[ic] {index}/{len(episodes)} {episode.episode_id} SameSR={special['same_success_rate']:.3f} SimilarSR={special['similar_swap_success']:.3f} BIA={special['balanced_identity_accuracy']:.3f}", flush=True)
+            print(f"[ic] {index}/{len(episodes)} {episode.episode_id} SameSR={special['same_success_rate']:.3f} SimilarSR={special['similar_success_rate']:.3f} BIA={special['balanced_identity_accuracy']:.3f}", flush=True)
         except Exception as exc:
             failed += 1
             atomic_write_json(info_path, {**_base_result(episode, "ic", baseline_config.variant), "status": "FAIL", "error": repr(exc), "partial_trials": trial_details})

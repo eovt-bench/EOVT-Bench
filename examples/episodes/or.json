@@ -30,8 +30,8 @@
     "extra_humanoid_names": [],
     "instruction": "Follow the person in front of you.",
     "episode_mode": "stt",
-    "evt_generation": {
-      "method": "evt_bench_random_waypoints",
+    "eovt_generation": {
+      "method": "eovt_bench_random_waypoints",
       "generation_seed": 20460941,
       "human_navmesh": "scenes/layout_instances/003_industrial_layout_01_seed_20260923/industrial.human.navmesh",
       "dog_navmesh": "scenes/layout_instances/003_industrial_layout_01_seed_20260923/industrial.dog.navmesh",

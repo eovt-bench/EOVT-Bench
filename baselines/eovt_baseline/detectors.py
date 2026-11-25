@@ -17,7 +17,7 @@ def find_sensor(observations: dict[str, Any], suffix: str) -> np.ndarray:
 
 
 class OracleBBoxDetector:
-    """Use OccBench's target-specific detector observation (oracle/sanity baseline)."""
+    """Use EOVT-Bench's target-specific detector observation (oracle/sanity baseline)."""
 
     def __init__(self, config: dict[str, Any]):
         self.min_pixels = int(config.get("min_pixels", 1))

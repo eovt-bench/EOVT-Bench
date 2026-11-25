@@ -6,7 +6,7 @@ import builtins
 from pathlib import Path
 from typing import Any
 
-from .paths import BASELINE_ROOT, EVT_ROOT, ensure_runtime_dirs, resolve_readonly
+from .paths import BASELINE_ROOT, EOVT_BENCH_ROOT, ensure_runtime_dirs, resolve_readonly
 
 
 TASK_DIRS = {
@@ -52,13 +52,13 @@ def install_driver_paths(driver_root: str | Path) -> Path:
 def install_readonly_humanoid_info_redirect(driver_root: str | Path) -> None:
     """Redirect the driver's one hard-coded relative metadata read.
 
-    The upstream task calls ``open('humanoid_infos.json')``. OccBench scenes,
-    however, require the process cwd to be Occbench so their relative asset
+    The upstream task calls ``open('humanoid_infos.json')``. EOVT-Bench scenes,
+    however, require the process cwd to be EOVT-Bench so their relative asset
     manifests resolve. Redirect only that exact read without copying or
     modifying either external tree.
     """
     driver = resolve_readonly(driver_root)
-    metadata = EVT_ROOT / "assets" / "humanoids" / "humanoid_infos.json"
+    metadata = EOVT_BENCH_ROOT / "assets" / "humanoids" / "humanoid_infos.json"
     if not metadata.is_file():
         raise FileNotFoundError(f"humanoid metadata not found: {metadata}")
     original_open = builtins.open
@@ -110,7 +110,7 @@ def layout_id(episode: Any) -> str | None:
 
 def preconfigure_avatar(config: Any, agent_name: str, avatar_name: str) -> None:
     """Modify only the in-memory Hydra config; external YAML is never written."""
-    avatar_root = EVT_ROOT / "assets" / "humanoids" / "humanoid_data" / avatar_name
+    avatar_root = EOVT_BENCH_ROOT / "assets" / "humanoids" / "humanoid_data" / avatar_name
     urdf = avatar_root / f"{avatar_name}.urdf"
     motion = avatar_root / f"{avatar_name}_motion_data_smplx.pkl"
     if not urdf.is_file() or not motion.is_file():

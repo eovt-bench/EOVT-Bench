@@ -16,14 +16,14 @@ def validate():
    ids.add(ep['episode_id']);ref(ep['scene_id']);ref(ep['scene_dataset_config'])
    layouts.add(Path(ep['scene_id']).parent.name)
    info=ep['info'];actors.add(info['main_humanoid_name']);actors.update(info.get('extra_humanoid_names',[]))
-   gen=info.get('evt_generation',{})
+   gen=info.get('eovt_generation',{})
    for k in ['human_navmesh','dog_navmesh']:
     if gen.get(k):ref(gen[k])
    if task=='IC':
     event=info['eovt_task'];trials=event.get('identity_trials',[])
     if ep.get('eovt_event')!=event:errors.append('conflicting IC aliases '+ep['episode_id'])
     if event.get('action_mode')!='closed_loop_model_actions_executed':errors.append('wrong effective IC action mode '+ep['episode_id'])
-    same=[t for t in trials if t['condition']=='same'];similar=[t for t in trials if t['condition']=='similar_swap']
+    same=[t for t in trials if t['condition']=='same'];similar=[t for t in trials if t['condition'] in ('similar','similar_swap')]
     cand=[t['actor_name_after_occlusion'] for t in similar];actors.update(cand)
     if len(same)!=1 or len(similar)!=3 or len(set(cand))!=3 or info['main_humanoid_name'] in cand:errors.append('invalid IC '+ep['episode_id'])
  for actor in sorted(actors):

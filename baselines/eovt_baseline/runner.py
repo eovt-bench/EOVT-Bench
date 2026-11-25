@@ -12,7 +12,7 @@ import numpy as np
 from .agent import BaselineAgent
 from .config import load_config
 from .evaluator import evaluate_identity, evaluate_standard
-from .paths import BASELINE_ROOT, EVT_ROOT, OCCBENCH_ROOT, resolve_readonly, writable_path
+from .paths import BASELINE_ROOT, EOVT_BENCH_ROOT, resolve_readonly, writable_path
 from .result_schema import atomic_write_json
 from .runtime import (
     configure_process_environment,
@@ -24,12 +24,12 @@ from .runtime import (
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Independent OccBench oracle/RGB PID baselines")
+    parser = argparse.ArgumentParser(description="Independent EOVT-Bench oracle/RGB PID baselines")
     parser.add_argument("--variant", choices=("oracle_pid", "rgb_tracker_pid"), required=True)
     parser.add_argument("--task", choices=("stt", "or", "ic"), required=True)
     parser.add_argument("--config", help="Baseline JSON config; default configs/<variant>.json")
     parser.add_argument("--driver-root", default="../evaluation/runtime", help="Read-only bundled environment driver")
-    parser.add_argument("--dataset-root", default="../episodes", help="Read-only OccBench dataset root")
+    parser.add_argument("--dataset-root", default="../episodes", help="Read-only EOVT-Bench dataset root")
     parser.add_argument("--dataset-path", help="Explicit read-only dataset JSON.GZ (recommended for IC appearance v2)")
     parser.add_argument("--habitat-config", default="configs/habitat/benchmark/nav/track/track_infer_stt.yaml")
     parser.add_argument("--output", help="Output path; must remain inside this baseline directory")
@@ -54,7 +54,7 @@ def main(argv: list[str] | None = None) -> int:
     driver = install_driver_paths(args.driver_root)
     config_override = args.config
     if config_override is None and args.task == "ic":
-        config_override = OCCBENCH_ROOT / "configs" / "baselines" / f"{args.variant}_ic.json"
+        config_override = EOVT_BENCH_ROOT / "configs" / "baselines" / f"{args.variant}_ic.json"
     baseline_config = load_config(args.variant, config_override)
     baseline_config.detector["device"] = "cuda:0"
     output = writable_path(args.output or f"outputs/{args.variant}/{args.task}")
@@ -64,16 +64,16 @@ def main(argv: list[str] | None = None) -> int:
     atomic_write_json(status_path, status)
 
     try:
-        # OccBench's scene dataset manifests contain relative asset paths and
+        # EOVT-Bench's scene dataset manifests contain relative asset paths and
         # therefore require this cwd. A narrowly scoped read redirect handles
         # the upstream task's hard-coded humanoid_infos.json path.
-        os.chdir(OCCBENCH_ROOT)
+        os.chdir(EOVT_BENCH_ROOT)
         install_readonly_humanoid_info_redirect(driver)
         import habitat
-        import evt_bench  # noqa: F401 - registers the dataset/task
+        import eovt_bench  # noqa: F401 - registers the dataset/task
         from habitat.config import read_write
 
-        config_path = resolve_readonly(OCCBENCH_ROOT / args.habitat_config)
+        config_path = resolve_readonly(EOVT_BENCH_ROOT / args.habitat_config)
         habitat_config = habitat.get_config(str(config_path))
         if args.dataset_path:
             data_path = Path(args.dataset_path).expanduser().resolve()
@@ -81,7 +81,7 @@ def main(argv: list[str] | None = None) -> int:
                 raise FileNotFoundError(f"dataset not found: {data_path}")
         else:
             data_path = dataset_file(args.dataset_root, args.task)
-        robot_urdf = OCCBENCH_ROOT / "assets" / "robots" / "hab_spot_arm" / "urdf" / "hab_spot_arm.urdf"
+        robot_urdf = EOVT_BENCH_ROOT / "assets" / "robots" / "hab_spot_arm" / "urdf" / "hab_spot_arm.urdf"
         if not robot_urdf.is_file():
             raise FileNotFoundError(f"robot URDF not found: {robot_urdf}")
         with read_write(habitat_config):
