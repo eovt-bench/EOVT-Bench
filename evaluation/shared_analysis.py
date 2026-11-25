@@ -173,6 +173,21 @@ def summarize_stt(records: list[dict[str, Any]], reps: int, seed: int) -> dict[s
 
 
 def summarize_or(records: list[dict[str, Any]], reps: int, seed: int) -> dict[str, Any]:
+    current = [r for r in records if r["data"].get("protocol_version") == "eovt-or-visibility-v0.2"]
+    if current:
+        if len(current) != len(records):
+            raise ValueError("Do not aggregate mixed OR evaluator versions")
+        from or_current import aggregate_events
+        result = aggregate_events([r["data"] for r in current])
+        for key in ("rsr", "vor", "crr", "mrs"):
+            def statistic(rows, field=key):
+                value = aggregate_events([r["data"] for r in rows])[field]
+                return value if field == "mrs" else pct(value)
+            result[key] = statistic(current)
+            result[key+"_ci95_low"], result[key+"_ci95_high"] = (
+                bootstrap_scalar(current, statistic, reps, seed) if reps > 0 else (None,None))
+        result["rate_units"] = "percent; rsr_bounds remain fractions"
+        return result
     valid = [r for r in records if as_float(r["data"].get("success")) is not None]
 
     def statistic(rows: list[dict[str, Any]], key: str, nonnull_only: bool = False) -> float | None:
@@ -225,9 +240,12 @@ def trial_dominance(trial: dict[str, Any]) -> float | None:
 
 
 def ic_event_metrics(records: list[dict[str, Any]]) -> dict[str, Any]:
-    behavior_version = "eovt-ic-behavior-v0.1"
-    if any(record["data"].get("identity_evaluator_version") == behavior_version for record in records):
-        return _ic_behavior_event_metrics(records, behavior_version)
+    versions = {record["data"].get("identity_evaluator_version") for record in records}
+    modern = versions & {"eovt-ic-behavior-v0.1", "eovt-ic-behavior-v0.2"}
+    if modern:
+        if len(versions) != 1:
+            raise ValueError("Do not aggregate mixed IC evaluator versions")
+        return _ic_behavior_event_metrics(records, next(iter(modern)))
 
     same_valid = same_fail = same_success = same_collision = 0
     similar_valid = similar_collision = uncertain = switch = retain = 0
@@ -345,6 +363,7 @@ def _ic_behavior_event_metrics(records: list[dict[str, Any]], version: str) -> d
         "similar_follow_original_trials": similar_follow_original,
         "similar_failure_trials": similar_failure,
         "effective_follow_ratio_pct": pct(mean(event_rates)) if event_rates else None,
+        "similar_failure_ratio_pct": pct(1.0-mean(event_rates)) if event_rates else None,
         "rfr_pct": pct(same_fail / same_valid) if same_valid else None,
         "dsr_pct": None,
         "trial_dsr_pct": None,
@@ -361,7 +380,7 @@ def summarize_ic(records: list[dict[str, Any]], reps: int, seed: int) -> dict[st
             return ic_event_metrics(rows)["dsr_pct"]
         result["rfr_ci95_low"], result["rfr_ci95_high"] = bootstrap_scalar(records, ofr, reps, seed)
         result["dsr_ci95_low"], result["dsr_ci95_high"] = bootstrap_scalar(records, cier, reps, seed + 1)
-        if result.get("protocol_version") == "eovt-ic-behavior-v0.1":
+        if result.get("protocol_version") in {"eovt-ic-behavior-v0.1", "eovt-ic-behavior-v0.2"}:
             def follow_ratio(rows: list[dict[str, Any]]) -> float | None:
                 value = ic_event_metrics(rows).get("effective_follow_ratio_pct")
                 return as_float(value)
@@ -371,7 +390,7 @@ def summarize_ic(records: list[dict[str, Any]], reps: int, seed: int) -> dict[st
     else:
         result["rfr_ci95_low"] = result["rfr_ci95_high"] = None
         result["dsr_ci95_low"] = result["dsr_ci95_high"] = None
-        if result.get("protocol_version") == "eovt-ic-behavior-v0.1":
+        if result.get("protocol_version") in {"eovt-ic-behavior-v0.1", "eovt-ic-behavior-v0.2"}:
             result["effective_follow_ratio_ci95_low"] = None
             result["effective_follow_ratio_ci95_high"] = None
     return result

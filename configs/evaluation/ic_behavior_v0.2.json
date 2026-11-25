@@ -1,0 +1,88 @@
+{
+  "version": "eovt-ic-behavior-v0.2",
+  "date": "2026-11-23",
+  "scope": "Versioned behavioral scoring; no model implementation or weights.",
+  "final_labels": [
+    "\u8ddf\u968f\u539f\u76ee\u6807",
+    "\u5931\u8d25"
+  ],
+  "otpr_used": false,
+  "original_semantic_visibility_reconstructed": false,
+  "independent_human_validation_completed": false,
+  "reference": {
+    "use_existing_same_valid_geometry": true,
+    "same_valid_geometry_is_original_success": false,
+    "no_common_prefix_or_common_time_crop": true,
+    "no_world_frame_alignment_or_scale_fit": true
+  },
+  "full_path": {
+    "dtw_rms_limit_m": 0.75,
+    "frechet_limit_m": 1.5,
+    "endpoint_limit_m": 1.0,
+    "length_difference_minimum_allowance_m": 0.5,
+    "length_difference_same_fraction_allowance": 0.35,
+    "body_heading_limit_deg": 45.0,
+    "heading_fraction_each_side_minimum": 0.8,
+    "spatial_resample_maximum_m": 0.05
+  },
+  "target_motion": {
+    "altered_if_any": {
+      "dtw_rms_above_m": 0.75,
+      "frechet_above_m": 1.5,
+      "length_difference_above_maximum_of_m_and_same_fraction": [
+        0.5,
+        0.35
+      ]
+    },
+    "shortened_if_same_minus_similar_length_above_same_allowance": true,
+    "altered_target_disables_same_robot_path_as_success_or_failure_gate": true
+  },
+  "direct_geometry": {
+    "distance_definition": "Euclidean distance between logged robot and person base positions, XYZ metres",
+    "heading_definition": "acos of normalized horizontal robot-forward and robot-to-person vectors, degrees",
+    "following_distance_lower_m_inclusive": 0.5,
+    "following_distance_upper_m_inclusive": 3.0,
+    "original_heading_limit_deg": 45.0,
+    "distractor_heading_limit_deg": 45.0,
+    "clear_distractor_angular_advantage_deg": 15.0,
+    "clear_distractor_bearing_separation_deg": 25.0,
+    "original_support": "within range and original angle <=45 degrees and no clear distractor preference",
+    "coincident_bearings": "original geometric support is allowed; this is not proof of an internal identity choice"
+  },
+  "temporal": {
+    "use_actual_simulation_time_s": true,
+    "interval_value": "right recorded endpoint",
+    "maximum_evidence_gap_s": 0.2,
+    "terminal_window_s": 1.0,
+    "terminal_support_fraction_minimum": 0.6,
+    "terminal_continuous_support_minimum_s": 0.5,
+    "terminal_duration_minimum_s": 0.5,
+    "whole_original_support_fraction_minimum_for_pose_fallback": 0.6,
+    "last_frame_original_support_required": true,
+    "last_frame_distractor_support_required": true,
+    "transient_conflict_is_whole_trial_veto": false,
+    "earlier_distractor_segment_is_irreversible_failure": false
+  },
+  "failure": {
+    "same_run_Lost_or_Collision_is_failure": true,
+    "existing_original_robot_distance_below_0_5m_is_collision_proxy": true,
+    "negative_without_clear_distractor_is_not_confirmed_identity_switch": true,
+    "unmet_original_following_criterion_is_binary_failure": true,
+    "malformed_or_missing_input": "raise input error; never turn missing evidence into a model failure"
+  },
+  "decision_order": [
+    "validate complete inputs and existing geometric Same qualification",
+    "recorded Lost, Collision or existing close-contact proxy -> failure with separate reason",
+    "stable terminal clear distractor preference -> failure",
+    "unaltered target plus complete robot path and pose agreement, without stable terminal distractor preference -> original retained",
+    "stable terminal original support plus >=60% whole-trial original geometry -> original retained",
+    "otherwise -> failure to satisfy the declared behavioral following criterion"
+  ],
+  "parameter_provenance": {
+    "3m_upper_distance": "Local HumanFollowingConfig.success_distance=3.0; same-run override not independently recovered",
+    "0_5m_lower_distance": "Existing close-contact proxy boundary; this is distinct from STT final success range 1-3m",
+    "45deg_angle_and_temporal_defaults": "Explicitly retained from v0.6 development settings; not a validated universal identity threshold",
+    "target_motion_tolerances": "Reuse full-path tolerances; no per-case tuning"
+  },
+  "source_rule_version": "ic-fullpath-direct-pose-v0.7-development"
+}

@@ -1,0 +1,60 @@
+{
+  "preprocessing": {
+    "span": "actual Similar activation to each trial own observed end",
+    "world_frame_translation_rotation_scale_fit": false,
+    "common_prefix_or_common_time_crop": false,
+    "use_actual_simulation_time_s": true,
+    "spatial_resample_max_step_m": 0.05,
+    "preserve_real_endpoints": true,
+    "retain_all_raw_poses_for_heading": true,
+    "maximum_continuous_evidence_gap_s": 0.2
+  },
+  "full_path_stage": {
+    "dtw": {
+      "local_cost": "squared Euclidean XZ position error",
+      "boundary": "D00=0; other row/column 0 entries=+inf",
+      "steps": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "weights": [
+        1,
+        1,
+        2
+      ],
+      "normalizer": "m+n",
+      "report": "sqrt(Dmn/(m+n))",
+      "rms_position_limit_m": 0.75
+    },
+    "discrete_frechet_limit_m": 1.5,
+    "endpoint_limit_m": 1.0,
+    "length_difference_allowance": {
+      "minimum_m": 0.5,
+      "same_length_fraction": 0.35,
+      "combination": "max"
+    },
+    "body_heading_gap_limit_deg": 45.0,
+    "each_side_heading_time_fraction_minimum": 0.8,
+    "stationary_phase_pairing": {
+      "primary_tie_break": "minimum original-target position error, never favorable heading",
+      "near_equal_position_error_m": 0.05,
+      "ambiguous_heading_spread_deg": 45.0,
+      "ambiguous_time_spread_s": 0.5,
+      "nonambiguous_tie_break": "median time"
+    },
+    "unmatched_heading_time_counts_as_pass": false,
+    "instantaneous_tangent_hard_gate": false,
+    "all_path_conditions_required_for_this_stage_only": true,
+    "failed_stage_means_trial_failure": false
+  }
+}

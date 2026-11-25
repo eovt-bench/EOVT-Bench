@@ -1,7 +1,7 @@
 # Release status
 
-Benchmark/evaluator version: `0.2.1-pre.20261125` /
-`eovt-evaluator-20261125`.
+Benchmark/evaluator version: `0.2.2-pre.20261125` /
+`eovt-evaluator-20261125-v0.2`.
 Public distribution update: 2026-11-25.
 
 This release publishes the benchmark interface, diagnostic baselines, initial
@@ -38,7 +38,7 @@ outside the scope of a Git history update.
 
 ## Metric version
 
-The release adds `eovt-or-ic-initial-v0.1`. OR uses actual runtime loss events
+The release adds `eovt-or-ic-v0.2`. OR uses actual runtime loss events
 and synchronized target visibility evidence. IC uses complete Same-referenced
 trajectory and pose evidence; OTPR is not used for the binary decision.
 Previously reported aggregate tables retain their original
@@ -47,10 +47,13 @@ See `evaluation/PROTOCOL.md`.
 
 ## Validation and limitations
 
-Local offline logic, evaluator, resource-policy and syntax checks are recorded
-in `VALIDATION_REPORT.json`. Twelve selected OmTrackVLA rollouts were previously
-executed on an existing WSL2 installation; they are not a clean-install test or
-a full benchmark rerun.
+Local checks are recorded in `VALIDATION_REPORT.json`. Current demonstrations
+reuse unchanged STT captures, rescore the completed 630-event OR raw collection,
+and add eight new IC closed-loop recordings from two complete 1+3 events.
+The 12 selected main videos are fully decoded and checked against logged frame
+counts. The current IC port matches all 20 frozen development decisions; this
+is code regression, not independent human validation or a clean-install test.
+Historical aggregate performance tables have not been silently recomputed.
 
 Public access is not a blanket code/data license. Existing copyright notices
 and resource-specific permissions remain applicable. The root `LICENSE`

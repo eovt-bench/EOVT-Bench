@@ -1,14 +1,33 @@
 {
-  "version": "0.2.1-pre.20261125",
-  "evaluator_version": "eovt-evaluator-20261125",
+  "version": "0.2.2-pre.20261125",
+  "evaluator_version": "eovt-evaluator-20261125-v0.2",
   "distribution_update": "2026-11-25",
-  "status": "PASS_FOR_PUBLIC_PROTOCOL_UPDATE",
-  "baseline_publication": "README numeric tables only; no per-episode results or archive",
+  "status": "PASS_FOR_CURRENT_SOURCE_AND_SELECTED_DEMONSTRATIONS",
   "tests": [
     {
-      "name": "public_python_unittest",
+      "name": "wsl2_baseline_test_entrypoint",
       "status": "PASS",
-      "tests": 29
+      "tests": 39,
+      "baseline_cli_help": "PASS",
+      "aggregate_cli_help": "PASS",
+      "package_validation": "PASS",
+      "clean_install": false
+    },
+    {
+      "name": "evaluation_python_unittest",
+      "status": "PASS",
+      "tests": 26
+    },
+    {
+      "name": "baseline_core_unittest",
+      "status": "PASS",
+      "tests": 12,
+      "invocation_note": "PYTHONPATH includes baselines, as in baselines/scripts/test.sh"
+    },
+    {
+      "name": "dataset_contract_unittest",
+      "status": "PASS",
+      "tests": 1
     },
     {
       "name": "package_validation",
@@ -21,25 +40,62 @@
       "layout_count": 60
     },
     {
-      "name": "protocol_cli_smoke",
-      "status": "PASS"
+      "name": "metadata_checksums",
+      "status": "PASS",
+      "verified": 3
+    },
+    {
+      "name": "real_evidence_cli_and_aggregation",
+      "status": "PASS",
+      "or_cases": 4,
+      "ic_events": 2,
+      "ic_similar_trials": 6
+    },
+    {
+      "name": "or_masks_match_logged_pixels",
+      "status": "PASS",
+      "frames": 452
+    },
+    {
+      "name": "ic_frozen_development_regression",
+      "status": "PASS",
+      "pairs": 20,
+      "independent_human_validation": false
     }
   ],
-  "simulation_rerun_for_this_update": false,
-  "prior_selected_qualitative_cases": 12,
-  "clean_machine_install": "NOT VERIFIED",
-  "privacy_scope": "Tracked source, compressed metadata and public Git author/committer records; external caches and copies are not covered",
-  "publication_checks": {
-    "tracked_files": 562,
-    "personal_identity_or_secret_matches": 0,
-    "compressed_metadata_scanned": true,
-    "qualitative_archive_members_scanned": 85,
-    "readme_metric_entries_verified": 36,
-    "baseline_result_files_published": 0,
-    "model_weights_published": 0,
-    "qualitative_demo_cases": 12
+  "qualitative": {
+    "main_videos": 12,
+    "successes_per_task": 2,
+    "failures_per_task": 2,
+    "main_videos_fully_decoded": true,
+    "full_ic_events": 2,
+    "ic_recordings": 8,
+    "all_ic_recordings_fully_decoded": true,
+    "stt_capture_date": "2026-11-21",
+    "stt_original_definition_unchanged": true,
+    "or_raw_capture_dates": "2026-11-24/25",
+    "or_source_events_complete": 630,
+    "ic_new_closed_loop_capture_date": "2026-11-25",
+    "selected_examples_are_population_estimate": false
   },
-  "repository_access": "PUBLIC_SOURCE_UPDATE_INTENDED",
-  "hosting_history_cache_cleanup": "NOT_APPLICABLE_TO_CURRENT_SOURCE_SNAPSHOT",
-  "unauthenticated_old_commit_after_restriction": "404"
+  "baseline_population_rerun": false,
+  "baseline_online_or_ic_summaries": "legacy; not v0.2 synchronized logging",
+  "baseline_reference_tables": "historical eovt-evaluator-20261121, unchanged",
+  "baseline_raw_results_published": 0,
+  "model_artifacts_published": 0,
+  "clean_machine_install": "NOT VERIFIED",
+  "repository_access_at_verification": "PRIVATE",
+  "publication_checks": {
+    "source_text_files_scanned": 546,
+    "compressed_metadata_files_scanned": 4,
+    "qualitative_archive_text_members_scanned": 100,
+    "private_path_or_secret_matches": 0,
+    "archive_sha256sums": "PASS",
+    "scorer_manifest_exact_bytes": "PASS"
+  },
+  "archive": {
+    "filename": "eovt-omtrack-current-cases-20261125.zip",
+    "bytes": 45117053,
+    "sha256": "2b2fa8bee2154021744592ec42ba885ad429d13dc7874508df1996c83c0ff890"
+  }
 }

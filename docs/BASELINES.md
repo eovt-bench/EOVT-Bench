@@ -38,6 +38,10 @@ An equal-distance step contributes false to that comparison. The existing
 runtime's recorded empty-trace behavior is retained. Navigation-graph distance
 and reachability handling are not claimed.
 
-RFR/DSR are computed from trial records by the common evaluator.
-Legacy BIA/SameSR/SwapSR fields remain available for audit and compatibility.
+The existing runner's online facing/dominance summaries and BIA/SameSR/SwapSR
+fields are legacy compatibility outputs. They must not be presented as v0.2
+OR/IC results. Canonical v0.2 scoring is performed by
+`evaluation/score_or_ic.py` from the synchronized evidence described in
+`evaluation/PROTOCOL.md`; historical summaries alone are insufficient.
+The latest demonstration package supplies complete scorer inputs.
 Resource checks and offline reproduction do not constitute a new GPU rollout.

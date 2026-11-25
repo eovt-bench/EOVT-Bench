@@ -4,7 +4,7 @@
 
 本仓库提供固定场景、episodes、任务标注、环境配置、两个baseline与统一评价器。
 使用者加载现有资源进行评测，无需重新构建场景或生成路径。
-当前版本为`0.2.1-pre.20261125`，作为研究预览版本提供。
+当前版本为`0.2.2-pre.20261125`，作为研究预览版本提供。
 仓库公开benchmark接口、两个诊断baseline、版本化评价器和OmTrackVLA定性案例；
 不公开学习模型权重及其内部实现。
 baseline结果仅以本README中的数值表提供。
@@ -15,7 +15,7 @@ baseline结果仅以本README中的数值表提供。
 | --- | --- | --- | --- |
 | STT | 单目标连续跟踪 | 1,800个回合 | SR、TR、CR |
 | OR | 遮挡后目标重获 | 来自558个源回合的630个事件 | RSR、VOR、CRR、MRS |
-| IC | 遮挡后身份一致性 | 630个事件，每个1 Same＋3个不同Similar | RFR、DSR |
+| IC | 遮挡后身份一致性 | 630个事件，每个1 Same＋3个不同Similar | Same成功数、Similar跟随原目标数、有效跟随比例 |
 
 三类场景分别为Route（资源标识`road`）、Indoor和Industrial，各20个布局。
 全部场景由benchmark作者自行搭建。
@@ -74,18 +74,26 @@ IC自动读取固定的新版人物配置和`_ic.json`控制参数。
 ## 统一统计
 
 ```bash
-python evaluation/aggregate_results.py \
-  baselines/outputs/rgb_tracker_pid/ic --task ic --bootstrap 2000
+python evaluation/score_or_ic.py or frames.jsonl --output scored_or/event.json
+python evaluation/score_or_ic.py ic ic_event.json --output scored_ic/event.json
+python evaluation/aggregate_results.py scored_or --task or --bootstrap 2000
+python evaluation/aggregate_results.py scored_ic --task ic --bootstrap 2000
 ```
 
 统计以布局为bootstrap聚类单位，报告95%置信区间。
-IC先在事件内汇总明确的Similar试验，再跨有效事件平均。
-Same碰撞、Similar碰撞、OTPR恰好为0.5及缺失值均有单独处理。
+IC先筛选Same资格，在事件内汇总Similar试验，再跨有效事件平均。
+Same不合格的配对单独排除；合格事件中的Similar碰撞按失败处理。
+OTPR数值不参与新版判定；缺失必要轨迹或时间戳属于输入错误。
+
+baseline运行器的在线OR/IC汇总仍采用历史口径，不能仅凭这些汇总字段
+转换为v0.2结果。新版离线计分需要完整同步证据；视频包附有可复算输入，
+不代表baseline日志采集器已升级或已完成新版全量实验。
+当前OR/IC计分需要NumPy，汇总统计使用Python标准库。
 
 旧版SameSR、SwapSR、BIA和OTPR字段仅保留用于兼容和审计。
 当前OR以运行时实际丢失事件作为分母；当前IC依据完整轨迹与位姿相对
 Same的行为保持进行二元判定，不再使用OTPR进行身份判定。
-初始阈值见`configs/evaluation/or_ic_initial_v0.1.json`。
+初始阈值见`configs/evaluation/or_visibility_v0.2.json`。
 
 ## 两个baseline
 
@@ -103,12 +111,15 @@ baseline汇总数值见下方表格。
 
 ## 真实视频案例
 
-提供OmTrackVLA的12段机器狗第一视角真实运行视频：STT、OR、IC各成功2例、失败2例，并附本次结果JSON和逐步轨迹。详见[案例索引](qualitative/omtrack_first_person/README.md)及[中文判定说明](docs/QUALITATIVE_VIDEOS.zh-CN.md)。
+提供OmTrackVLA的12段机器狗第一视角真实案例（OR/IC按新版v0.2计分）：STT、OR、IC各成功2例、失败2例，并附本次结果JSON和逐步轨迹。详见[案例索引](qualitative/omtrack_first_person/README.md)及[中文判定说明](docs/QUALITATIVE_VIDEOS.zh-CN.md)。
 
 
 ## Baseline汇总数值
 
-以下为已完成实验的汇总结果；括号内为布局层bootstrap的95%置信区间，2,000次重采样。比例指标单位为%，MRS单位为步。本次仅调整发布方式，未重新运行实验或改变数值。本仓库与Release不提供baseline逐回合结果JSON、文件清单或结果压缩包。
+以下为历史已完成baseline实验的汇总结果，口径为`eovt-evaluator-20261121`；
+括号内为布局层bootstrap的95%置信区间，2,000次重采样。
+比例指标单位为%，MRS单位为步。本次视频更新未重跑这些baseline或改变数值。
+本仓库与Release不提供baseline逐回合结果JSON、文件清单或结果压缩包。
 
 ### STT
 

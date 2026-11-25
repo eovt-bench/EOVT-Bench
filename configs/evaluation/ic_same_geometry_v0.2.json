@@ -1,0 +1,30 @@
+{
+  "version": "eovt-ic-same-geometry-v0.2",
+  "scope": "Versioned behavioral scoring; no model implementation or weights.",
+  "is_original_evaluator_success": false,
+  "normal_end_reason_required": "episode_over",
+  "final_distance_lower_m_inclusive": 1.0,
+  "final_distance_upper_m_inclusive": 3.0,
+  "body_original_angle_upper_deg": 45.0,
+  "tail_window_s": 0.48,
+  "tail_joint_condition_fraction_minimum": 0.8,
+  "final_joint_condition_required": true,
+  "minimum_robot_full_path_m": 0.08,
+  "minimum_target_full_path_m": 0.08,
+  "existing_contact_proxy_distance_m_strictly_less_than": 0.5,
+  "contact_proxy_applies_to": "recorded steps after initialization",
+  "maximum_time_gap_s": 0.2,
+  "use_actual_simulation_time_s": true,
+  "interval_value": "right endpoint, clipped to the exact final 0.48-second window",
+  "distance": "Euclidean XYZ distance between logged base positions",
+  "heading": "angle between horizontal body forward and robot-to-original vector",
+  "original_success_if_saved": "preserve in a separate field; never fill missing original success with a geometry result",
+  "not_reconstructed": [
+    "semantic pixel visibility",
+    "original finish flag",
+    "original human_following signals"
+  ],
+  "threshold_provenance": "Existing independent Same geometric qualification; recomputed without invoking the previous qualification function",
+  "ic_v07_rules_modified": false,
+  "source_rule_version": "same-geometric-qualification-recheck-20261123"
+}

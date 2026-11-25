@@ -66,6 +66,28 @@ def atomic_write_json(path: str | Path, payload: dict[str, Any]) -> Path:
 
 def validate_result(data: dict[str, Any], task: str | None = None) -> list[str]:
     errors = []
+    if not isinstance(data,dict):
+        return ["result must be an object"]
+    if data.get("identity_evaluator_version") == "eovt-ic-behavior-v0.2":
+        if not isinstance(data.get("same_success"),bool):
+            errors.append("missing boolean Same eligibility")
+        trials=data.get("similar_results")
+        if data.get("same_success") is True and (
+            not isinstance(trials,list) or len(trials)!=3 or
+            any(not isinstance(t,dict) or t.get("behavior_label") not in
+                {"follow_original_target","failure"} for t in trials)
+        ):
+            errors.append("current IC requires three binary Similar results")
+        return errors
+    if data.get("protocol_version") == "eovt-or-visibility-v0.2":
+        for key in ("actual_loss","opportunity","recovered","censored"):
+            if not isinstance(data.get(key),bool):
+                errors.append("missing boolean "+key)
+        for key in ("rsr","vor","crr"):
+            value=data.get(key)
+            if value is not None and (isinstance(value,bool) or not isinstance(value,(float,int)) or value not in (0,1)):
+                errors.append("invalid nullable "+key)
+        return errors
     for key in REQUIRED_FINAL:
         value = data.get(key)
         if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(float(value)):

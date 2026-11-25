@@ -1,7 +1,7 @@
 {
-  "evaluator_version": "eovt-evaluator-20261125",
-  "protocol_version": "eovt-or-ic-initial-v0.1",
-  "legacy_evaluator_version": "eovt-evaluator-20261121",
+  "evaluator_version": "eovt-evaluator-20261125-v0.2",
+  "protocol_version": "eovt-or-ic-v0.2",
+  "legacy_protocol_version": "eovt-or-ic-initial-v0.1",
   "bootstrap_unit": "layout",
   "default_repetitions": 2000,
   "default_seed": 20261121,

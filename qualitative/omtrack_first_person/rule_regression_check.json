@@ -1,0 +1,126 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "case": "V001",
+      "code": "T_POSE_TARGET_ALTERED",
+      "expected": "T_POSE_TARGET_ALTERED",
+      "matched": true
+    },
+    {
+      "case": "V002",
+      "code": "T_FULL",
+      "expected": "T_FULL",
+      "matched": true
+    },
+    {
+      "case": "V003",
+      "code": "F_FOLLOW_CONDITION",
+      "expected": "F_FOLLOW_CONDITION",
+      "matched": true
+    },
+    {
+      "case": "V004",
+      "code": "F_LOST",
+      "expected": "F_LOST",
+      "matched": true
+    },
+    {
+      "case": "V005",
+      "code": "T_FULL",
+      "expected": "T_FULL",
+      "matched": true
+    },
+    {
+      "case": "V006",
+      "code": "T_FULL",
+      "expected": "T_FULL",
+      "matched": true
+    },
+    {
+      "case": "V007",
+      "code": "F_FOLLOW_CONDITION",
+      "expected": "F_FOLLOW_CONDITION",
+      "matched": true
+    },
+    {
+      "case": "V008",
+      "code": "F_LOST",
+      "expected": "F_LOST",
+      "matched": true
+    },
+    {
+      "case": "V009",
+      "code": "T_POSE_TARGET_ALTERED",
+      "expected": "T_POSE_TARGET_ALTERED",
+      "matched": true
+    },
+    {
+      "case": "V010",
+      "code": "T_FULL",
+      "expected": "T_FULL",
+      "matched": true
+    },
+    {
+      "case": "V011",
+      "code": "F_DISTRACTOR_POSE",
+      "expected": "F_DISTRACTOR_POSE",
+      "matched": true
+    },
+    {
+      "case": "V012",
+      "code": "F_LOST",
+      "expected": "F_LOST",
+      "matched": true
+    },
+    {
+      "case": "V013",
+      "code": "F_FOLLOW_CONDITION",
+      "expected": "F_FOLLOW_CONDITION",
+      "matched": true
+    },
+    {
+      "case": "V014",
+      "code": "T_FULL",
+      "expected": "T_FULL",
+      "matched": true
+    },
+    {
+      "case": "V015",
+      "code": "F_FOLLOW_CONDITION",
+      "expected": "F_FOLLOW_CONDITION",
+      "matched": true
+    },
+    {
+      "case": "V016",
+      "code": "T_FULL",
+      "expected": "T_FULL",
+      "matched": true
+    },
+    {
+      "case": "V017",
+      "code": "T_POSE_TARGET_ALTERED",
+      "expected": "T_POSE_TARGET_ALTERED",
+      "matched": true
+    },
+    {
+      "case": "V018",
+      "code": "T_FULL",
+      "expected": "T_FULL",
+      "matched": true
+    },
+    {
+      "case": "V019",
+      "code": "F_FOLLOW_CONDITION",
+      "expected": "F_FOLLOW_CONDITION",
+      "matched": true
+    },
+    {
+      "case": "V020",
+      "code": "T_POSE_TARGET_ALTERED",
+      "expected": "T_POSE_TARGET_ALTERED",
+      "matched": true
+    }
+  ],
+  "purpose": "Code regression parity, not independent human validation"
+}

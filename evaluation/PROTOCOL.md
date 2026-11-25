@@ -1,141 +1,135 @@
-# Public evaluation protocol
+# Evaluation protocol v0.2
 
-Current public protocol: `eovt-or-ic-initial-v0.1`.
-The threshold file is
-[`configs/evaluation/or_ic_initial_v0.1.json`](../configs/evaluation/or_ic_initial_v0.1.json).
-The values are the initial frozen settings for reproducible evaluation. They
-are versioned protocol choices, not claims that a universal optimum exists.
+Protocol: `eovt-or-ic-v0.2`. Versioned thresholds are initial operational
+choices, not universal or independently optimized constants. The v0.1 code
+and threshold file remain explicitly historical; they are not the default CLI.
 
 ## STT
 
-SR, TR and CR retain the existing definitions. The evaluator averages valid
-episode-level `success`, `following_rate` and `collision` values. It does not
-pool time steps across episodes.
+SR, TR and CR use the existing episode-level `success`, `following_rate`
+and `collision` values. Average episodes; do not pool their time steps.
 
-## OR: actual loss, observation opportunity and recovery
+## OR: actual loss, an observation opportunity, then stable following
 
-The 630 reference events are selected with the same fixed geometry:
+The reference event index still uses 0.25 m sampling, a 2.0 m observer lag,
+9 rays with at least 5 blocked, a pre-clear length >2.5 m and an occlusion
+length >=0.5 m. These filters provide common task indices. They do not assert
+that the executing policy necessarily loses the target.
 
-- path sampling interval: 0.25 m;
-- observer lag: 2.0 m;
-- 9 visibility rays, at least 5 blocked;
-- pre-occlusion clear path: `> 2.5 m`;
-- occlusion length: `>= 0.5 m`;
-- no additional post-clear path requirement in this initial release.
+Use synchronized target-instance masks and genuine simulation timestamps.
+After five initial visible records, three consecutive invisible records
+establish actual loss. Visibility means at least
+`max(16, ceil(0.001*image_area))` target-instance pixels. No actual loss:
+report separately, exclude from the OR denominator.
 
-These are reference-event filters. They do not imply that every policy
-experiences a runtime loss.
+After loss, an opportunity requires target image fraction 0.003–0.40,
+visible target pixels / complete target projection pixels >=0.25, and
+robot-target distance >=0.8 m, continuously for 0.2 simulation seconds.
+Complete target projection is rendered with the same pose and camera in an
+unoccluded target-only rendering. An invalid projection is missing evidence,
+not a zero-visibility observation.
+Tiny rasterization differences can make visible pixels slightly exceed the
+full projection; the recorder clips the ratio to 1 after rejecting ratios
+above 1.01. Original pixel counts and clone-disagreement counts remain logged.
 
-The public OR scorer reads synchronized target-instance pixels and
-robot-target distance from rollout evidence. It requires five initial visible
-steps, confirms a loss after three consecutive invisible steps, confirms a
-reappearance opportunity after two consecutive visible steps, and requires
-five consecutive effective-following steps for recovery. The recovery window
-is 50 environment steps. A target is visible when its mask has at least
-`max(16, ceil(0.001 * image_area))` pixels. Effective following also requires
-distance `<= 3.0 m`, a target pixel fraction between the configured lower and
-upper limits, and no collision.
+Recovery requires effective STT following after opportunity confirmation,
+continuously for 0.4 simulation seconds: distance <=3.0 m, target pixels
+>3000 and <30% of a 384x384 image, and no recorded collision. Equivalent
+pixel fractions are used at another resolution. The recovery window remains
+50 environment steps from loss onset. Elapsed-time confirmation uses actual
+timestamps; the window is explicitly in steps and is not converted to a
+constant duration.
 
-The denominator is the number of **actual runtime loss events**, not the
-number of reference events:
+At most one loss/opportunity/recovery sequence is scored per indexed rollout:
+the first confirmed runtime loss after initial visibility. Reference index
+membership alone is not evidence that the loss was geometrically associated
+with that reference interval.
 
 ```text
-RSR = recovered events / actual loss events
-VOR = confirmed reappearance opportunities / actual loss events
-CRR = recovered events / confirmed reappearance opportunities
-MRS = mean (recovery confirmation step - loss onset step)
+RSR = recovered / actual runtime loss events
+VOR = observation opportunities / actual runtime loss events
+CRR = recovered / observation opportunities
+MRS = mean(recovery confirmation step - loss onset step), recovered only
 ```
 
-Events without an actual loss are reported separately and are excluded from
-the recovery denominator. Incomplete observation windows are marked censored;
-they are not silently converted into failures.
+An administrative cut is censored. Known task termination or collision is
+an observed endpoint. Unknown projection evidence is retained explicitly;
+if an outcome remains unobserved, return null and bounds, not a fabricated
+failure or a reduced denominator. A confirmed recovery is already known even
+if the full window was not subsequently recorded.
 
-The standalone implementation is in [`evaluation/or_visibility.py`](or_visibility.py).
-For a JSONL/JSON command-line entry point:
+Implementation: `evaluation/or_visibility.py`; settings:
+`configs/evaluation/or_visibility_v0.2.json`.
+
+## IC: qualify Same before judging Similar
+
+Each event contains 1 Same control and 3 trials with distinct recorded
+appearance-neighbor IDs. The original target remains present; the additional
+person is a distractor. Robot actions continue in closed loop. Historical
+metadata may contain `hold_pose_after_event`; actual execution and recorded
+robot poses take precedence and must be reported.
+
+Same geometric qualification requires normal completion, no recorded
+collision or <0.5 m contact proxy, final original-target distance 1–3 m,
+final horizontal heading error <=45 degrees, at least 80% joint support in
+the final 0.48 simulation seconds, and both complete paths >=0.08 m.
+Geometric qualification is a separate field, not a reconstruction of missing
+original evaluator success or semantic visibility.
+
+For an eligible event, compare trajectories from actual Similar activation
+to each trial's own final record, interpolating only the Same start boundary.
+Do not crop to a common prefix or common end time, or fit a spatial transform.
+Resample spatially at <=0.05 m. Use endpoint-anchored weighted DTW (squared
+XZ distance, diagonal weight 2, horizontal/vertical weight 1, denominator
+m+n), discrete Frechet distance, endpoint error and path-length difference.
+Heading correspondence follows that spatial DTW, not favorable orientation
+matching; all raw poses remain available for time-weighted heading coverage.
+
+Thresholds: DTW RMS <=0.75 m, Frechet <=1.5 m, endpoint <=1.0 m, path-length
+difference <=max(0.5 m, 35% of Same), heading difference <=45 degrees for >=80%
+of each side's duration. These tests form one success route. They are not
+individually compulsory for every positive trial.
+
+When target motion itself differs substantially, do not use the Same robot
+path as a hard gate. Instead test direct original-target support: distance
+0.5–3.0 m, horizontal body heading error <=45 degrees, without clear distractor
+preference. The latter needs distractor distance 0.5–3.0 m, heading <=45
+degrees, angle advantage >=15 degrees and actual person-bearing separation
+>=25 degrees.
+
+Terminal support uses the last 1.0 second: >=60% duration, >=0.5 s continuous
+support, >=0.5 s observed duration, and the last frame must support the label.
+The pose fallback additionally requires >=60% whole-trial original support.
+Real timestamps are mandatory; gaps >0.2 s are input errors. Lost, collision
+and the existing close-contact proxy are failures. Sustained terminal
+distractor preference overrides a matching robot path.
+
+Public labels are `follow_original_target` and `failure`. Failure is not
+automatically an identity switch. OTPR is optional audit information only;
+no OTPR threshold contributes to the binary decision. These are behavioral
+criteria, not direct access to the model's internal identity decision.
+
+Settings: `ic_same_geometry_v0.2.json`, `ic_behavior_v0.2.json` and
+`ic_spatial_v0.2.json` under `configs/evaluation/`. The public implementation
+was checked for code-regression agreement with 20 frozen development pairs;
+that check is not independent human validation.
+
+## Run and aggregate
 
 ```bash
 python evaluation/score_or_ic.py or frames.json --output or_result.json
-```
-
-## IC: Same-referenced behavioral identity consistency
-
-Each event contains one Same control and three distinct Similar trials. The
-public binary decision does **not** use OTPR, Euclidean dominance, or
-navigation-graph dominance.
-
-For each Similar trial, the scorer compares the complete post-activation robot
-trajectory and pose against the corresponding Same trajectory. The initial
-settings are:
-
-- DTW robot-position RMS error `<= 0.75 m`;
-- discrete Fréchet distance `<= 1.5 m`;
-- endpoint error `<= 1.0 m`;
-- robot path-length difference `<= max(0.5 m, 0.35 * Same path length)`;
-- body-heading difference within `45 degrees` for at least 80% of the
-  comparable time on each side;
-- original-target pose support uses distance `0.5--3.0 m` and a
-  robot-to-original-target angle `<=45 degrees`;
-- a clear distractor preference requires a distractor angle advantage of at
-  least `15 degrees` and person-bearing separation of at least `25 degrees`;
-- terminal support uses a 1.0-second window, at least 0.5 seconds of
-  continuous support, and a 60% support fraction;
-- actual simulation timestamps are used; a gap over 0.2 seconds invalidates
-  the corresponding evidence.
-
-If the original target path changes substantially, the Same robot path is not
-used as a hard gate; the scorer falls back to the direct original-target pose
-support rule. A Similar trial receives one of two public labels:
-
-- `follow_original_target`;
-- `failure`.
-
-Failure does not automatically mean that the robot selected the distractor.
-It means that the declared original-target behavioral criterion was not met.
-Malformed or missing trajectory evidence is an input error rather than a model
-failure.
-
-The standalone implementation is in
-[`evaluation/ic_behavior.py`](ic_behavior.py). It expects complete trial
-records containing robot pose, original-target position and, for Similar
-trials, distractor position. The old `target_dominance`/OTPR fields remain
-available only for compatibility and audit; they are not part of the current
-IC binary decision.
-
-For event-level reporting, publish:
-
-```text
-same_success
-similar_count
-similar_follow_original_count
-effective_follow_ratio
-```
-
-`effective_follow_ratio` is the number of Similar trials labeled
-`follow_original_target` divided by the valid Similar trials in that event.
-Results must retain the protocol version and evidence source.
-For a single event JSON:
-
-```bash
 python evaluation/score_or_ic.py ic ic_event.json --output ic_result.json
 ```
 
-## Baselines and videos
+The OR input is a JSON list, or a JSON object containing `records`. IC input
+contains `same` and exactly three `similar` trial objects with person IDs.
+Complete examples accompany the current qualitative Release.
 
-RGB Tracker PID and Oracle PID are public diagnostic baselines. Their
-interface, configuration and allowed information are documented in
-[`docs/BASELINES.md`](../docs/BASELINES.md).
+Report Same eligibility, eligible Similar count, original-target-following
+count and `effective_follow_ratio`. Keep exclusions separate from failures.
+Use layout-cluster bootstrap (2,000 draws, seed 20261121, percentile 95% CI).
+Aggregate IC trials within event before resampling layouts.
 
-The OmTrackVLA first-person videos are qualitative demonstrations only. They
-show two successful and two failed cases for each task. They do not publish
-OmTrackVLA weights or internal implementation. Existing video evidence
-generated under the previous evaluator is labeled with its original scoring
-version; it must not be silently relabeled as a v0.1 OR/IC score without the
-required trajectory evidence.
-
-## Uncertainty
-
-Layout-cluster bootstrap remains the default uncertainty procedure:
-2,000 replacement draws, seed `20261121`, and empirical 95% percentile
-intervals. IC aggregates Similar outcomes within an event before layout-level
-resampling. The evaluator reports eligibility, censored observations and
-invalid-input counts separately.
+Historical baseline aggregate tables retain their original scoring version.
+Qualitative examples are selected illustrations, not population estimates.
+No model weights or model implementation are distributed.

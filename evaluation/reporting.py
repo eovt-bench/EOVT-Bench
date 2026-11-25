@@ -6,7 +6,7 @@ from pathlib import Path
 
 from shared_analysis import as_float, load_json_records, summarize_ic, summarize_or, summarize_stt
 
-VERSION = "eovt-evaluator-20261125"
+VERSION = "eovt-evaluator-20261125-v0.2"
 SUMMARIZERS = {"stt": summarize_stt, "or": summarize_or, "ic": summarize_ic}
 
 
@@ -23,6 +23,25 @@ def summarize_directory(path: Path, task: str, repetitions: int = 2000, seed: in
             raise ValueError(f"duplicate final event ID: {event_id}")
         seen.add(event_id)
         problems = []
+        current_ic = data.get("identity_evaluator_version") == "eovt-ic-behavior-v0.2"
+        current_or = data.get("protocol_version") == "eovt-or-visibility-v0.2"
+        if (task == "ic" and current_ic) or (task == "or" and current_or):
+            if current_ic:
+                trials = data.get("similar_results")
+                if not isinstance(data.get("same_success"), bool):
+                    problems.append("missing boolean Same eligibility")
+                if data.get("same_success") is True and (
+                    not isinstance(trials,list) or len(trials)!=3 or
+                    any(t.get("behavior_label") not in {"follow_original_target","failure"} for t in trials)
+                ):
+                    problems.append("current eligible IC requires three binary Similar labels")
+            else:
+                for field in ("actual_loss","opportunity","recovered","censored"):
+                    if not isinstance(data.get(field),bool):
+                        problems.append("missing boolean "+field)
+            if problems:
+                raise ValueError(f"{record['path'].name}: {problems}")
+            continue
         for field in ("success", "following_rate", "collision"):
             value = as_float(data.get(field))
             if value is None:

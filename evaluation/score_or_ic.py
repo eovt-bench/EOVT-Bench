@@ -6,10 +6,12 @@ import json
 from pathlib import Path
 
 from ic_behavior import score_event as score_ic
-from or_visibility import score_event as score_or
+from or_current import score_event as score_or
 
 
 def _read_json(path: Path):
+    if path.suffix.lower() == ".jsonl":
+        return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -19,7 +21,7 @@ def _write_json(path: Path, value):
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Score EOVT initial OR/IC protocol evidence.")
+    parser = argparse.ArgumentParser(description="Score EOVT v0.2 OR/IC protocol evidence.")
     sub = parser.add_subparsers(dest="task", required=True)
 
     or_parser = sub.add_parser("or", help="score a JSON list of synchronized OR records")
@@ -38,10 +40,17 @@ def main() -> int:
         if not isinstance(payload, list):
             raise SystemExit("OR input must be a JSON list or an object containing records/frames")
         result = score_or(payload)
+        episode_id = payload[0].get("episode_id", payload[0].get("event_id")) if payload else None
     else:
         if not isinstance(payload, dict):
             raise SystemExit("IC input must be a JSON object with same and similar trials")
         result = score_ic(payload)
+        episode_id = payload.get("episode_id", payload.get("event_id"))
+        if episode_id is None:
+            episode_id = payload.get("same", {}).get("records", [{}])[0].get("episode_id")
+    if episode_id:
+        result["episode_id"] = episode_id
+    result["task"] = args.task
     if args.output:
         _write_json(args.output, result)
     else:

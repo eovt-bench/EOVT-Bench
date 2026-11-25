@@ -6,7 +6,7 @@ A Benchmark for Evaluating Occlusion Robustness in Embodied Visual Tracking.
 [Protocol](evaluation/PROTOCOL.md) · [Baselines](docs/BASELINES.md)
 · [External resources](docs/THIRD_PARTY_RESOURCES.md)
 
-Version **0.2.1-pre.20261125**. This research preview contains fixed
+Version **0.2.2-pre.20261125**. This research preview contains fixed
 scenes/episodes, environment configuration, two diagnostic baselines and a
 shared evaluator. Users do not need to rebuild scenes or regenerate episodes.
 
@@ -18,7 +18,7 @@ Model weights and learned-model implementations are not included.
 | --- | --- | --- |
 | STT: Single-Target Tracking | 1,800 episodes | SR / TR / CR |
 | OR: Post-Occlusion Target Reacquisition | 630 events from 558 source episodes | RSR / VOR / CRR / MRS |
-| IC: Post-Occlusion Identity Consistency | 630 events, each 1 Same + 3 distinct Similar | RFR / DSR |
+| IC: Post-Occlusion Identity Consistency | 630 events, each 1 Same + 3 distinct Similar | Same eligibility / effective following ratio |
 
 The 60 layouts comprise 20 each of Route (`road`), Indoor and Industrial.
 All scenes were constructed by the benchmark author.
@@ -84,24 +84,33 @@ appearance dataset and `_ic.json` configuration. Results stay inside
 `*_info.json` and broken JSON do not.
 
 The requirements file records observed versions, not a verified clean-install
-lockfile. The original packaging audit did not run a GPU rollout. The subsequent selected local rollouts are documented in the qualitative examples; they do not establish a fresh installation or full benchmark rerun. Offline common
-scoring uses the Python standard library; optional sensitivity and baseline
-unit tests also require NumPy.
+lockfile. The original packaging audit did not run a GPU rollout. The subsequent
+selected local rollouts are documented in the qualitative examples; they do not
+establish a fresh installation or full benchmark rerun. Current OR/IC scoring
+requires NumPy; aggregation uses the Python standard library.
 
 ## Evaluate
 
 ```bash
+python evaluation/score_or_ic.py or frames.jsonl --output scored_or/event.json
+python evaluation/score_or_ic.py ic ic_event.json --output scored_ic/event.json
+python evaluation/aggregate_results.py scored_or --task or --bootstrap 2000
+python evaluation/aggregate_results.py scored_ic --task ic --bootstrap 2000
 python evaluation/aggregate_results.py baselines/outputs/rgb_tracker_pid/stt --task stt --bootstrap 2000
-python evaluation/aggregate_results.py baselines/outputs/rgb_tracker_pid/or --task or --bootstrap 2000
-python evaluation/aggregate_results.py baselines/outputs/rgb_tracker_pid/ic --task ic --bootstrap 2000
 ```
+
+The baseline runner's online OR/IC summaries retain their historical protocol.
+They can be aggregated as historical results, but cannot be converted to v0.2
+without complete synchronized evidence. The current video archive provides
+reproducible v0.2 scorer inputs; it does not imply an upgraded baseline logger
+or a new population-level baseline run.
 
 Intervals use layout-cluster bootstrap. The current OR scorer uses actual
 runtime loss events as its denominator. The current IC scorer compares the
 complete Similar trajectory and pose against Same and does not use OTPR for
 the binary decision. Legacy SameSR/SwapSR/BIA and OTPR fields remain only for
 compatibility and audit. See [exact semantics](evaluation/PROTOCOL.md) and the
-versioned thresholds in `configs/evaluation/or_ic_initial_v0.1.json`.
+versioned thresholds in `configs/evaluation/or_visibility_v0.2.json`.
 
 ## Baseline input permissions
 
@@ -123,7 +132,12 @@ Access restrictions do not replace the resource-specific permissions and license
 
 ## Baseline reference values
 
-These are aggregate values from completed runs. Brackets give 95% layout-cluster bootstrap intervals (2,000 repetitions). Rates are percentages; MRS is in steps. This publication update does not rerun experiments or change the measured values. Per-episode baseline result JSONs, result-file inventories and result archives are not distributed in Git or Releases.
+These are historical aggregate values from completed baseline runs, evaluated
+with `eovt-evaluator-20261121`. Brackets give 95% layout-cluster bootstrap intervals
+(2,000 repetitions). Rates are percentages; MRS is in steps. The current video
+update does not rerun these baselines or change their measured values.
+Per-episode baseline result JSONs, result-file inventories and result archives
+are not distributed in Git or Releases.
 
 ### STT
 
@@ -155,7 +169,7 @@ modes and is not intended to establish a universal ranking of models.
 
 ## Qualitative examples
 
-Twelve fresh OmTrackVLA robot-camera videos (STT/OR/IC: two successes and two failures each) are available with result JSONs and step trajectories. See the [case index and metric caveats](qualitative/omtrack_first_person/README.md).
+Twelve current OmTrackVLA robot-camera demonstrations (OR/IC scored under v0.2) (STT/OR/IC: two successes and two failures each) are available with result JSONs and step trajectories. See the [case index and metric caveats](qualitative/omtrack_first_person/README.md).
 
 
 Publication scope and attribution: [PUBLICATION](docs/PUBLICATION.md).

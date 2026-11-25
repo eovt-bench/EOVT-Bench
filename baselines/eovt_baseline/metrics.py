@@ -21,12 +21,13 @@ def generic_metrics(step_records: list[dict[str, Any]], final_info: dict[str, An
     }
 
 
-def occlusion_metrics(visibility: Iterable[bool]) -> dict[str, float | int | None]:
-    """Compatibility implementation of the current EOVT-Bench OR protocol.
+def occlusion_metrics(visibility: Iterable[bool]) -> dict[str, Any]:
+    """Historical online summary, retained only for compatibility.
 
     A loss event begins at the first visible->not-visible transition. VOR means
     a post-loss observation window exists; RSR means visibility later returns;
-    CRR is RSR conditional on that opportunity. K=1.
+    CRR is RSR conditional on that opportunity. K=1. These fields are not
+    v0.2 OR scores; v0.2 requires synchronized instance/projection evidence.
     """
     trace = [bool(value) for value in visibility]
     lost_index = next((i for i in range(1, len(trace)) if trace[i - 1] and not trace[i]), None)
@@ -49,6 +50,8 @@ def occlusion_metrics(visibility: Iterable[bool]) -> dict[str, float | int | Non
         "lost_index": lost_index,
         "reacquired_index": reacquired_index,
         "protocol_k": 1,
+        "legacy_online_summary": True,
+        "online_summary_protocol": "legacy-facing-k1",
     }
 
 

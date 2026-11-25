@@ -1,0 +1,20 @@
+{
+  "version": "eovt-or-visibility-v0.2",
+  "visible_min_pixels": 16,
+  "visible_fraction": 0.001,
+  "initial_visible_steps": 5,
+  "loss_steps": 3,
+  "recovery_window_steps": 50,
+  "image_fraction_min": 0.003,
+  "image_fraction_max": 0.4,
+  "target_visibility_min": 0.25,
+  "opportunity_distance_min_m": 0.8,
+  "opportunity_duration_s": 0.2,
+  "following_duration_s": 0.4,
+  "maximum_evidence_gap_s": 0.2,
+  "follow_distance_m": 3.0,
+  "follow_pixel_fraction_lower": 0.020345052083333332,
+  "follow_pixel_fraction_upper": 0.3,
+  "provenance": "Collection manifest OR_omtrack_full_20261124 initial operational thresholds; not universal optima",
+  "reference_filters_unchanged": true
+}

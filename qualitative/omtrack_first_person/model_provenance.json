@@ -39,6 +39,8 @@
       "imageio": "2.37.0"
     }
   },
-  "selection": "Illustrative selected outcomes, not a random performance estimate.",
-  "historical_results_not_reused_as_fresh_scores": true
+  "selection": "Illustrative selected outcomes; not a random performance estimate",
+  "historical_results_not_reused_as_fresh_scores": true,
+  "scoring_protocol_version": "eovt-or-ic-v0.2",
+  "model_artifacts_included": false
 }

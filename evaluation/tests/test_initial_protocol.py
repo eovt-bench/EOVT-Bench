@@ -7,8 +7,8 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from ic_behavior import score_event
-from or_visibility import ORConfig, score_event as score_or
+from ic_behavior_legacy_v01 import score_event
+from or_visibility_legacy_v01 import ORConfig, score_event as score_or
 
 
 def _row(step, robot_x, target_x, heading=0.0, pixels=5000):

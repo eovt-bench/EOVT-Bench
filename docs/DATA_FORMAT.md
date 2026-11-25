@@ -38,8 +38,11 @@ coordinate convention.
 The frozen selection is pre-clear length **>2.5 m**, occlusion length
 **>=0.5 m**, with no additional post-event reappearance requirement.
 These reference lengths are not runtime visibility observations.
-The complete initial OR threshold set is in
-`configs/evaluation/or_ic_initial_v0.1.json`. Runtime OR evidence should
+Current runtime OR thresholds are in
+`configs/evaluation/or_visibility_v0.2.json`; the reference selection
+parameters are documented in `evaluation/PROTOCOL.md`.
+`configs/evaluation/or_ic_initial_v0.1.json` is retained for historical
+compatibility. Runtime OR evidence must
 contain synchronized `step`, `simulation_time_s`, `target_pixels`,
 `image_height`, `image_width`, `target_distance_m`, `collision` and
 `env_episode_over` fields.
@@ -72,14 +75,22 @@ Similar trials store `target_dominance_rate` or `target_dominance`.
 Those fields belong to the legacy OTPR-compatible schema. For the current IC
 protocol, trial evidence must additionally provide complete records with
 `robot_position`, `robot_heading_*`, `original_position` and
-`distractor_position`. Current scored trials carry
-`identity_evaluator_version = eovt-ic-behavior-v0.1` and a binary
+`distractor_position`. `simulation_time_s`, recorded person IDs, activation flags and termination
+evidence are mandatory. Current scored trials carry
+`identity_evaluator_version = eovt-ic-behavior-v0.2` and a binary
 `behavior_label` of `follow_original_target` or `failure`.
 
 Current event-level IC summaries expose `same_success`, `similar_count`,
 `similar_follow_original_count` and `effective_follow_ratio`. Missing
 trajectory evidence is an input error; it is not converted into a model
 failure.
+
+Current OR records additionally contain `target_visibility_ratio` from a
+verified complete-target projection and actual simulation timestamps.
+The current OR score version is `eovt-or-visibility-v0.2`. No-loss records
+have null recovery scores; censored outcomes remain null and are reported
+separately. Historical facing summaries cannot be converted to these scores
+without the missing evidence.
 
 `finish=false` or `status=Lost` alone does not mean a damaged result:
 completed failures are outcomes. Missing records, malformed JSON, wrong trial
