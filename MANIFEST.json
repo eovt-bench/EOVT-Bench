@@ -1,5 +1,5 @@
 {
-  "version": "0.2.7",
+  "version": "0.2.8",
   "resource_policy_version": "separate-scenes-and-external-resources-20261125",
   "distribution_update": "2026-11-25",
   "scope": "Git source and compact metadata; separately installed assets are excluded.",
@@ -15,8 +15,8 @@
     },
     {
       "path": ".github/workflows/offline-checks.yml",
-      "bytes": 1204,
-      "sha256": "52fcd2a0ad348e15a4d63b64b0855cb3e92d1716539bd6ac0d61e522afb1d8c9"
+      "bytes": 1306,
+      "sha256": "48f2b2dfece754da78ff59377a43eccb387100f11d0aa2057167ea61646aca5f"
     },
     {
       "path": ".gitignore",
@@ -26,7 +26,7 @@
     {
       "path": "CITATION.cff",
       "bytes": 589,
-      "sha256": "04b60f26d7c68a7c3a6a910969447d4e2c3a6b46149afc8e1a4ec9e952cac02c"
+      "sha256": "ea6e73610ec3e5abac036160f89e1c2cd8f7803275b5137ca8e9d2937e15ea4c"
     },
     {
       "path": "LICENSE",
@@ -41,27 +41,27 @@
     {
       "path": "README.md",
       "bytes": 8785,
-      "sha256": "44ecc312ec1235575d8ed7fe715d50b34a5bce5cb5c3abe1b2b08d4a7ad31cec"
+      "sha256": "4eea0654e0d9fda2b193ee049036ba5c123fa137e1f6f153a2900bf8813e5a1c"
     },
     {
       "path": "README.zh-CN.md",
       "bytes": 7615,
-      "sha256": "9531c4728054043202f53bc89594c6a4fa0e0451746414c0c0ebccd5c13ffc6d"
+      "sha256": "8a83eda7ce8c3915136c2ef827ad6b8d432479a9915c0580f18d56af8a3d58de"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
-      "bytes": 2965,
-      "sha256": "f0c61bec212b7f312b1f760c4cbb834519598cf22c7a2f292205968eecf1b5b3"
+      "bytes": 3252,
+      "sha256": "a0828c350a147d510bc0921c4106a1a7c2b63d2435b49e4451423647ffcde1d6"
     },
     {
       "path": "VALIDATION_REPORT.json",
-      "bytes": 10603,
-      "sha256": "dc7d874e6ff456fd6c5bd0fc927ecdef84b12bc9c80bf35d989419b100739204"
+      "bytes": 11331,
+      "sha256": "75268d01610c277fb77526b0bfcd4bdcb03c9feec9bb38a3bb69a8ecbc87685c"
     },
     {
       "path": "VERSION",
       "bytes": 7,
-      "sha256": "b42b4dba83733aca4ac1600a77b2bf438a8257050b45db3857d79eafe364256e"
+      "sha256": "20546f0ed39ccd636c852903d6617c3134890a397577227dea8ea2827b371441"
     },
     {
       "path": "assets/humanoids/appearance_top3.json",
@@ -285,8 +285,8 @@
     },
     {
       "path": "configs/habitat/README.md",
-      "bytes": 17171,
-      "sha256": "fdb67ea024fc4428748e2bb9243143b0887fc0d0e6504e1284a964b3af030902"
+      "bytes": 17180,
+      "sha256": "e11f9da6619387ead4baac7036181fe1ab3cd96a2d7d55283fa2a99eb3dc225b"
     },
     {
       "path": "configs/habitat/__init__.py",
@@ -1010,13 +1010,13 @@
     },
     {
       "path": "docs/RELEASE_STATUS.md",
-      "bytes": 3184,
-      "sha256": "7024ca41cc63a2f46bd1bd7c93fb50ff7903d179e2c2dc849200a2029d0827be"
+      "bytes": 3622,
+      "sha256": "ee97c871e172b412617bb8d86411df267fc280a53b3429a7c7f6728bce03ad7d"
     },
     {
       "path": "docs/REPOSITORY_AUDIT.md",
-      "bytes": 7094,
-      "sha256": "0f4f3c671050ffa9630bf8c2eb0a6b7fdfa307c6c73b4d41216206a640ad7e12"
+      "bytes": 7587,
+      "sha256": "b4dbb758ed6c8ea0b257f8cbbcbc5ef679883c1dab64298a0a6130eeade8f36a"
     },
     {
       "path": "docs/THIRD_PARTY_RESOURCES.md",
@@ -1029,9 +1029,19 @@
       "sha256": "ae7196291a819bfc0ad80d5fdd2ef757fe1f3e3edd2920fee904b453477c0cc4"
     },
     {
+      "path": "docs/images/README.md",
+      "bytes": 876,
+      "sha256": "d7de27b99d4d1faca47fb5753fd0b6e583c32aef7972aa3a5c09c44ef281abd3"
+    },
+    {
+      "path": "docs/images/habitat_with_hydra.png",
+      "bytes": 493461,
+      "sha256": "6273bc44f3971c003fa30b77d884eeb8a12786432b4f223632e9c180b802e910"
+    },
+    {
       "path": "downloads.json",
       "bytes": 1771,
-      "sha256": "ebab137c647ea320c11e585f4af86ac275a1919231c0a7ddd033a178bd5c9f53"
+      "sha256": "8656871163b34aaafe5cc60a2db0f0f7a03ba71d598a68320f5a1afb5a675bd3"
     },
     {
       "path": "environment.yml",
@@ -1310,8 +1320,8 @@
     },
     {
       "path": "evaluation/runtime/habitat-lab/habitat/config/README.md",
-      "bytes": 17171,
-      "sha256": "fdb67ea024fc4428748e2bb9243143b0887fc0d0e6504e1284a964b3af030902"
+      "bytes": 17189,
+      "sha256": "9bf1343995c7f0f8b8afbcbad3c4f34fc597f53faa16690e1e40fc26a1d851eb"
     },
     {
       "path": "evaluation/runtime/habitat-lab/habitat/config/__init__.py",
@@ -1995,8 +2005,8 @@
     },
     {
       "path": "evaluation/runtime/habitat-lab/habitat/core/batch_rendering/README.md",
-      "bytes": 5118,
-      "sha256": "48b00a665a3ebac9d3e2b4142a1527474e86e17189f937b4f2d3671673c4522f"
+      "bytes": 5655,
+      "sha256": "27803e400e503f9b2270bc1b97e314e59dca0d1c61c133a4a5585b0aa83fcf32"
     },
     {
       "path": "evaluation/runtime/habitat-lab/habitat/core/batch_rendering/__init__.py",
@@ -2867,6 +2877,11 @@
       "path": "run_baseline.py",
       "bytes": 226,
       "sha256": "95720fda6062ce737aede1c9450a2060d17e3358c47c99c07590b26bc62ff8ed"
+    },
+    {
+      "path": "scripts/check_documentation.py",
+      "bytes": 3586,
+      "sha256": "5584798fcd0dbfa1b9132596a978b53c4302c6bc1143d8f1ac3d27011d99fe0d"
     },
     {
       "path": "scripts/check_resources.py",

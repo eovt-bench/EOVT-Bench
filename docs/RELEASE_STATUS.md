@@ -1,6 +1,6 @@
 # Release status
 
-Source release: `0.2.7`; evaluator: `eovt-or-ic-v0.2`.
+Source release: `0.2.8`; evaluator: `eovt-or-ic-v0.2`.
 Checked on 2026-11-25. Technical execution/resource verification is complete
 for the recorded configuration. On 2026-11-25 the owner authorized MIT for
 benchmark-owned code and CC BY 4.0 for benchmark-owned scenes, task data and
@@ -22,6 +22,12 @@ components retain their original terms. See [licensing](LICENSING.md).
 See [installation](INSTALLATION.md), [audit](REPOSITORY_AUDIT.md),
 `configs/environment_validated.json` and `VALIDATION_REPORT.json`.
 Fresh-environment checks include actual GPU rollouts, not only CLI help.
+The v0.2.8 documentation patch restores the two inherited Habitat image
+references using one unchanged upstream image with its MIT attribution.
+`scripts/check_documentation.py` checks local link/image targets against
+published source files, and CI runs that check on Python 3.9 and 3.12.
+A deleted upstream composite-resource link was replaced with verified
+provider documentation, with its optional historical scope made explicit.
 
 ## Preserved historical material
 

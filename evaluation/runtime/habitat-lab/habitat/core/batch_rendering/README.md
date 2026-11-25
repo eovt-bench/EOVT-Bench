@@ -1,5 +1,10 @@
 # Batch Rendering
 
+This is retained upstream reference documentation for an optional training
+feature. EOVT-Bench installation and evaluation use the repository's
+`docs/INSTALLATION.md` instructions and do not require ReplicaCAD composite
+assets.
+
 This document provides instructions to train the Habitat 2.0 rearrangement tasks with batch rendering, with the goal to save GPU memory and enable more parallel environments.
 
 You can also adapt these instructions to your own Habitat-lab training experiments, with [some caveats mentioned below](#limitations).
@@ -28,9 +33,12 @@ We don't yet offer a pipeline for creating your own composite GLTF files, but th
 
 **Downloads**
 
-The following composite files are available for download:
-
-* [ReplicaCAD](https://drive.google.com/drive/folders/1zA6Bib_uNPPRgDOQqzQR_4uT460SzBkv)
+The original Google Drive folder for the historical ReplicaCAD composite
+bundle is no longer publicly available (checked 2026-11-25). For current
+provider instructions, consult the
+[Habitat-Sim dataset documentation](https://github.com/facebookresearch/habitat-sim/blob/v0.3.3/DATASETS.md)
+and the [ReplicaCAD project page](https://aihabitat.org/datasets/replica_cad/).
+These pages do not guarantee availability of the historical composite bundle.
 
 **Configuration**
 

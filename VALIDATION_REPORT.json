@@ -1,5 +1,5 @@
 {
-  "version": "0.2.7",
+  "version": "0.2.8",
   "evaluator_version": "eovt-evaluator-20261125-v0.2",
   "distribution_update": "2026-11-25",
   "status": "PUBLIC_RELEASE_TECHNICALLY_VERIFIED_OWNER_LICENSES_APPLIED",
@@ -162,14 +162,14 @@
   },
   "repository_access_at_verification": "PUBLIC; anonymous scene download returned 206",
   "publication_checks": {
-    "source_text_files_scanned": 573,
+    "source_text_files_scanned": 577,
     "compressed_metadata_files_scanned": 4,
     "qualitative_archive_text_members_scanned": 424,
     "private_path_or_secret_matches": 0,
     "archive_sha256sums": "PASS",
     "scorer_manifest_exact_bytes": "Use pinned archived source tag for exact bytes; current source changes CLI context and Same-collision diagnostics.",
     "qualitative_archives_scanned": 4,
-    "tracked_public_files": 578,
+    "tracked_public_files": 583,
     "current_brand_or_task_name_matches": 0,
     "scene_archive_content": {
       "status": "PASS",
@@ -290,5 +290,22 @@
     "scope": "docs/LICENSING.md",
     "third_party_terms_preserved": true,
     "fixed_resource_bytes_unchanged": true
+  },
+  "documentation_patch": {
+    "date": "2026-11-25",
+    "previous_source_version": "0.2.7",
+    "missing_image_references_repaired": 2,
+    "upstream_optional_dead_download_links_replaced": 1,
+    "upstream_image_sha256": "6273bc44f3971c003fa30b77d884eeb8a12786432b4f223632e9c180b802e910",
+    "upstream_image_license": "MIT; original notice retained",
+    "checker": "scripts/check_documentation.py",
+    "ci_check_enabled": true,
+    "benchmark_code_rules_tasks_and_resource_payloads_unchanged": true,
+    "local_target_check": "PASS",
+    "markdown_files": 29,
+    "local_targets_checked": 82,
+    "external_urls_checked": 49,
+    "external_url_non_success": 0,
+    "source_export_without_git": "PASS"
   }
 }

@@ -37,3 +37,5 @@ jobs:
           python scripts/check_resources.py --group metadata
       - name: Public source inventory
         run: python scripts/package_inventory.py
+      - name: Documentation link and image targets
+        run: python scripts/check_documentation.py

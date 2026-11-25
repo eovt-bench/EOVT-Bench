@@ -1,6 +1,6 @@
 # Repository release audit — 2026-11-25
 
-Source release: `0.2.7`.
+Source release: `0.2.8`.
 Technical checks have passed: the preceding audit scanned 578 tracked public
 files. The owner authorized MIT for benchmark-owned code and CC BY 4.0 for
 benchmark-owned scenes, task data and documentation on 2026-11-25.
@@ -38,6 +38,8 @@ also includes the added license and attribution files.
 | Environment description was only an observed snapshot | Create an independent conda environment, install declared dependencies, run pip check, all tests and real simulator rollouts |
 | Inventory/citation/version metadata and links were inconsistent | Synchronize source metadata and checksum inventory; check public links and release attachment scope |
 | Benchmark-owned material had no reuse license | Apply owner-approved MIT/CC BY 4.0 split, specify component scope and supply scene-release license sidecars |
+| Two inherited Habitat documentation images pointed outside the published source | Retain the unchanged, pinned upstream MIT image locally; repair both references and add a CI check for published local link/image targets |
+| Optional upstream batch-renderer documentation linked to a deleted resource folder | Replace the dead link with verified provider documentation; explicitly distinguish that historical optional feature from EOVT installation |
 
 ## Verification evidence
 
@@ -94,6 +96,7 @@ remain explicit without substituting for executable installation verification.
 ```bash
 python scripts/package_inventory.py
 python scripts/check_resources.py --group metadata
+python scripts/check_documentation.py
 bash baselines/scripts/test.sh
 ```
 

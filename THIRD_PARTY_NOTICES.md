@@ -12,6 +12,10 @@ Neither license is a blanket grant for third-party resources.
   `licenses/Habitat-Lab-v0.3.1-LICENSE` and
   `evaluation/runtime/habitat-lab/LICENSE`. It does not license unrelated
   assets or establish ownership of custom modifications.
+- The Habitat-Lab/Hydra documentation illustration in `docs/images/` is an
+  unmodified upstream v0.3.1 file. Its source and checksum are recorded in
+  `docs/images/README.md`; the existing Habitat-Lab MIT notice applies.
+  It is not included in the benchmark-owned CC BY 4.0 grant.
 - The installed Ultralytics package notice is preserved under
   `evaluation/third_party_licenses/ultralytics/`. Users must comply with the
   terms for their code/weight usage; retaining a notice alone does not

@@ -6,7 +6,7 @@ A Benchmark for Evaluating Occlusion Robustness in Embodied Visual Tracking.
 [Protocol](evaluation/PROTOCOL.md) · [Baselines](docs/BASELINES.md)
 · [External resources](docs/THIRD_PARTY_RESOURCES.md)
 
-Version **0.2.7**. This release contains fixed
+Version **0.2.8**. This release contains fixed
 episode/event metadata, environment configuration, two diagnostic baselines
 and a shared evaluator. The fixed author-constructed scenes are distributed
 as a separate checksum-pinned archive; humanoid, robot and detector resources

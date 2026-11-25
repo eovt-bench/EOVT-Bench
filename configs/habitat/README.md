@@ -1,6 +1,6 @@
 Habitat-Lab Configuration System
 ================================
-![Habitat with Hydra](/res/img/habitat_with_hydra.png)
+![Habitat with Hydra](../../docs/images/habitat_with_hydra.png)
 
 For a description of some of the most important configuration keys of the habitat benchmarks, refer to [this file](CONFIG_KEYS.md).
 
