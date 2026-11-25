@@ -1,5 +1,5 @@
 {
-  "version": "0.2.2-pre.20261125",
+  "version": "0.2.3-pre.20261125",
   "evaluator_version": "eovt-evaluator-20261125-v0.2",
   "distribution_update": "2026-11-25",
   "status": "PASS_FOR_CURRENT_SOURCE_AND_SELECTED_DEMONSTRATIONS",
@@ -48,13 +48,13 @@
       "name": "real_evidence_cli_and_aggregation",
       "status": "PASS",
       "or_cases": 4,
-      "ic_events": 2,
-      "ic_similar_trials": 6
+      "ic_events": 4,
+      "ic_similar_trials": 12
     },
     {
       "name": "or_masks_match_logged_pixels",
       "status": "PASS",
-      "frames": 452
+      "frames": 401
     },
     {
       "name": "ic_frozen_development_regression",
@@ -68,15 +68,25 @@
     "successes_per_task": 2,
     "failures_per_task": 2,
     "main_videos_fully_decoded": true,
-    "full_ic_events": 2,
-    "ic_recordings": 8,
+    "full_ic_events": 4,
+    "ic_recordings": 16,
+    "distinct_main_ic_same_controls": 4,
     "all_ic_recordings_fully_decoded": true,
-    "stt_capture_date": "2026-11-21",
+    "stt_capture_date": "2026-11-25",
     "stt_original_definition_unchanged": true,
     "or_raw_capture_dates": "2026-11-24/25",
     "or_source_events_complete": 630,
     "ic_new_closed_loop_capture_date": "2026-11-25",
-    "selected_examples_are_population_estimate": false
+    "selected_examples_are_population_estimate": false,
+    "or_scenes": [
+      "road",
+      "indoor"
+    ],
+    "or_complete_disappearance_confirmed": true,
+    "all_task_playback": "recorded simulation timestamps, 1x",
+    "timing_quantization_s": 0.001,
+    "interpolated_frames": 0,
+    "dropped_frames": 0
   },
   "baseline_population_rerun": false,
   "baseline_online_or_ic_summaries": "legacy; not v0.2 synchronized logging",
@@ -88,14 +98,14 @@
   "publication_checks": {
     "source_text_files_scanned": 546,
     "compressed_metadata_files_scanned": 4,
-    "qualitative_archive_text_members_scanned": 100,
+    "qualitative_archive_text_members_scanned": 126,
     "private_path_or_secret_matches": 0,
     "archive_sha256sums": "PASS",
     "scorer_manifest_exact_bytes": "PASS"
   },
   "archive": {
-    "filename": "eovt-omtrack-current-cases-20261125.zip",
-    "bytes": 45117053,
-    "sha256": "2b2fa8bee2154021744592ec42ba885ad429d13dc7874508df1996c83c0ff890"
+    "filename": "eovt-omtrack-realtime-cases-20261125.zip",
+    "bytes": 25932729,
+    "sha256": "3be87b4fc029a5f8fed8d6a1e9065668ba0b14d5d2dab682a5c71c350d9f56b6"
   }
 }

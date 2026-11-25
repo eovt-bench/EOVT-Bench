@@ -4,160 +4,544 @@
     {
       "case_id": "STT_success_01",
       "frames": 102,
-      "sha256": "7702b1b887c52357ea3ae553cee620309c056fb1eea26055b9caf56b5b7eec41",
-      "bytes": 1888169,
+      "sha256": "f3c0e99d538092670fd8f867552cf1555774b42a55a594c4706bb5b1c359becc",
+      "bytes": 542638,
       "complete_decode": true,
       "source_type": "original_closed_loop_camera_capture",
-      "scoring_protocol_version": "stt-original-unchanged"
+      "scoring_protocol_version": "stt-original-unchanged",
+      "timing": {
+        "frames": 102,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 4.9120000000000035,
+        "video_last_frame_pts_s": 4.912,
+        "maximum_pts_error_s": 3.552713678800501e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     },
     {
       "case_id": "STT_success_02",
       "frames": 101,
-      "sha256": "fef6d047fe4ab6efb57fd22936ff67df204a2954479b7fcc13fc5a63a16f0125",
-      "bytes": 2664701,
+      "sha256": "59070a1a928f3dd4473cfab3da62ee98ccf94cecf474edf54468bd6ba9503548",
+      "bytes": 902294,
       "complete_decode": true,
       "source_type": "original_closed_loop_camera_capture",
-      "scoring_protocol_version": "stt-original-unchanged"
+      "scoring_protocol_version": "stt-original-unchanged",
+      "timing": {
+        "frames": 101,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 4.864000000000003,
+        "video_last_frame_pts_s": 4.864,
+        "maximum_pts_error_s": 3.552713678800501e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     },
     {
       "case_id": "STT_failure_01",
       "frames": 104,
-      "sha256": "c77a7b1ab745885107dcc0d9e39b28b73ebc92122092ff614c5434db58842530",
-      "bytes": 2642784,
+      "sha256": "b1cd90db4a2a12e338da9c8e2c403ad53e62ed388c2be45a28796d93ad65d316",
+      "bytes": 933115,
       "complete_decode": true,
       "source_type": "original_closed_loop_camera_capture",
-      "scoring_protocol_version": "stt-original-unchanged"
+      "scoring_protocol_version": "stt-original-unchanged",
+      "timing": {
+        "frames": 104,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 5.008000000000004,
+        "video_last_frame_pts_s": 5.008,
+        "maximum_pts_error_s": 3.552713678800501e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     },
     {
       "case_id": "STT_failure_02",
       "frames": 103,
-      "sha256": "8893d02d004ec3345ddfcc7610ab649ccc909ace079d3fe66723364458844efb",
-      "bytes": 2670362,
+      "sha256": "c16af388023834f17b420c1e333704dd3168b5dfdc377fe52a8bab5d705e78dd",
+      "bytes": 977343,
       "complete_decode": true,
       "source_type": "original_closed_loop_camera_capture",
-      "scoring_protocol_version": "stt-original-unchanged"
+      "scoring_protocol_version": "stt-original-unchanged",
+      "timing": {
+        "frames": 103,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 4.9600000000000035,
+        "video_last_frame_pts_s": 4.96,
+        "maximum_pts_error_s": 3.552713678800501e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     },
     {
       "case_id": "OR_success_01",
-      "frames": 99,
-      "sha256": "b6755e589a4b8b23fa553943452f3702d93a3769fc39b98d4b824fca912f57b6",
-      "bytes": 1898841,
+      "frames": 125,
+      "sha256": "740e94143c40b705fb8fe7794737fe514f98439acb15553a6f6377fa74901326",
+      "bytes": 1064771,
       "complete_decode": true,
       "source_type": "original_closed_loop_rgb_sequence",
-      "scoring_protocol_version": "eovt-or-visibility-v0.2"
+      "scoring_protocol_version": "eovt-or-visibility-v0.2",
+      "timing": {
+        "frames": 125,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 6.0320000000000045,
+        "video_last_frame_pts_s": 6.032,
+        "maximum_pts_error_s": 4.440892098500626e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     },
     {
       "case_id": "OR_success_02",
-      "frames": 106,
-      "sha256": "b5a60aaed41a23038b1636cea9dc5a059ec03eb93bb0a22c1e9b213fade6f3c7",
-      "bytes": 2360299,
+      "frames": 122,
+      "sha256": "33011d99e256f39e52466843e0339e7c7d37903f46f33a6069c8874f1f2980a0",
+      "bytes": 1384445,
       "complete_decode": true,
       "source_type": "original_closed_loop_rgb_sequence",
-      "scoring_protocol_version": "eovt-or-visibility-v0.2"
+      "scoring_protocol_version": "eovt-or-visibility-v0.2",
+      "timing": {
+        "frames": 122,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 5.888000000000004,
+        "video_last_frame_pts_s": 5.888,
+        "maximum_pts_error_s": 4.440892098500626e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     },
     {
       "case_id": "OR_failure_01",
-      "frames": 177,
-      "sha256": "c65f5225d78c3b52c49a47a8b7b11e5450707455a0d4760c596e1c1af6b3f231",
-      "bytes": 2744512,
+      "frames": 79,
+      "sha256": "2e16baa74f8bb031ac70ae001efc66ac5d6c21094338562cf4791b00bef0b654",
+      "bytes": 523971,
       "complete_decode": true,
       "source_type": "original_closed_loop_rgb_sequence",
-      "scoring_protocol_version": "eovt-or-visibility-v0.2"
+      "scoring_protocol_version": "eovt-or-visibility-v0.2",
+      "timing": {
+        "frames": 79,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 3.792000000000003,
+        "video_last_frame_pts_s": 3.792,
+        "maximum_pts_error_s": 3.1086244689504383e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     },
     {
       "case_id": "OR_failure_02",
-      "frames": 70,
-      "sha256": "12667e20d1ac3d08dff058fc359067314dca00cc98323bb8df39619325517716",
-      "bytes": 1736397,
+      "frames": 75,
+      "sha256": "4bfb01f1c5b4145e491986bf83e60053c810daa5533e79d1cdfc4ccc1e1e7225",
+      "bytes": 549113,
       "complete_decode": true,
       "source_type": "original_closed_loop_rgb_sequence",
-      "scoring_protocol_version": "eovt-or-visibility-v0.2"
-    },
-    {
-      "case_id": "IC_failure_01",
-      "frames": 107,
-      "sha256": "f6da3390813cd3f69e0e4d91504603cf9d6457e6c5ee60db81d14f81c5e0b1f0",
-      "bytes": 1910625,
-      "complete_decode": true,
-      "source_type": "original_closed_loop_camera_capture",
-      "scoring_protocol_version": "eovt-ic-behavior-v0.2"
-    },
-    {
-      "case_id": "IC_failure_02",
-      "frames": 107,
-      "sha256": "88cb34d877e193cba88ec3d6ac0606bd8aa26ae155eab52ad78a7277ac3e3d0e",
-      "bytes": 1900681,
-      "complete_decode": true,
-      "source_type": "original_closed_loop_camera_capture",
-      "scoring_protocol_version": "eovt-ic-behavior-v0.2"
+      "scoring_protocol_version": "eovt-or-visibility-v0.2",
+      "timing": {
+        "frames": 75,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 3.6000000000000028,
+        "video_last_frame_pts_s": 3.6,
+        "maximum_pts_error_s": 2.6645352591003757e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     },
     {
       "case_id": "IC_success_01",
       "frames": 146,
-      "sha256": "2b85e718c93735d6f718833f1caa72c01797c512000e330af8a89d5378ec21a8",
-      "bytes": 1879817,
+      "sha256": "6fb6d286f1cab9c87597b1aacfe00142e8917326432929d66c723922c6a4e03f",
+      "bytes": 746821,
       "complete_decode": true,
       "source_type": "original_closed_loop_camera_capture",
-      "scoring_protocol_version": "eovt-ic-behavior-v0.2"
+      "scoring_protocol_version": "eovt-ic-behavior-v0.2",
+      "timing": {
+        "frames": 146,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 7.056000000000005,
+        "video_last_frame_pts_s": 7.056,
+        "maximum_pts_error_s": 5.329070518200751e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     },
     {
       "case_id": "IC_success_02",
-      "frames": 146,
-      "sha256": "fc4ee39aedcbecb51bf45d1d2100e25489d006ed3604e5c4e11892a64f04aa26",
-      "bytes": 1878536,
+      "frames": 102,
+      "sha256": "b498370375bad6479471134448017514a9ee5f58a59de4227e0d3bbc3fb7094d",
+      "bytes": 657620,
       "complete_decode": true,
       "source_type": "original_closed_loop_camera_capture",
-      "scoring_protocol_version": "eovt-ic-behavior-v0.2"
+      "scoring_protocol_version": "eovt-ic-behavior-v0.2",
+      "timing": {
+        "frames": 102,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 4.9120000000000035,
+        "video_last_frame_pts_s": 4.912,
+        "maximum_pts_error_s": 3.552713678800501e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
+    },
+    {
+      "case_id": "IC_failure_01",
+      "frames": 107,
+      "sha256": "274510ff5e033bd11dff78c80441f2d3159016ed803b01f7d1edcf9f3d102c3c",
+      "bytes": 842545,
+      "complete_decode": true,
+      "source_type": "original_closed_loop_camera_capture",
+      "scoring_protocol_version": "eovt-ic-behavior-v0.2",
+      "timing": {
+        "frames": 107,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 5.152000000000004,
+        "video_last_frame_pts_s": 5.152,
+        "maximum_pts_error_s": 3.552713678800501e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
+    },
+    {
+      "case_id": "IC_failure_02",
+      "frames": 75,
+      "sha256": "612aff1c81ef034b1a7250f9624fdb80058fc3a918825bc5fa42dc82677c6802",
+      "bytes": 391530,
+      "complete_decode": true,
+      "source_type": "original_closed_loop_camera_capture",
+      "scoring_protocol_version": "eovt-ic-behavior-v0.2",
+      "timing": {
+        "frames": 75,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 3.6000000000000028,
+        "video_last_frame_pts_s": 3.6,
+        "maximum_pts_error_s": 2.6645352591003757e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     }
   ],
   "full_ic_event_recordings": [
     {
       "video": "ic_events/event_01/same/first_person.mp4",
-      "frames": 107,
-      "sha256": "410c98c4b0e355a92989b862038ba84b2688d6dd7b1f59e1844fca5428bf3dab",
-      "complete_decode": true
+      "frames": 146,
+      "sha256": "b9398619e07519664aa814da886d8a5a33a5c82ddc76650b1ce6278bf5bb8074",
+      "complete_decode": true,
+      "timing": {
+        "frames": 146,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 7.056000000000005,
+        "video_last_frame_pts_s": 7.056,
+        "maximum_pts_error_s": 5.329070518200751e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     },
     {
       "video": "ic_events/event_01/similar_1/first_person.mp4",
-      "frames": 107,
-      "sha256": "f6da3390813cd3f69e0e4d91504603cf9d6457e6c5ee60db81d14f81c5e0b1f0",
-      "complete_decode": true
+      "frames": 146,
+      "sha256": "6fb6d286f1cab9c87597b1aacfe00142e8917326432929d66c723922c6a4e03f",
+      "complete_decode": true,
+      "timing": {
+        "frames": 146,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 7.056000000000005,
+        "video_last_frame_pts_s": 7.056,
+        "maximum_pts_error_s": 5.329070518200751e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     },
     {
       "video": "ic_events/event_01/similar_2/first_person.mp4",
-      "frames": 107,
-      "sha256": "88cb34d877e193cba88ec3d6ac0606bd8aa26ae155eab52ad78a7277ac3e3d0e",
-      "complete_decode": true
+      "frames": 146,
+      "sha256": "03bd069269dabf2840642e99089bd7be0dadb0d0d424e19b2b8a58cb90e04e6b",
+      "complete_decode": true,
+      "timing": {
+        "frames": 146,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 7.056000000000005,
+        "video_last_frame_pts_s": 7.056,
+        "maximum_pts_error_s": 5.329070518200751e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     },
     {
       "video": "ic_events/event_01/similar_3/first_person.mp4",
-      "frames": 107,
-      "sha256": "1a8255cbf5aaf6276224615165887971c8c4cf1476149f9b0157a540319c48d3",
-      "complete_decode": true
+      "frames": 146,
+      "sha256": "b789abca414ada6007c87096695ce1a7a8a0430e85cbad2b85979948a0308b27",
+      "complete_decode": true,
+      "timing": {
+        "frames": 146,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 7.056000000000005,
+        "video_last_frame_pts_s": 7.056,
+        "maximum_pts_error_s": 5.329070518200751e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     },
     {
       "video": "ic_events/event_02/same/first_person.mp4",
-      "frames": 146,
-      "sha256": "6aef7c77567829242b96294f8016b2f5bf6652c4044b8f8d24b51b5f13cd73db",
-      "complete_decode": true
+      "frames": 99,
+      "sha256": "0f7fd218d2ab9cfab1c5cae931248cce3f326e12359570c22389e455487cc3ad",
+      "complete_decode": true,
+      "timing": {
+        "frames": 99,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 4.768000000000003,
+        "video_last_frame_pts_s": 4.768,
+        "maximum_pts_error_s": 3.552713678800501e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     },
     {
       "video": "ic_events/event_02/similar_1/first_person.mp4",
-      "frames": 146,
-      "sha256": "2b85e718c93735d6f718833f1caa72c01797c512000e330af8a89d5378ec21a8",
-      "complete_decode": true
+      "frames": 102,
+      "sha256": "b498370375bad6479471134448017514a9ee5f58a59de4227e0d3bbc3fb7094d",
+      "complete_decode": true,
+      "timing": {
+        "frames": 102,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 4.9120000000000035,
+        "video_last_frame_pts_s": 4.912,
+        "maximum_pts_error_s": 3.552713678800501e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     },
     {
       "video": "ic_events/event_02/similar_2/first_person.mp4",
-      "frames": 146,
-      "sha256": "fc4ee39aedcbecb51bf45d1d2100e25489d006ed3604e5c4e11892a64f04aa26",
-      "complete_decode": true
+      "frames": 102,
+      "sha256": "cd93e5ec7dd5f4b66f1484cecf71f000a985dab4584233838c97f5ffb4b677e2",
+      "complete_decode": true,
+      "timing": {
+        "frames": 102,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 4.9120000000000035,
+        "video_last_frame_pts_s": 4.912,
+        "maximum_pts_error_s": 3.552713678800501e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     },
     {
       "video": "ic_events/event_02/similar_3/first_person.mp4",
-      "frames": 146,
-      "sha256": "3018c9100bf951851006d702a97610b055d1a838574da44439a094d408b9d003",
-      "complete_decode": true
+      "frames": 102,
+      "sha256": "7bc4d6bcc86a04010c5751b972808e107b66f12fb11f9f26dd487204b0f0c0ad",
+      "complete_decode": true,
+      "timing": {
+        "frames": 102,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 4.9120000000000035,
+        "video_last_frame_pts_s": 4.912,
+        "maximum_pts_error_s": 3.552713678800501e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
+    },
+    {
+      "video": "ic_events/event_03/same/first_person.mp4",
+      "frames": 107,
+      "sha256": "98d4db6df5e3093863ef166514be169fccc4823defb2a22a039aa0e7225864b6",
+      "complete_decode": true,
+      "timing": {
+        "frames": 107,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 5.152000000000004,
+        "video_last_frame_pts_s": 5.152,
+        "maximum_pts_error_s": 3.552713678800501e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
+    },
+    {
+      "video": "ic_events/event_03/similar_1/first_person.mp4",
+      "frames": 107,
+      "sha256": "274510ff5e033bd11dff78c80441f2d3159016ed803b01f7d1edcf9f3d102c3c",
+      "complete_decode": true,
+      "timing": {
+        "frames": 107,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 5.152000000000004,
+        "video_last_frame_pts_s": 5.152,
+        "maximum_pts_error_s": 3.552713678800501e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
+    },
+    {
+      "video": "ic_events/event_03/similar_2/first_person.mp4",
+      "frames": 107,
+      "sha256": "02cc24c96b578a0e41ba2489fb70b5e61670968a0ee99bc5bcc695f02262b796",
+      "complete_decode": true,
+      "timing": {
+        "frames": 107,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 5.152000000000004,
+        "video_last_frame_pts_s": 5.152,
+        "maximum_pts_error_s": 3.552713678800501e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
+    },
+    {
+      "video": "ic_events/event_03/similar_3/first_person.mp4",
+      "frames": 107,
+      "sha256": "0ff3117644ef47f8c32b729155447a8c65dfa4b29f3e1179c9244c43e033418d",
+      "complete_decode": true,
+      "timing": {
+        "frames": 107,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 5.152000000000004,
+        "video_last_frame_pts_s": 5.152,
+        "maximum_pts_error_s": 3.552713678800501e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
+    },
+    {
+      "video": "ic_events/event_04/same/first_person.mp4",
+      "frames": 77,
+      "sha256": "52b9ebd3580ba93f48492d82bc803075e02ee9229b9ebcab6140dc2219a369d5",
+      "complete_decode": true,
+      "timing": {
+        "frames": 77,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 3.696000000000003,
+        "video_last_frame_pts_s": 3.696,
+        "maximum_pts_error_s": 2.6645352591003757e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
+    },
+    {
+      "video": "ic_events/event_04/similar_1/first_person.mp4",
+      "frames": 75,
+      "sha256": "612aff1c81ef034b1a7250f9624fdb80058fc3a918825bc5fa42dc82677c6802",
+      "complete_decode": true,
+      "timing": {
+        "frames": 75,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 3.6000000000000028,
+        "video_last_frame_pts_s": 3.6,
+        "maximum_pts_error_s": 2.6645352591003757e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
+    },
+    {
+      "video": "ic_events/event_04/similar_2/first_person.mp4",
+      "frames": 75,
+      "sha256": "ce602eee66d6f2fab4884f81ae0fdec619dc8d417427195cdbe16d6ccba63cbb",
+      "complete_decode": true,
+      "timing": {
+        "frames": 75,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 3.6000000000000028,
+        "video_last_frame_pts_s": 3.6,
+        "maximum_pts_error_s": 2.6645352591003757e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
+    },
+    {
+      "video": "ic_events/event_04/similar_3/first_person.mp4",
+      "frames": 75,
+      "sha256": "f962d5b23dae86eeef504b5ce87c5e791ea0a376430561bb6524bca86245451e",
+      "complete_decode": true,
+      "timing": {
+        "frames": 75,
+        "complete_decode": true,
+        "timing_mode": "recorded_simulation_timestamps_1x",
+        "speed_multiplier": 1.0,
+        "simulation_elapsed_s": 3.6000000000000028,
+        "video_last_frame_pts_s": 3.6,
+        "maximum_pts_error_s": 2.6645352591003757e-15,
+        "timing_quantization_s": 0.001,
+        "interpolated_frames": 0,
+        "dropped_frames": 0
+      }
     }
   ]
 }
