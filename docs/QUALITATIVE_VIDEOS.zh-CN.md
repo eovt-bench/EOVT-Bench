@@ -14,10 +14,11 @@ IC每个选中案例都对应ic_events中的完整1Same+3Similar输入，保留�
 可独立查看Same对照。OR附同步帧记录与掩码，可核验像素依据。
 OR仅选Road和Indoor，均有目标像素连续为0的完全消失过程，并核对了原始画面。
 消失期间，无遮挡目标投影仍位于相机范围内。
-三个任务的视频（包括Same对照）均按真实仿真时间戳1倍速播放，不丢帧、不插帧。
-模型推理等待时间不属于场景仿真时间；展示时不加速仿真运动。
+三个任务的视频（包括Same对照）全部为0.5倍速慢放，呈现时间为仿真时间的2倍，不丢帧、不插帧。
+仅将MP4的播放时间戳加倍，视频码流直接复制；原始仿真时间戳与评测结果保持不变。
+模型推理等待时间不属于场景仿真时间；当前版本为便于观察而将仿真运动放慢一倍。
 
 这些是精选定性案例，不能用其成功比例推断总体表现。规则与20例开发记录的一致性核查
 不等于独立人工验证。不包含模型代码、权重、场景或人物模型。
 
-[下载新版视频与证据包](https://github.com/eovt-bench/EOVT-Bench/releases/download/v0.2.3-videos.20261125/eovt-omtrack-realtime-cases-20261125.zip)
+[下载0.5倍速视频与证据包](https://github.com/eovt-bench/EOVT-Bench/releases/download/v0.2.4-videos.20261125/eovt-omtrack-half-speed-cases-20261125.zip)

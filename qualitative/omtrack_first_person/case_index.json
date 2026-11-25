@@ -9,14 +9,15 @@
     "frames": 102,
     "scoring_protocol_version": "stt-original-unchanged",
     "capture_date": "2026-11-25",
-    "timing_mode": "recorded_simulation_timestamps_1x",
+    "timing_mode": "recorded_simulation_timestamps_0p5x",
     "evaluated_date": "2026-11-25",
     "source_type": "original_closed_loop_camera_capture",
     "replay": false,
     "sr": 1.0,
     "tr": 1.0,
     "collision": 0.0,
-    "evidence": "STT_success_01/trial_result.json"
+    "evidence": "STT_success_01/trial_result.json",
+    "playback_speed_multiplier": 0.5
   },
   {
     "case_id": "STT_success_02",
@@ -28,14 +29,15 @@
     "frames": 101,
     "scoring_protocol_version": "stt-original-unchanged",
     "capture_date": "2026-11-25",
-    "timing_mode": "recorded_simulation_timestamps_1x",
+    "timing_mode": "recorded_simulation_timestamps_0p5x",
     "evaluated_date": "2026-11-25",
     "source_type": "original_closed_loop_camera_capture",
     "replay": false,
     "sr": 1.0,
     "tr": 1.0,
     "collision": 0.0,
-    "evidence": "STT_success_02/trial_result.json"
+    "evidence": "STT_success_02/trial_result.json",
+    "playback_speed_multiplier": 0.5
   },
   {
     "case_id": "STT_failure_01",
@@ -47,14 +49,15 @@
     "frames": 104,
     "scoring_protocol_version": "stt-original-unchanged",
     "capture_date": "2026-11-25",
-    "timing_mode": "recorded_simulation_timestamps_1x",
+    "timing_mode": "recorded_simulation_timestamps_0p5x",
     "evaluated_date": "2026-11-25",
     "source_type": "original_closed_loop_camera_capture",
     "replay": false,
     "sr": 0.0,
     "tr": 0.7184466019417476,
     "collision": 0.0,
-    "evidence": "STT_failure_01/trial_result.json"
+    "evidence": "STT_failure_01/trial_result.json",
+    "playback_speed_multiplier": 0.5
   },
   {
     "case_id": "STT_failure_02",
@@ -66,14 +69,15 @@
     "frames": 103,
     "scoring_protocol_version": "stt-original-unchanged",
     "capture_date": "2026-11-25",
-    "timing_mode": "recorded_simulation_timestamps_1x",
+    "timing_mode": "recorded_simulation_timestamps_0p5x",
     "evaluated_date": "2026-11-25",
     "source_type": "original_closed_loop_camera_capture",
     "replay": false,
     "sr": 0.0,
     "tr": 0.8431372549019608,
     "collision": 0.0,
-    "evidence": "STT_failure_02/trial_result.json"
+    "evidence": "STT_failure_02/trial_result.json",
+    "playback_speed_multiplier": 0.5
   },
   {
     "case_id": "OR_success_01",
@@ -106,8 +110,9 @@
       "minimum_unoccluded_in_view_pixels": 1108,
       "selection": "Road/Indoor only; visually checked; sustained zero target pixels before first opportunity"
     },
-    "timing_mode": "recorded_simulation_timestamps_1x",
-    "evidence": "OR_success_01/scored_result.json"
+    "timing_mode": "recorded_simulation_timestamps_0p5x",
+    "evidence": "OR_success_01/scored_result.json",
+    "playback_speed_multiplier": 0.5
   },
   {
     "case_id": "OR_success_02",
@@ -140,8 +145,9 @@
       "minimum_unoccluded_in_view_pixels": 4335,
       "selection": "Road/Indoor only; visually checked; sustained zero target pixels before first opportunity"
     },
-    "timing_mode": "recorded_simulation_timestamps_1x",
-    "evidence": "OR_success_02/scored_result.json"
+    "timing_mode": "recorded_simulation_timestamps_0p5x",
+    "evidence": "OR_success_02/scored_result.json",
+    "playback_speed_multiplier": 0.5
   },
   {
     "case_id": "OR_failure_01",
@@ -174,8 +180,9 @@
       "minimum_unoccluded_in_view_pixels": 1430,
       "selection": "Road/Indoor only; visually checked; sustained zero target pixels before first opportunity"
     },
-    "timing_mode": "recorded_simulation_timestamps_1x",
-    "evidence": "OR_failure_01/scored_result.json"
+    "timing_mode": "recorded_simulation_timestamps_0p5x",
+    "evidence": "OR_failure_01/scored_result.json",
+    "playback_speed_multiplier": 0.5
   },
   {
     "case_id": "OR_failure_02",
@@ -208,8 +215,9 @@
       "minimum_unoccluded_in_view_pixels": 1104,
       "selection": "Road/Indoor only; visually checked; sustained zero target pixels before first opportunity"
     },
-    "timing_mode": "recorded_simulation_timestamps_1x",
-    "evidence": "OR_failure_02/scored_result.json"
+    "timing_mode": "recorded_simulation_timestamps_0p5x",
+    "evidence": "OR_failure_02/scored_result.json",
+    "playback_speed_multiplier": 0.5
   },
   {
     "case_id": "IC_success_01",
@@ -232,7 +240,7 @@
     "evaluated_date": "2026-11-25",
     "source_type": "original_closed_loop_camera_capture",
     "replay": false,
-    "timing_mode": "recorded_simulation_timestamps_1x",
+    "timing_mode": "recorded_simulation_timestamps_0p5x",
     "same_valid_geometry": true,
     "original_same_success": 1.0,
     "behavior_label": "follow_original_target",
@@ -242,7 +250,8 @@
     "evidence": "IC_success_01/scored_result.json",
     "full_event": "ic_events/event_01/ic_event.json",
     "same_reference_video": "ic_events/event_01/same/first_person.mp4",
-    "same_reference_trajectory": "ic_events/event_01/same/trajectory.jsonl"
+    "same_reference_trajectory": "ic_events/event_01/same/trajectory.jsonl",
+    "playback_speed_multiplier": 0.5
   },
   {
     "case_id": "IC_success_02",
@@ -265,7 +274,7 @@
     "evaluated_date": "2026-11-25",
     "source_type": "original_closed_loop_camera_capture",
     "replay": false,
-    "timing_mode": "recorded_simulation_timestamps_1x",
+    "timing_mode": "recorded_simulation_timestamps_0p5x",
     "same_valid_geometry": true,
     "original_same_success": 1.0,
     "behavior_label": "follow_original_target",
@@ -275,7 +284,8 @@
     "evidence": "IC_success_02/scored_result.json",
     "full_event": "ic_events/event_02/ic_event.json",
     "same_reference_video": "ic_events/event_02/same/first_person.mp4",
-    "same_reference_trajectory": "ic_events/event_02/same/trajectory.jsonl"
+    "same_reference_trajectory": "ic_events/event_02/same/trajectory.jsonl",
+    "playback_speed_multiplier": 0.5
   },
   {
     "case_id": "IC_failure_01",
@@ -298,7 +308,7 @@
     "evaluated_date": "2026-11-25",
     "source_type": "original_closed_loop_camera_capture",
     "replay": false,
-    "timing_mode": "recorded_simulation_timestamps_1x",
+    "timing_mode": "recorded_simulation_timestamps_0p5x",
     "same_valid_geometry": true,
     "original_same_success": 1.0,
     "behavior_label": "failure",
@@ -308,7 +318,8 @@
     "evidence": "IC_failure_01/scored_result.json",
     "full_event": "ic_events/event_03/ic_event.json",
     "same_reference_video": "ic_events/event_03/same/first_person.mp4",
-    "same_reference_trajectory": "ic_events/event_03/same/trajectory.jsonl"
+    "same_reference_trajectory": "ic_events/event_03/same/trajectory.jsonl",
+    "playback_speed_multiplier": 0.5
   },
   {
     "case_id": "IC_failure_02",
@@ -331,7 +342,7 @@
     "evaluated_date": "2026-11-25",
     "source_type": "original_closed_loop_camera_capture",
     "replay": false,
-    "timing_mode": "recorded_simulation_timestamps_1x",
+    "timing_mode": "recorded_simulation_timestamps_0p5x",
     "same_valid_geometry": true,
     "original_same_success": 1.0,
     "behavior_label": "failure",
@@ -341,6 +352,7 @@
     "evidence": "IC_failure_02/scored_result.json",
     "full_event": "ic_events/event_04/ic_event.json",
     "same_reference_video": "ic_events/event_04/same/first_person.mp4",
-    "same_reference_trajectory": "ic_events/event_04/same/trajectory.jsonl"
+    "same_reference_trajectory": "ic_events/event_04/same/trajectory.jsonl",
+    "playback_speed_multiplier": 0.5
   }
 ]

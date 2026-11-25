@@ -19,9 +19,11 @@ OR cases use Road and Indoor only, with sustained complete disappearance
 The unoccluded target projection remains within view during these intervals.
 OR is encoded from original captured JPEG frames. IC reuses the genuine
 recorded frames with corrected presentation timing. All STT/OR/IC recordings,
-including Same controls, now follow actual simulation timestamps at 1x.
+including Same controls, now play at 0.5x simulation speed: presentation
+timestamps are twice the elapsed simulation time. The MP4 stream is copied
+without re-encoding; original simulation timestamps and scores are unchanged.
 No frames are interpolated or dropped. Inference latency is not part of the
-simulated scene time; no simulation movement is accelerated for presentation.
+simulated scene time; the videos deliberately slow the simulated movement for inspection.
 
 OR labels follow eovt-or-visibility-v0.2: actual loss, >=0.2 s of a usable
 observation opportunity, then >=0.4 s of stable following within the declared
@@ -48,4 +50,4 @@ are bundled as NPZ arrays to verify the numerical pixel evidence.
 See protocol/PROTOCOL.md and the four v0.2 configuration files.
 The package excludes model source, weights, scenes, and humanoid meshes.
 
-[Current archive](https://github.com/eovt-bench/EOVT-Bench/releases/download/v0.2.3-videos.20261125/eovt-omtrack-realtime-cases-20261125.zip)
+[Current archive](https://github.com/eovt-bench/EOVT-Bench/releases/download/v0.2.4-videos.20261125/eovt-omtrack-half-speed-cases-20261125.zip)

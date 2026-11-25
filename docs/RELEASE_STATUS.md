@@ -1,6 +1,6 @@
 # Release status
 
-Benchmark/evaluator version: `0.2.3-pre.20261125` /
+Benchmark/evaluator version: `0.2.4-pre.20261125` /
 `eovt-evaluator-20261125-v0.2`.
 Public distribution update: 2026-11-25.
 
@@ -53,8 +53,10 @@ add four timestamped STT captures, select Road/Indoor cases from the completed
 four complete 1+3 events. Each of the four main IC cases uses a different
 event and Same control. The selected OR cases contain visually checked,
 sustained complete disappearance, followed by recovery or failure to recover.
-All task videos and IC Same controls follow actual simulation timestamps
-at 1x playback; no captured frames are dropped or interpolated.
+All task videos and IC Same controls use 0.5x simulation-speed playback:
+presentation time is twice elapsed simulation time. Original scorer
+timestamps and results remain unchanged; no captured frames are dropped
+or interpolated. This is a presentation-only update to v0.2.3.
 The 12 selected main videos are fully decoded and checked against logged frame
 counts. The current IC port matches all 20 frozen development decisions; this
 is code regression, not independent human validation or a clean-install test.
