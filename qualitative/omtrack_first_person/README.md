@@ -2,11 +2,16 @@
 
 Twelve fresh, selected closed-loop rollouts: two successes and two failures for each of STT, OR and IC.
 Raw robot jaw RGB, one initial frame and one frame after each evaluation step; presentation at 10 fps.
-These are illustrative cases, not an unbiased performance sample. Full result JSONs and step trajectories accompany each video.
+These are illustrative cases, not an unbiased performance sample. Full result
+JSONs and step trajectories accompany each video.
 
-STT labels follow the original success field. OR labels use the existing facing-loss/recovery evaluator;
-they do not claim independent geometric visibility or a new stable-K-step criterion.
-IC labels describe the original-target proximity ratio (OTPR), a Euclidean-distance behavioral proxy.
+STT labels follow the original success field. The OR and IC labels in this
+already-published video package retain the evaluator version recorded in
+`case_index.json`; they are not silently relabeled as
+`eovt-or-ic-initial-v0.1` scores.
+OR labels use the historical facing-loss/recovery evaluator. IC labels
+describe the historical original-target proximity ratio (OTPR), a
+Euclidean-distance behavioral proxy.
 Each IC case has a newly rerun successful, collision-free Same control and a valid Similar trial.
 OTPR > 0.5 is retention and < 0.5 is switching; ties and invalid trials are excluded.
 
@@ -25,9 +30,13 @@ OTPR > 0.5 is retention and < 0.5 is switching; ties and invalid trials are excl
 | [IC_failure_01](https://github.com/eovt-bench/EOVT-Bench/releases/download/v0.1.0-videos.20261121/IC_failure_01.mp4) | indoor | failure | 106 | OTPR=0.114, Same success=1 |
 | [IC_failure_02](https://github.com/eovt-bench/EOVT-Bench/releases/download/v0.1.0-videos.20261121/IC_failure_02.mp4) | road | failure | 74 | OTPR=0.078, Same success=1 |
 
-See the Chinese README and per-case JSONs for exact episode IDs, conditions and interpretation.
+See the Chinese README, per-case JSONs and
+[`evaluation/PROTOCOL.md`](../../evaluation/PROTOCOL.md) for exact episode
+IDs, conditions and interpretation.
 Local reruns use Habitat-Sim 0.3.1 on WSL2; they are not claimed to reproduce the old server frame-for-frame.
 No scene/humanoid meshes or pretrained weights are bundled. Original resource terms still apply.
+The videos demonstrate OmTrackVLA behavior; OmTrackVLA weights and internal
+implementation are not released.
 
 Download the complete [video and evidence archive](https://github.com/eovt-bench/EOVT-Bench/releases/download/v0.1.0-videos.20261121/eovt-omtrack-first-person-cases-20261121.zip) from the public [qualitative release](https://github.com/eovt-bench/EOVT-Bench/releases/tag/v0.1.0-videos.20261121).
 

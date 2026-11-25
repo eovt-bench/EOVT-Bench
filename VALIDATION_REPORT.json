@@ -1,38 +1,28 @@
 {
-  "version": "0.1.0-pre.20261121",
-  "evaluator_version": "eovt-evaluator-20261121",
-  "distribution_update": "2026-11-22",
-  "status": "PASS_FOR_SOURCE_UPDATE_ACCESS_RESTRICTED",
+  "version": "0.2.0-pre.20261125",
+  "evaluator_version": "eovt-evaluator-20261125",
+  "distribution_update": "2026-11-25",
+  "status": "PASS_FOR_PUBLIC_PROTOCOL_UPDATE",
   "baseline_publication": "README numeric tables only; no per-episode results or archive",
   "tests": [
     {
-      "name": "baseline_logic",
-      "status": "PASS"
-    },
-    {
-      "name": "evaluator_and_resource_policy",
-      "status": "PASS"
-    },
-    {
-      "name": "baseline_cli",
-      "status": "PASS"
-    },
-    {
-      "name": "aggregate_cli",
-      "status": "PASS"
-    },
-    {
-      "name": "resource_cli",
-      "status": "PASS"
-    },
-    {
-      "name": "metadata_checksums",
-      "status": "PASS"
-    },
-    {
-      "name": "python_syntax",
+      "name": "public_python_unittest",
       "status": "PASS",
-      "files": 198
+      "tests": 16
+    },
+    {
+      "name": "package_validation",
+      "status": "PASS",
+      "task_counts": {
+        "STT": 1800,
+        "OR": 630,
+        "IC": 630
+      },
+      "layout_count": 60
+    },
+    {
+      "name": "protocol_cli_smoke",
+      "status": "PASS"
     }
   ],
   "simulation_rerun_for_this_update": false,
@@ -40,14 +30,16 @@
   "clean_machine_install": "NOT VERIFIED",
   "privacy_scope": "Tracked source, compressed metadata and public Git author/committer records; external caches and copies are not covered",
   "publication_checks": {
-    "tracked_files": 545,
+    "tracked_files": 548,
     "personal_identity_or_secret_matches": 0,
     "compressed_metadata_scanned": true,
     "qualitative_archive_members_scanned": 85,
     "readme_metric_entries_verified": 36,
-    "baseline_result_files_published": 0
+    "baseline_result_files_published": 0,
+    "model_weights_published": 0,
+    "qualitative_demo_cases": 12
   },
-  "repository_access": "TEMPORARILY_PRIVATE",
-  "hosting_history_cache_cleanup": "PENDING_PROVIDER_ACTION",
+  "repository_access": "PUBLIC_SOURCE_UPDATE_INTENDED",
+  "hosting_history_cache_cleanup": "NOT_APPLICABLE_TO_CURRENT_SOURCE_SNAPSHOT",
   "unauthenticated_old_commit_after_restriction": "404"
 }

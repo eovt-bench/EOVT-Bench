@@ -6,13 +6,13 @@ A Benchmark for Evaluating Occlusion Robustness in Embodied Visual Tracking.
 [Protocol](evaluation/PROTOCOL.md) · [Baselines](docs/BASELINES.md)
 · [External resources](docs/THIRD_PARTY_RESOURCES.md)
 
-Version **0.1.0-pre.20261121**. This research preview contains fixed
+Version **0.2.0-pre.20261125**. This research preview contains fixed
 scenes/episodes, environment configuration, two diagnostic baselines and a
 shared evaluator. Users do not need to rebuild scenes or regenerate episodes.
 
-Access is temporarily restricted while hosting-provider cleanup of obsolete
-history caches is pending. Baseline results are provided only as numerical
-tables in this README.
+The repository publishes the benchmark interface, diagnostic baselines,
+versioned evaluator and selected OmTrackVLA qualitative demonstrations.
+Model weights and learned-model implementations are not included.
 
 | Task | Data | Headline metrics |
 | --- | --- | --- |
@@ -96,12 +96,12 @@ python evaluation/aggregate_results.py baselines/outputs/rgb_tracker_pid/or --ta
 python evaluation/aggregate_results.py baselines/outputs/rgb_tracker_pid/ic --task ic --bootstrap 2000
 ```
 
-Intervals use layout-cluster bootstrap; IC aggregates Similar trials within
-eligible events first. Missing denominators produce `null`.
-Legacy SameSR/SwapSR/BIA are compatibility fields, not current IC headline
-metrics or explicit identity-classification accuracy.
-These two baselines use Euclidean dominance, not navigation-graph distance.
-See [exact semantics](evaluation/PROTOCOL.md).
+Intervals use layout-cluster bootstrap. The current OR scorer uses actual
+runtime loss events as its denominator. The current IC scorer compares the
+complete Similar trajectory and pose against Same and does not use OTPR for
+the binary decision. Legacy SameSR/SwapSR/BIA and OTPR fields remain only for
+compatibility and audit. See [exact semantics](evaluation/PROTOCOL.md) and the
+versioned thresholds in `configs/evaluation/or_ic_initial_v0.1.json`.
 
 ## Baseline input permissions
 
@@ -146,7 +146,12 @@ These are aggregate values from completed runs. Brackets give 95% layout-cluster
 | RGB Tracker PID | 630 | 174 | 72.22 [68.97, 75.39] | 72.80 [65.15, 80.61] |
 | Oracle PID | 629 | 130 | 79.17 [75.97, 82.38] | 61.79 [51.99, 71.78] |
 
-**Version and interpretation.** These values use `eovt-evaluator-20261121`. OR VOR uses the existing post-loss log-continuation criterion, not an independent measurement of target reappearance; MRS is the existing mean first-recovery step difference. IC uses the original OTPR distance proxy, not the proposed Same-trajectory/orientation revision. DSR is conditional on a successful Same control and at least one decidable interference trial; eligible sets differ by method and do not support a direct ranking. See [PROTOCOL](evaluation/PROTOCOL.md) for the frozen scoring semantics.
+**Version and interpretation.** The tables above preserve the previously
+reported aggregate reference values and are labeled with their original
+evaluator version. They are not silently recomputed under the new OR/IC
+protocol. New runs must record the evaluator and protocol version alongside
+their results. The protocol is diagnostic: it describes capability failure
+modes and is not intended to establish a universal ranking of models.
 
 ## Qualitative examples
 

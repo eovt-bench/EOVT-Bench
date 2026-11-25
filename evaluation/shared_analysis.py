@@ -225,6 +225,10 @@ def trial_dominance(trial: dict[str, Any]) -> float | None:
 
 
 def ic_event_metrics(records: list[dict[str, Any]]) -> dict[str, Any]:
+    behavior_version = "eovt-ic-behavior-v0.1"
+    if any(record["data"].get("identity_evaluator_version") == behavior_version for record in records):
+        return _ic_behavior_event_metrics(records, behavior_version)
+
     same_valid = same_fail = same_success = same_collision = 0
     similar_valid = similar_collision = uncertain = switch = retain = 0
     event_rates: list[float] = []
@@ -292,6 +296,62 @@ def ic_event_metrics(records: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def _ic_behavior_event_metrics(records: list[dict[str, Any]], version: str) -> dict[str, Any]:
+    """Aggregate the current Same-referenced binary behavioral labels.
+
+    This branch is deliberately separate from the legacy OTPR branch. A
+    result file must carry the explicit evaluator version before these labels
+    are interpreted as current IC results.
+    """
+    same_valid = same_fail = same_success = 0
+    similar_valid = similar_follow_original = similar_failure = 0
+    eligible_events = 0
+    event_rates: list[float] = []
+    for record in records:
+        data = record["data"]
+        if data.get("identity_evaluator_version") != version:
+            continue
+        if data.get("same_success") is not True:
+            same_valid += 1
+            same_fail += 1
+            continue
+        same_valid += 1
+        same_success += 1
+        trials = data.get("similar_results") or data.get("identity_trial_results") or []
+        event_total = event_positive = 0
+        for trial in trials:
+            label = trial.get("behavior_label") if isinstance(trial, dict) else None
+            if label not in {"follow_original_target", "failure"}:
+                continue
+            event_total += 1
+            similar_valid += 1
+            if label == "follow_original_target":
+                event_positive += 1
+                similar_follow_original += 1
+            else:
+                similar_failure += 1
+        if event_total:
+            eligible_events += 1
+            event_rates.append(event_positive / event_total)
+    return {
+        "protocol_version": version,
+        "total_events": len(records),
+        "effective_control_events": same_valid,
+        "same_collision_excluded": 0,
+        "same_success_events": same_success,
+        "same_failure_events": same_fail,
+        "eligible_identity_events": eligible_events,
+        "effective_interference_trials": similar_valid,
+        "similar_follow_original_trials": similar_follow_original,
+        "similar_failure_trials": similar_failure,
+        "effective_follow_ratio_pct": pct(mean(event_rates)) if event_rates else None,
+        "rfr_pct": pct(same_fail / same_valid) if same_valid else None,
+        "dsr_pct": None,
+        "trial_dsr_pct": None,
+        "otpr_used_for_decision": False,
+    }
+
+
 def summarize_ic(records: list[dict[str, Any]], reps: int, seed: int) -> dict[str, Any]:
     result = ic_event_metrics(records)
     if reps > 0 and records:
@@ -301,8 +361,18 @@ def summarize_ic(records: list[dict[str, Any]], reps: int, seed: int) -> dict[st
             return ic_event_metrics(rows)["dsr_pct"]
         result["rfr_ci95_low"], result["rfr_ci95_high"] = bootstrap_scalar(records, ofr, reps, seed)
         result["dsr_ci95_low"], result["dsr_ci95_high"] = bootstrap_scalar(records, cier, reps, seed + 1)
+        if result.get("protocol_version") == "eovt-ic-behavior-v0.1":
+            def follow_ratio(rows: list[dict[str, Any]]) -> float | None:
+                value = ic_event_metrics(rows).get("effective_follow_ratio_pct")
+                return as_float(value)
+            result["effective_follow_ratio_ci95_low"], result["effective_follow_ratio_ci95_high"] = bootstrap_scalar(
+                records, follow_ratio, reps, seed + 2
+            )
     else:
         result["rfr_ci95_low"] = result["rfr_ci95_high"] = None
         result["dsr_ci95_low"] = result["dsr_ci95_high"] = None
+        if result.get("protocol_version") == "eovt-ic-behavior-v0.1":
+            result["effective_follow_ratio_ci95_low"] = None
+            result["effective_follow_ratio_ci95_high"] = None
     return result
 

@@ -6,7 +6,7 @@ from pathlib import Path
 
 from shared_analysis import as_float, load_json_records, summarize_ic, summarize_or, summarize_stt
 
-VERSION = "eovt-evaluator-20261121"
+VERSION = "eovt-evaluator-20261125"
 SUMMARIZERS = {"stt": summarize_stt, "or": summarize_or, "ic": summarize_ic}
 
 

@@ -38,6 +38,11 @@ coordinate convention.
 The frozen selection is pre-clear length **>2.5 m**, occlusion length
 **>=0.5 m**, with no additional post-event reappearance requirement.
 These reference lengths are not runtime visibility observations.
+The complete initial OR threshold set is in
+`configs/evaluation/or_ic_initial_v0.1.json`. Runtime OR evidence should
+contain synchronized `step`, `simulation_time_s`, `target_pixels`,
+`image_height`, `image_width`, `target_distance_m`, `collision` and
+`env_episode_over` fields.
 
 ## IC trials
 
@@ -62,6 +67,17 @@ and `collision`.
 OR adds `rsr`, `vor`, `crr`, `recovery_steps`, `lost_index`, `reacquired_index`.
 IC adds `identity_trials` and four `identity_trial_results`.
 Similar trials store `target_dominance_rate` or `target_dominance`.
+Those fields belong to the legacy OTPR-compatible schema. For the current IC
+protocol, trial evidence must additionally provide complete records with
+`robot_position`, `robot_heading_*`, `original_position` and
+`distractor_position`. Current scored trials carry
+`identity_evaluator_version = eovt-ic-behavior-v0.1` and a binary
+`behavior_label` of `follow_original_target` or `failure`.
+
+Current event-level IC summaries expose `same_success`, `similar_count`,
+`similar_follow_original_count` and `effective_follow_ratio`. Missing
+trajectory evidence is an input error; it is not converted into a model
+failure.
 
 `finish=false` or `status=Lost` alone does not mean a damaged result:
 completed failures are outcomes. Missing records, malformed JSON, wrong trial

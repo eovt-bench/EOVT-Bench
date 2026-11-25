@@ -1,11 +1,11 @@
 # Release status
 
-Benchmark/evaluator version: `0.1.0-pre.20261121` / `eovt-evaluator-20261121`.
-Public distribution update: 2026-11-22.
+Benchmark/evaluator version: `0.2.0-pre.20261125` /
+`eovt-evaluator-20261125`.
+Public distribution update: 2026-11-25.
 
-Access is temporarily restricted pending hosting-provider cleanup of obsolete
-history caches. The current source snapshot and release tags are sanitized;
-this does not establish removal of server-side cached historical objects.
+This release publishes the benchmark interface, diagnostic baselines, initial
+versioned OR/IC evaluator and selected OmTrackVLA qualitative demonstrations.
 
 ## Included
 
@@ -14,6 +14,8 @@ this does not establish removal of server-side cached historical objects.
 - Original-target assignments, descriptions and fixed Similar candidates.
 - RGB Tracker PID and Oracle PID code, configuration and custom environment.
 - Shared evaluator, layout-cluster bootstrap and offline sensitivity tools.
+- Versioned initial OR visibility/recovery and Same-referenced IC behavioral
+  scoring modules.
 - Matched Industrial input episodes and selected qualitative videos.
 - Baseline aggregate values and confidence intervals in the README files.
 - External-resource acquisition guidance and compatibility checks.
@@ -29,18 +31,19 @@ benchmark scenes were constructed by the benchmark author; a standalone scene
 archive is not attached. Follow the resource guide for the humanoid acquisition
 link, upstream robot/detector sources and checksum verification.
 
-The default branch and public release tags use a new project-attributed source
+The default branch and public release tags use a project-attributed source
 snapshot. Published source files omit personal contact information and private
 machine paths. Platform caches and copies held outside this repository are
 outside the scope of a Git history update.
 
 ## Metric version
 
-This update changes distribution and documentation, not measured results.
-The README tables retain the 2026-11-21 evaluator semantics. OR log-continuation
-VOR is not an independent geometric visibility measurement. IC OTPR is a
-distance-based behavioral proxy, not a direct identity classifier or the
-proposed Same-trajectory/orientation criterion. See `evaluation/PROTOCOL.md`.
+The release adds `eovt-or-ic-initial-v0.1`. OR uses actual runtime loss events
+and synchronized target visibility evidence. IC uses complete Same-referenced
+trajectory and pose evidence; OTPR is not used for the binary decision.
+Previously reported aggregate tables retain their original
+`eovt-evaluator-20261121` label and are not silently recomputed.
+See `evaluation/PROTOCOL.md`.
 
 ## Validation and limitations
 

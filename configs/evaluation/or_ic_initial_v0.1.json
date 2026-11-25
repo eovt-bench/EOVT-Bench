@@ -1,0 +1,76 @@
+{
+  "protocol_version": "eovt-or-ic-initial-v0.1",
+  "status": "initial_public_protocol",
+  "purpose": "Initial public scoring thresholds for the released benchmark evaluator. These values are versioned protocol settings, not universally optimal thresholds.",
+  "or": {
+    "reference_event_selection": {
+      "path_sampling_interval_m": 0.25,
+      "observer_lag_m": 2.0,
+      "ray_count": 9,
+      "blocked_ray_min_count": 5,
+      "pre_clear_length_gt_m": 2.5,
+      "occlusion_length_ge_m": 0.5,
+      "post_clear_path_required": false,
+      "event_margin_m": 1.0
+    },
+    "runtime_visibility": {
+      "image_fraction_min": 0.001,
+      "visible_min_pixels": 16,
+      "initial_visible_consecutive_steps": 5,
+      "loss_consecutive_steps": 3,
+      "reappearance_consecutive_steps": 2
+    },
+    "recovery": {
+      "window_steps": 50,
+      "stable_follow_consecutive_steps": 5,
+      "follow_distance_upper_m": 3.0,
+      "follow_pixel_fraction_lower": 0.020345052083333332,
+      "follow_pixel_fraction_upper": 0.3,
+      "collision_excluded": true
+    },
+    "aggregation": {
+      "actual_runtime_loss_is_denominator": true,
+      "rsr": "recovered_events / actual_loss_events",
+      "vor": "reappearance_opportunity_events / actual_loss_events",
+      "crr": "recovered_events / reappearance_opportunity_events",
+      "mrs": "mean confirmed_recovery_step_minus_loss_onset among recovered events",
+      "censored_endpoints_are_not_silent_failures": true
+    }
+  },
+  "ic": {
+    "identity_protocol": "one_same_plus_three_distinct_similar",
+    "otpr_used_for_decisions": false,
+    "same_reference": {
+      "full_path_comparison": true,
+      "dtw_position_rms_limit_m": 0.75,
+      "discrete_frechet_limit_m": 1.5,
+      "endpoint_limit_m": 1.0,
+      "length_difference_minimum_allowance_m": 0.5,
+      "length_difference_same_fraction": 0.35,
+      "body_heading_limit_deg": 45.0,
+      "heading_fraction_each_side_minimum": 0.8
+    },
+    "direct_pose": {
+      "following_distance_lower_m": 0.5,
+      "following_distance_upper_m": 3.0,
+      "original_heading_limit_deg": 45.0,
+      "distractor_heading_limit_deg": 45.0,
+      "distractor_angular_advantage_min_deg": 15.0,
+      "person_bearing_separation_min_deg": 25.0
+    },
+    "temporal": {
+      "actual_simulation_time_required": true,
+      "maximum_evidence_gap_s": 0.2,
+      "terminal_window_s": 1.0,
+      "terminal_support_fraction_min": 0.6,
+      "terminal_continuous_support_min_s": 0.5,
+      "whole_trial_original_support_fraction_min": 0.6
+    },
+    "labels": {
+      "positive": "follow_original_target",
+      "negative": "failure",
+      "failure_is_not_automatically_identity_switch": true,
+      "missing_or_malformed_evidence": "input_error"
+    }
+  }
+}

@@ -4,17 +4,23 @@ The public source snapshot uses project attribution. It does not publish
 personal email addresses, private workstation paths or server credentials.
 Upstream copyright and license notices are retained.
 
-Repository access is temporarily restricted pending hosting-provider cleanup
-of obsolete history caches. Public access should be restored only after that
-remaining exposure has been resolved and checked without authentication.
+The repository is intended for public access. The published package contains
+the benchmark interface, diagnostic baselines, versioned evaluator,
+configuration, metadata and selected qualitative demonstrations.
 
 Baseline results are published only as aggregate numbers in the README.
 No raw baseline result JSONs, result-file manifest, or baseline result archive
 is distributed. Input episode JSONs and user-facing output schema documentation
 remain part of the benchmark interface.
 
-Selected qualitative model cases remain separate from baseline results.
-Their metric caveats and evidence are described in the qualitative case index.
+Selected OmTrackVLA cases remain separate from baseline results. They are
+demonstrations of task behavior, not a release of OmTrackVLA weights or
+internal implementation. Their metric caveats and evidence are described in
+the qualitative case index.
+
+OR and IC threshold settings are published as an initial versioned protocol.
+Historical aggregate tables keep their original evaluator label; new runs
+must report the protocol version used for scoring.
 
 Rewriting repository history cannot revoke copies already downloaded by
 others or independently clear hosting-provider caches.

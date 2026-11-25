@@ -4,8 +4,9 @@
 
 本仓库提供固定场景、episodes、任务标注、环境配置、两个baseline与统一评价器。
 使用者加载现有资源进行评测，无需重新构建场景或生成路径。
-当前版本为`0.1.0-pre.20261121`，作为研究预览版本提供。
-在托管平台清理旧历史缓存期间，仓库暂时限制访问。
+当前版本为`0.2.0-pre.20261125`，作为研究预览版本提供。
+仓库公开benchmark接口、两个诊断baseline、版本化评价器和OmTrackVLA定性案例；
+不公开学习模型权重及其内部实现。
 baseline结果仅以本README中的数值表提供。
 
 ## 数据和三项任务
@@ -81,9 +82,10 @@ python evaluation/aggregate_results.py \
 IC先在事件内汇总明确的Similar试验，再跨有效事件平均。
 Same碰撞、Similar碰撞、OTPR恰好为0.5及缺失值均有单独处理。
 
-原始JSON保留SameSR、SwapSR、BIA等兼容字段，当前正式IC指标为RFR和DSR。
-它们衡量闭环行为，不是模型直接输出的二元身份分类准确率。
-两个baseline的OTPR使用欧氏距离，不能宣称采用导航图距离。
+旧版SameSR、SwapSR、BIA和OTPR字段仅保留用于兼容和审计。
+当前OR以运行时实际丢失事件作为分母；当前IC依据完整轨迹与位姿相对
+Same的行为保持进行二元判定，不再使用OTPR进行身份判定。
+初始阈值见`configs/evaluation/or_ic_initial_v0.1.json`。
 
 ## 两个baseline
 
@@ -129,7 +131,11 @@ baseline汇总数值见下方表格。
 | RGB Tracker PID | 630 | 174 | 72.22 [68.97, 75.39] | 72.80 [65.15, 80.61] |
 | Oracle PID | 629 | 130 | 79.17 [75.97, 82.38] | 61.79 [51.99, 71.78] |
 
-**版本与解释限制。**这些数值对应`eovt-evaluator-20261121`。OR的VOR采用既有的丢失后日志延续判据，并非独立测得的目标重新可见率；MRS为既有首次恢复步差的平均值。IC采用原有OTPR距离代理，尚未采用正在讨论的Same轨迹与朝向修订判据。DSR在各方法无干扰对照成功且至少存在可判定干扰试验的事件上计算，两种方法的合格集合不同，不能据此直接排名。完整计分语义见[PROTOCOL](evaluation/PROTOCOL.md)。
+**版本与解释限制。**表中历史汇总数值保留原有
+`eovt-evaluator-20261121`口径，没有静默改写为新版OR/IC结果。
+后续运行必须同时记录评价器版本和协议版本。该协议用于诊断模型能力
+短板，不用于宣称所有模型在任意参数设置下的普遍排序。完整计分语义见
+[PROTOCOL](evaluation/PROTOCOL.md)。
 
 
 公开范围与署名说明：[PUBLICATION](docs/PUBLICATION.md)。

@@ -20,7 +20,10 @@
     "target_id": null,
     "similar_id": null,
     "scoring_rule": "Original STT evaluator success field; original episode termination.",
-    "fresh_closed_loop_rollout": true
+    "fresh_closed_loop_rollout": true,
+    "scoring_protocol_version": "legacy-eovt-evaluator-20261121",
+    "current_protocol_recompute_required": false,
+    "model_artifact_release": "demonstration_only_weights_not_included"
   },
   {
     "case_id": "STT_success_02",
@@ -43,7 +46,10 @@
     "target_id": null,
     "similar_id": null,
     "scoring_rule": "Original STT evaluator success field; original episode termination.",
-    "fresh_closed_loop_rollout": true
+    "fresh_closed_loop_rollout": true,
+    "scoring_protocol_version": "legacy-eovt-evaluator-20261121",
+    "current_protocol_recompute_required": false,
+    "model_artifact_release": "demonstration_only_weights_not_included"
   },
   {
     "case_id": "STT_failure_01",
@@ -66,7 +72,10 @@
     "target_id": null,
     "similar_id": null,
     "scoring_rule": "Original STT evaluator success field; original episode termination.",
-    "fresh_closed_loop_rollout": true
+    "fresh_closed_loop_rollout": true,
+    "scoring_protocol_version": "legacy-eovt-evaluator-20261121",
+    "current_protocol_recompute_required": false,
+    "model_artifact_release": "demonstration_only_weights_not_included"
   },
   {
     "case_id": "STT_failure_02",
@@ -89,7 +98,10 @@
     "target_id": null,
     "similar_id": null,
     "scoring_rule": "Original STT evaluator success field; original episode termination.",
-    "fresh_closed_loop_rollout": true
+    "fresh_closed_loop_rollout": true,
+    "scoring_protocol_version": "legacy-eovt-evaluator-20261121",
+    "current_protocol_recompute_required": false,
+    "model_artifact_release": "demonstration_only_weights_not_included"
   },
   {
     "case_id": "OR_success_01",
@@ -112,7 +124,10 @@
     "target_id": null,
     "similar_id": null,
     "scoring_rule": "Existing OR evaluator: first facing 1->0 followed by any facing=1 is recovery; post-loss window required.",
-    "fresh_closed_loop_rollout": true
+    "fresh_closed_loop_rollout": true,
+    "scoring_protocol_version": "legacy-eovt-evaluator-20261121",
+    "current_protocol_recompute_required": true,
+    "model_artifact_release": "demonstration_only_weights_not_included"
   },
   {
     "case_id": "OR_success_02",
@@ -135,7 +150,10 @@
     "target_id": null,
     "similar_id": null,
     "scoring_rule": "Existing OR evaluator: first facing 1->0 followed by any facing=1 is recovery; post-loss window required.",
-    "fresh_closed_loop_rollout": true
+    "fresh_closed_loop_rollout": true,
+    "scoring_protocol_version": "legacy-eovt-evaluator-20261121",
+    "current_protocol_recompute_required": true,
+    "model_artifact_release": "demonstration_only_weights_not_included"
   },
   {
     "case_id": "OR_failure_01",
@@ -158,7 +176,10 @@
     "target_id": null,
     "similar_id": null,
     "scoring_rule": "Existing OR evaluator: first facing 1->0 followed by any facing=1 is recovery; post-loss window required.",
-    "fresh_closed_loop_rollout": true
+    "fresh_closed_loop_rollout": true,
+    "scoring_protocol_version": "legacy-eovt-evaluator-20261121",
+    "current_protocol_recompute_required": true,
+    "model_artifact_release": "demonstration_only_weights_not_included"
   },
   {
     "case_id": "OR_failure_02",
@@ -181,7 +202,10 @@
     "target_id": null,
     "similar_id": null,
     "scoring_rule": "Existing OR evaluator: first facing 1->0 followed by any facing=1 is recovery; post-loss window required.",
-    "fresh_closed_loop_rollout": true
+    "fresh_closed_loop_rollout": true,
+    "scoring_protocol_version": "legacy-eovt-evaluator-20261121",
+    "current_protocol_recompute_required": true,
+    "model_artifact_release": "demonstration_only_weights_not_included"
   },
   {
     "case_id": "IC_success_01",
@@ -204,7 +228,10 @@
     "target_id": "male_61",
     "similar_id": "male_5",
     "scoring_rule": "Valid successful Same; valid collision-free Similar. OTPR >0.5 retention / <0.5 switch (behavioral proxy).",
-    "fresh_closed_loop_rollout": true
+    "fresh_closed_loop_rollout": true,
+    "scoring_protocol_version": "legacy-eovt-evaluator-20261121",
+    "current_protocol_recompute_required": true,
+    "model_artifact_release": "demonstration_only_weights_not_included"
   },
   {
     "case_id": "IC_success_02",
@@ -227,7 +254,10 @@
     "target_id": "male_22",
     "similar_id": "male_54",
     "scoring_rule": "Valid successful Same; valid collision-free Similar. OTPR >0.5 retention / <0.5 switch (behavioral proxy).",
-    "fresh_closed_loop_rollout": true
+    "fresh_closed_loop_rollout": true,
+    "scoring_protocol_version": "legacy-eovt-evaluator-20261121",
+    "current_protocol_recompute_required": true,
+    "model_artifact_release": "demonstration_only_weights_not_included"
   },
   {
     "case_id": "IC_failure_01",
@@ -250,7 +280,10 @@
     "target_id": "male_52",
     "similar_id": "female_15",
     "scoring_rule": "Valid successful Same; valid collision-free Similar. OTPR >0.5 retention / <0.5 switch (behavioral proxy).",
-    "fresh_closed_loop_rollout": true
+    "fresh_closed_loop_rollout": true,
+    "scoring_protocol_version": "legacy-eovt-evaluator-20261121",
+    "current_protocol_recompute_required": true,
+    "model_artifact_release": "demonstration_only_weights_not_included"
   },
   {
     "case_id": "IC_failure_02",
@@ -273,6 +306,9 @@
     "target_id": "female_14",
     "similar_id": "male_1",
     "scoring_rule": "Valid successful Same; valid collision-free Similar. OTPR >0.5 retention / <0.5 switch (behavioral proxy).",
-    "fresh_closed_loop_rollout": true
+    "fresh_closed_loop_rollout": true,
+    "scoring_protocol_version": "legacy-eovt-evaluator-20261121",
+    "current_protocol_recompute_required": true,
+    "model_artifact_release": "demonstration_only_weights_not_included"
   }
 ]
