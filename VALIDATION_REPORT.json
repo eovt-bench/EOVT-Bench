@@ -160,15 +160,27 @@
     "resources": "Pinned local resources; separate empty-directory resource installation verified",
     "official_wheel_cache_used": true
   },
-  "repository_access_at_verification": "PUBLIC",
+  "repository_access_at_verification": "PUBLIC; anonymous scene download returned 206",
   "publication_checks": {
-    "source_text_files_scanned": 562,
+    "source_text_files_scanned": 573,
     "compressed_metadata_files_scanned": 4,
     "qualitative_archive_text_members_scanned": 424,
     "private_path_or_secret_matches": 0,
     "archive_sha256sums": "PASS",
     "scorer_manifest_exact_bytes": "Use pinned archived source tag for exact bytes; current source changes CLI context and Same-collision diagnostics.",
-    "qualitative_archives_scanned": 4
+    "qualitative_archives_scanned": 4,
+    "tracked_public_files": 578,
+    "current_brand_or_task_name_matches": 0,
+    "scene_archive_content": {
+      "status": "PASS",
+      "counts": {
+        "files": 1860,
+        "text_files": 1260,
+        "glb_json_chunks": 240
+      },
+      "private_path_or_obsolete_name_matches": [],
+      "broken_gltf_resources": []
+    }
   },
   "archive": {
     "filename": "eovt-omtrack-half-speed-cases-20261125.zip",
@@ -184,8 +196,9 @@
   ],
   "wrapper_changes": "Preserve supplied event/layout metadata; Same collision diagnostic strings now agree with the existing exclusion.",
   "unauthenticated_repository_api": {
-    "http_status": 200,
-    "private": false
+    "http_status": 403,
+    "anonymous_request_error": "<HTTPError 403: 'rate limit exceeded'>",
+    "authenticated_repository_visibility": "public"
   },
   "source_audit": {
     "source_inventory": "PASS after regeneration; repeat with scripts/package_inventory.py",
@@ -235,5 +248,36 @@
     "spot_official_files": 25,
     "spot_converted_exact_experiment_matches": 25,
     "spot_source_manifest": "assets/spot_upstream_manifest.json"
+  },
+  "standalone_scene_release": {
+    "status": "PASS",
+    "release_tag": "v0.2.6-resources.20261125",
+    "draft": false,
+    "prerelease": true,
+    "asset_name": "eovt-scenes-fixed-20261125.tar.gz",
+    "bytes": 364829856,
+    "server_sha256": "sha256:843b51368a8632e330419c3d667d1807133680cf39d8ac02f214d2ce26a29ef2",
+    "server_hash_matches_local": true,
+    "anonymous_download_http_status": 206,
+    "anonymous_prefix_matches": true,
+    "full_second_download": false,
+    "owner_license_pending": true
+  },
+  "clean_source_portability": {
+    "source_commit": "b7c957e0683ea334567d164ac46da7e228e3bd4d",
+    "git_source_archive": "PASS",
+    "source_checksum_manifest": "PASS",
+    "all_2389_resource_hashes": "PASS",
+    "real_current_or_gpu_rollout": "PASS",
+    "source_extracted_into_independently_installed_resource_tree": true
+  },
+  "source_ci": {
+    "commit": "b7c957e0683ea334567d164ac46da7e228e3bd4d",
+    "run_id": 45605299161,
+    "python": [
+      "3.9",
+      "3.12"
+    ],
+    "conclusion": "success"
   }
 }

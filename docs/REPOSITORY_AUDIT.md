@@ -1,7 +1,7 @@
 # Repository release audit — 2026-11-25
 
 Source candidate: `0.2.6-pre.20261125`.
-Technical checks have passed. A final reusable code/data release still requires
+Technical checks have passed: 578 tracked public files were scanned. A final reusable code/data release still requires
 the owner's license selection; public access alone does not supply that license.
 
 ## Canonical interface
@@ -44,9 +44,16 @@ the owner's license selection; public access alone does not supply that license.
   estimates; no raw baseline results are published.
 - Empty-directory installation and SHA-256 verification of 2,385 resource files:
   1,860 scene, 500 humanoid and 25 prepared robot files.
+- The scene archive is published as `v0.2.6-resources.20261125`; server SHA-256
+  matches locally, and anonymous download was verified. Its 1,260 text files
+  and 240 GLB JSON chunks contain no scanned private paths/obsolete names or
+  broken external glTF resource references.
 - Fresh Python 3.9.19 / Habitat-Sim 0.3.3 / PyTorch 2.4.0+cu118 environment:
   pip check, full test entrypoint, both STT methods, current Oracle OR and a
   complete 1+3 IC event. Current OR/IC were independently rescored again there.
+- A clean source archive plus the independently installed resources also
+  passes source checksums, all 2,389 asset hashes and a real current OR rollout.
+- GitHub CI passes on Python 3.9 and 3.12 for the implementation commit.
 - Official wheel caches were reused; an existing environment's site-packages
   were not. Fixed installed assets were used for these GPU checks; resource
   installation was verified separately. Hardware coverage is the recorded
