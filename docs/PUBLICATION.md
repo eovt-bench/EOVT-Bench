@@ -3,6 +3,10 @@
 The public source snapshot uses project attribution. It does not publish
 personal email addresses, private workstation paths or server credentials.
 Upstream copyright and license notices are retained.
+The owner authorized MIT for benchmark-owned code and CC BY 4.0 for
+benchmark-owned scenes, task data and documentation on 2026-11-25.
+[Licensing](LICENSING.md) defines the component split and attribution;
+third-party resources retain their original terms.
 
 The repository is intended for public access. The published package contains
 the benchmark interface, diagnostic baselines, versioned evaluator,

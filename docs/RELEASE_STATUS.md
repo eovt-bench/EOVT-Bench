@@ -1,9 +1,11 @@
 # Release status
 
-Source candidate: `0.2.6-pre.20261125`; evaluator: `eovt-or-ic-v0.2`.
+Source release: `0.2.7`; evaluator: `eovt-or-ic-v0.2`.
 Checked on 2026-11-25. Technical execution/resource verification is complete
-for the recorded configuration. The benchmark-owned code/data license remains
-an owner decision; this is not yet a fully licensed final release.
+for the recorded configuration. On 2026-11-25 the owner authorized MIT for
+benchmark-owned code and CC BY 4.0 for benchmark-owned scenes, task data and
+documentation. The license-selection requirement is resolved; third-party
+components retain their original terms. See [licensing](LICENSING.md).
 
 ## Included and executable
 
@@ -42,11 +44,11 @@ Project-attributed source omits private paths and credentials. Existing
 third-party notices remain applicable. Platform copies/caches outside this
 repository are outside the scope of a repository update.
 
-## Remaining decision and research scope
+## Licensing and research scope
 
-The owner must select licenses for benchmark-owned code, scenes and metadata.
-Public access does not supply these permissions; the current root notice grants
-no new blanket license. Third-party terms cannot be replaced by that decision.
+The source and fixed scene download have explicit license and attribution
+notices. The scene archive is unchanged and its original checksums remain
+valid. Upstream notices and external acquisition requirements remain in place.
 
 Current thresholds are initial declared settings, not universally optimized
 constants. Full current-protocol baseline population results, independent human

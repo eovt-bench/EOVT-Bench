@@ -20,7 +20,11 @@ python evaluation/validate_package.py
 
 A fresh clone lacks simulation assets. All benchmark scenes were constructed
 by the benchmark author and are available as a standalone, checksum-pinned
-resource archive:
+resource archive. Benchmark-owned scene data uses CC BY 4.0 and original
+helper scripts use MIT. Download the accompanying license and attribution
+files when redistributing the archive; see [licensing](LICENSING.md).
+
+Install:
 
 ```bash
 python scripts/download_resources.py --kind scenes

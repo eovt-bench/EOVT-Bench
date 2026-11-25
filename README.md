@@ -6,7 +6,7 @@ A Benchmark for Evaluating Occlusion Robustness in Embodied Visual Tracking.
 [Protocol](evaluation/PROTOCOL.md) · [Baselines](docs/BASELINES.md)
 · [External resources](docs/THIRD_PARTY_RESOURCES.md)
 
-Version **0.2.6-pre.20261125**. This research preview contains fixed
+Version **0.2.7**. This release contains fixed
 episode/event metadata, environment configuration, two diagnostic baselines
 and a shared evaluator. The fixed author-constructed scenes are distributed
 as a separate checksum-pinned archive; humanoid, robot and detector resources
@@ -150,8 +150,12 @@ Read [release status](docs/RELEASE_STATUS.md), `VALIDATION_REPORT.json`,
 `LICENSE`, and `THIRD_PARTY_NOTICES.md` for what is actually verified.
 `CITATION.cff` provides a software citation without inventing paper authors,
 acceptance, or a DOI.
-The root preparation notice grants no blanket open-source/data license.
-Access restrictions do not replace the resource-specific permissions and license notices.
+Benchmark-owned code and executable configuration are licensed under
+[MIT](LICENSE). Benchmark-owned scenes, episodes, event metadata and
+documentation are licensed under [CC BY 4.0](LICENSE-DATA).
+Both permit commercial use. See [license scope and attribution](docs/LICENSING.md).
+Third-party code, humanoids, robot assets and detector weights retain their
+original terms; these licenses do not replace resource-specific permissions.
 
 ## Historical reference results
 

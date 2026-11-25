@@ -1,9 +1,21 @@
-RELEASE PREPARATION — NO NEW LICENSE GRANTED
+MIT License
 
-The benchmark owner's final code and data license has not been supplied.
-This repack does not grant public redistribution rights for third-party code, humanoid/SMPL-X assets,
-Spot assets or detector weights. Existing copyright and license notices remain applicable.
-The benchmark author confirms that the benchmark scenes are self-constructed;
-the final license for these scenes and benchmark-owned code/data remains to be selected.
-Review THIRD_PARTY_NOTICES.md and obtain the required permissions before publishing.
-Do not describe this file as an MIT/Apache/CC license for the complete package.
+Copyright (c) 2026 EOVT-Bench contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

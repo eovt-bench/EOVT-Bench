@@ -1,8 +1,8 @@
 {
-  "version": "0.2.6-pre.20261125",
+  "version": "0.2.7",
   "evaluator_version": "eovt-evaluator-20261125-v0.2",
   "distribution_update": "2026-11-25",
-  "status": "TECHNICAL_RELEASE_CANDIDATE_VERIFIED_OWNER_LICENSE_PENDING",
+  "status": "PUBLIC_RELEASE_TECHNICALLY_VERIFIED_OWNER_LICENSES_APPLIED",
   "tests": [
     {
       "name": "wsl2_baseline_test_entrypoint",
@@ -215,9 +215,7 @@
     "historical_baseline_requires_explicit_opt_in": true,
     "real_resume_verification": "PASS: same current IC execution skipped with intact evidence; no repeated simulator trial"
   },
-  "remaining_work": [
-    "Owner to select the benchmark-owned code, scene and metadata licenses"
-  ],
+  "remaining_work": [],
   "numerical_protocol_thresholds_and_checked_binary_decisions_unchanged": true,
   "research_validation_scope": {
     "thresholds": "Declared initial operational settings; not universally optimal",
@@ -253,7 +251,7 @@
     "status": "PASS",
     "release_tag": "v0.2.6-resources.20261125",
     "draft": false,
-    "prerelease": true,
+    "prerelease": false,
     "asset_name": "eovt-scenes-fixed-20261125.tar.gz",
     "bytes": 364829856,
     "server_sha256": "sha256:843b51368a8632e330419c3d667d1807133680cf39d8ac02f214d2ce26a29ef2",
@@ -261,7 +259,12 @@
     "anonymous_download_http_status": 206,
     "anonymous_prefix_matches": true,
     "full_second_download": false,
-    "owner_license_pending": true
+    "owner_licenses_applied": true,
+    "license_sidecars": [
+      "SCENES_LICENSE-DATA.txt",
+      "SCENES_LICENSE-CODE.txt",
+      "SCENES_ATTRIBUTION.md"
+    ]
   },
   "clean_source_portability": {
     "source_commit": "b7c957e0683ea334567d164ac46da7e228e3bd4d",
@@ -279,5 +282,13 @@
       "3.12"
     ],
     "conclusion": "success"
+  },
+  "licensing": {
+    "authorized_on": "2026-11-25",
+    "benchmark_owned_code": "MIT",
+    "benchmark_owned_data_and_documentation": "CC-BY-4.0",
+    "scope": "docs/LICENSING.md",
+    "third_party_terms_preserved": true,
+    "fixed_resource_bytes_unchanged": true
   }
 }

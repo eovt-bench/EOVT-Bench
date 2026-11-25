@@ -1,7 +1,9 @@
 # Third-party components and external resource policy
 
-The repository is a research preview. The root `LICENSE`
-does not grant a blanket code/data license.
+Benchmark-owned code uses MIT (`LICENSE`); benchmark-owned scenes, task data
+and documentation use CC BY 4.0 (`LICENSE-DATA`). The owner authorized this
+split on 2026-11-25. See `docs/LICENSING.md` for exact scope.
+Neither license is a blanket grant for third-party resources.
 
 ## Components retained with notices
 
@@ -33,7 +35,8 @@ routes, destinations, permission steps and compatibility checks.
 - The benchmark author confirmed on 2026-11-21 that all Road, Indoor and
   Industrial scenes were constructed by the author. The scenes are recorded
   as author-constructed benchmark data, rather than an unidentified third-party
-  scene collection. The final scene-data license remains the owner's choice.
+  scene collection. The owner licenses the benchmark-owned scene data under
+  CC BY 4.0; original benchmark-owned helper scripts use MIT.
 - Humanoid acquisition is through the author-supplied
   [humanoids.zip](https://drive.google.com/file/d/1aE_wyvPqvOuVmF8px2vTO3trr70DKf1l/view?pli=1).
   All 500 required actor files in the acquired archive matched the pinned
@@ -44,6 +47,5 @@ routes, destinations, permission steps and compatibility checks.
 - Fixed IDs, language descriptions and Similar assignments remain repository
   metadata; the asset inventory is not a license grant.
 
-The owner still needs to select the license for benchmark-owned code/data.
 Externalizing files does not automatically clear embedded or converted
 third-party content. This policy does not change repository visibility.

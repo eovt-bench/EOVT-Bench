@@ -13,7 +13,8 @@
         "assets/humanoids/humanoid_infos.json"
       ],
       "delivery": "repository_metadata",
-      "instructions": "Fixed IDs, descriptions and candidate assignments are included in Git. They do not include humanoid mesh/model/motion files."
+      "instructions": "Fixed IDs, descriptions and candidate assignments are included in Git. They do not include humanoid mesh/model/motion files.",
+      "license": "CC-BY-4.0"
     },
     {
       "id": "scenes",
@@ -25,7 +26,11 @@
       "official_urls": [],
       "instructions": "Run python scripts/download_resources.py --kind scenes. Only author-constructed scenes are in this archive; verify assets/scenes_manifest.json.",
       "provenance_basis": "Direct author confirmation in the task; no third-party scene download required.",
-      "release_tag": "v0.2.6-resources.20261125"
+      "release_tag": "v0.2.6-resources.20261125",
+      "license": {
+        "data": "CC-BY-4.0",
+        "original_helper_code": "MIT"
+      }
     },
     {
       "id": "humanoids",
@@ -95,5 +100,11 @@
       }
     }
   ],
-  "provenance_update": "author-confirmed-scenes-and-humanoid-link-20261121"
+  "provenance_update": "author-confirmed-scenes-and-humanoid-link-20261121",
+  "licensing": {
+    "benchmark_owned_code": "MIT",
+    "benchmark_owned_data": "CC-BY-4.0",
+    "scope": "docs/LICENSING.md",
+    "third_party_resources": "Original applicable terms; not relicensed by this policy"
+  }
 }

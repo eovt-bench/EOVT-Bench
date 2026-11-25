@@ -125,6 +125,7 @@ python scripts/download_resources.py --kind assets --archive /path/to/existing/a
 
 ## 公开发布时的边界
 
-场景已按作者确认记录为自行搭建的数据，其最终数据许可由benchmark作者决定。
+场景已按作者确认记录为自行搭建的数据，采用CC BY 4.0；
+其中自有辅助代码采用MIT。具体范围与署名格式见[许可说明](LICENSING.md)。
 人物、机器人及检测器资源通过单独获取入口准备，保留各自适用的原始声明。
 原混合资源包不重新上传；资源仍按各自条件获取。

@@ -1,8 +1,11 @@
 # Repository release audit — 2026-11-25
 
-Source candidate: `0.2.6-pre.20261125`.
-Technical checks have passed: 578 tracked public files were scanned. A final reusable code/data release still requires
-the owner's license selection; public access alone does not supply that license.
+Source release: `0.2.7`.
+Technical checks have passed: the preceding audit scanned 578 tracked public
+files. The owner authorized MIT for benchmark-owned code and CC BY 4.0 for
+benchmark-owned scenes, task data and documentation on 2026-11-25.
+The license-selection requirement is resolved; the current source inventory
+also includes the added license and attribution files.
 
 ## Canonical interface
 
@@ -34,6 +37,7 @@ the owner's license selection; public access alone does not supply that license.
 | Detector compatibility had not been verified | Download official YOLO11x and verify the exact pinned SHA-256 |
 | Environment description was only an observed snapshot | Create an independent conda environment, install declared dependencies, run pip check, all tests and real simulator rollouts |
 | Inventory/citation/version metadata and links were inconsistent | Synchronize source metadata and checksum inventory; check public links and release attachment scope |
+| Benchmark-owned material had no reuse license | Apply owner-approved MIT/CC BY 4.0 split, specify component scope and supply scene-release license sidecars |
 
 ## Verification evidence
 
@@ -67,11 +71,13 @@ The twelve main 0.5x demonstration videos and their archived evidence remain
 unchanged. Their exact scorer-byte manifest is pinned to
 `v0.2.4-videos.20261125`, not silently replaced by later source changes.
 
-## Release boundary and owner decision
+## Release boundary and licensing
 
-The final license for benchmark-owned code, scenes and metadata has not been
-selected. `LICENSE` currently grants no new license. This is an unresolved
-release requirement, not a claim of an already completed final release.
+`LICENSE` contains MIT for benchmark-owned code; `LICENSE-DATA` contains the
+complete CC BY 4.0 terms for benchmark-owned scenes, task metadata and
+documentation. [Licensing](LICENSING.md) defines scope and attribution.
+The fixed scene archive keeps its exact bytes; applicable licenses and
+attribution are supplied alongside it.
 Third-party assets retain their own conditions and are acquired separately.
 The standalone scene archive does not include humanoids, robot or detector
 weights. No learned-model implementation/weights or baseline result population

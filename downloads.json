@@ -1,5 +1,5 @@
 {
-  "version": "0.2.6-pre.20261125",
+  "version": "0.2.7",
   "repository": "eovt-bench/EOVT-Bench",
   "release_tag": "v0.1.0-pre.20261121",
   "release_tag_scope": "Historical local-archive compatibility only; external resources are not hosted by this tag.",
@@ -24,7 +24,17 @@
       "manifest": "assets/scenes_manifest.json",
       "delivery": "release_attachment",
       "release_tag": "v0.2.6-resources.20261125",
-      "instructions": "docs/THIRD_PARTY_RESOURCES.md"
+      "instructions": "docs/THIRD_PARTY_RESOURCES.md",
+      "license": {
+        "data": "CC-BY-4.0",
+        "original_helper_code": "MIT",
+        "scope": "docs/LICENSING.md",
+        "release_sidecars": [
+          "SCENES_LICENSE-DATA.txt",
+          "SCENES_LICENSE-CODE.txt",
+          "SCENES_ATTRIBUTION.md"
+        ]
+      }
     }
   },
   "resource_policy_version": "separate-scenes-and-external-resources-20261125",

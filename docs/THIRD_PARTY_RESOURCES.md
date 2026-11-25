@@ -152,6 +152,7 @@ The old multipart download route has been withdrawn.
 ## Publication boundary
 
 Retain applicable notices for external components. The benchmark scenes are
-author-constructed data, as confirmed by their author; their final data license
-remains the benchmark owner's choice. Humanoids, robot resources and detector
+author-constructed data, as confirmed by their author, and are licensed under
+CC BY 4.0; original benchmark-owned helper scripts use MIT. See
+[license scope and attribution](LICENSING.md). Humanoids, robot resources and detector
 weights are acquired separately rather than rehosted in the mixed archive.
